@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testovi – Gastronomija i Hotelijerstvo | PMF Novi Sad</title>
+<style>
+  :root {
+    --gold: #B8860B;
+    --gold-light: #D4A017;
+    --gold-pale: #FDF6E3;
+    --navy: #1A2744;
+    --navy-mid: #2C3E6B;
+    --slate: #4A5568;
+    --smoke: #F7F5F0;
+    --white: #FFFFFF;
+    --green: #2D6A4F;
+    --red: #C0392B;
+    --border: #E2DDD5;
+    --radius: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--smoke);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    gap: 16px;
+  }
+
+  .logo-block h1 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--gold-light);
+  }
+  .logo-block p {
+    font-size: 0.75rem;
+    color: #AABBD4;
+    font-style: italic;
+    margin-top: 2px;
+  }
+
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  select#testSelector {
+    background: var(--navy-mid);
+    color: var(--white);
+    border: 1px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
+    min-width: 220px;
+  }
+
+  .btn {
+    padding: 8px 18px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.18s;
+    letter-spacing: 0.03em;
+  }
+  .btn-gold {
+    background: var(--gold);
+    color: var(--white);
+  }
+  .btn-gold:hover { background: var(--gold-light); }
+  .btn-outline {
+    background: transparent;
+    color: var(--gold-light);
+    border: 1px solid var(--gold);
+  }
+  .btn-outline:hover { background: var(--gold); color: var(--white); }
+  .btn-navy {
+    background: var(--navy-mid);
+    color: var(--white);
+    border: 1px solid #3D5080;
+  }
+  .btn-navy:hover { background: #3D5080; }
+
+  /* ── MAIN LAYOUT ── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+
+  /* ── LANDING ── */
+  #landing {
+    text-align: center;
+    padding: 48px 20px;
+  }
+  #landing .crest {
+    font-size: 3.5rem;
+    margin-bottom: 12px;
+  }
+  #landing h2 {
+    font-size: 2rem;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  #landing p {
+    color: var(--slate);
+    max-width: 540px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin-top: 24px;
+    text-align: left;
+  }
+  .test-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .test-card:hover {
+    border-left-color: var(--navy);
+    box-shadow: 0 4px 16px rgba(26,39,68,0.12);
+    transform: translateY(-2px);
+  }
+  .test-card .num {
+    font-size: 0.7rem;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .test-card h3 {
+    font-size: 0.88rem;
+    color: var(--navy);
+    line-height: 1.4;
+  }
+
+  /* ── TEST VIEW ── */
+  #testView { display: none; }
+
+  .test-header {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 28px;
+  }
+  .test-header .subtitle {
+    font-size: 0.75rem;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+  }
+  .test-header h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  .test-meta {
+    display: flex;
+    gap: 20px;
+    font-size: 0.82rem;
+    color: #AABBD4;
+    flex-wrap: wrap;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-bar-wrap {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-track {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 99px;
+    transition: width 0.3s ease;
+  }
+  .progress-label {
+    font-size: 0.78rem;
+    color: var(--slate);
+    white-space: nowrap;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* ── QUESTION CARD ── */
+  .question-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 18px;
+    overflow: hidden;
+    transition: box-shadow 0.18s;
+  }
+  .question-card:hover {
+    box-shadow: 0 2px 12px rgba(26,39,68,0.08);
+  }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .q-num {
+    background: var(--navy);
+    color: var(--gold-light);
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Courier New', monospace;
+  }
+  .q-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--navy);
+    padding-top: 4px;
+  }
+  .q-type-badge {
+    margin-left: auto;
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    border-radius: 99px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .badge-mc { background: #EBF4FF; color: #2B6CB0; }
+  .badge-open { background: #F0FFF4; color: #276749; }
+
+  .q-body { padding: 16px 22px; }
+
+  /* MC options */
+  .options-list { list-style: none; }
+  .options-list li { margin-bottom: 10px; }
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  .option-label:hover {
+    border-color: var(--gold);
+    background: var(--gold-pale);
+  }
+  .option-label input[type="radio"] { display: none; }
+  .option-dot {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  input[type="radio"]:checked + .option-label {
+    border-color: var(--navy);
+    background: #EEF2FF;
+  }
+  input[type="radio"]:checked + .option-label .option-dot {
+    border-color: var(--navy);
+    background: var(--navy);
+  }
+
+  /* Revealed states */
+  .option-label.correct {
+    border-color: var(--green) !important;
+    background: #F0FFF4 !important;
+    color: var(--green);
+  }
+  .option-label.wrong {
+    border-color: var(--red) !important;
+    background: #FFF5F5 !important;
+    color: var(--red);
+  }
+  .option-label.was-correct {
+    border-color: var(--green) !important;
+    background: #F0FFF4 !important;
+    color: var(--green);
+  }
+
+  /* Open answer */
+  .open-answer-area {
+    width: 100%;
+    min-height: 90px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--navy);
+    resize: vertical;
+    transition: border-color 0.15s;
+  }
+  .open-answer-area:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+
+  /* Answer reveal */
+  .answer-reveal {
+    margin-top: 12px;
+    padding: 14px 16px;
+    background: #F0FFF4;
+    border: 1px solid #9AE6B4;
+    border-radius: var(--radius);
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: #22543D;
+    display: none;
+  }
+  .answer-reveal strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--green);
+  }
+
+  /* ── SCORE PANEL ── */
+  #scorePanel {
+    display: none;
+    background: var(--navy);
+    color: var(--white);
+    border-radius: var(--radius);
+    padding: 32px 36px;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  #scorePanel .score-num {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  #scorePanel .score-label {
+    font-size: 0.9rem;
+    color: #AABBD4;
+    margin-bottom: 20px;
+  }
+  .score-bar-track {
+    height: 12px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 1s ease;
+  }
+  .grade-badge {
+    display: inline-block;
+    padding: 8px 24px;
+    border-radius: 99px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  /* ── ANSWER KEY VIEW ── */
+  #answerKeyView { display: none; }
+  .answer-key-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    margin-bottom: 12px;
+  }
+  .answer-key-card .ak-q {
+    font-size: 0.88rem;
+    color: var(--slate);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .answer-key-card .ak-a {
+    font-size: 0.9rem;
+    color: var(--green);
+    font-weight: 600;
+    line-height: 1.6;
+  }
+  .answer-key-card .ak-type {
+    font-size: 0.68rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  /* ── TABS ── */
+  .view-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 5px;
+  }
+  .view-tab {
+    flex: 1;
+    padding: 9px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--slate);
+    background: transparent;
+    transition: all 0.15s;
+  }
+  .view-tab.active {
+    background: var(--navy);
+    color: var(--white);
+  }
+
+  /* ── CONTROLS BAR ── */
+  .controls-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    header, .controls-bar, .view-tabs, #landing, .progress-bar-wrap,
+    .btn, select { display: none !important; }
+    .question-card { break-inside: avoid; }
+    .answer-reveal { display: block !important; }
+    body { background: white; }
+  }
+
+  @media (max-width: 600px) {
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .test-grid { grid-template-columns: 1fr; }
+    #scorePanel .score-num { font-size: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-block">
+      <h1>Gastronomija &amp; Hotelijerstvo</h1>
+      <p>Priprema za prijemni ispit · PMF Novi Sad</p>
+    </div>
+    <div class="header-controls">
+      <select id="testSelector" onchange="loadTest(this.value)">
+        <option value="">— Izaberi test —</option>
+      </select>
+      <button class="btn btn-outline" onclick="showLanding()">Svi testovi</button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- LANDING -->
+  <div id="landing">
+    <div class="crest">🏨</div>
+    <h2>20 testova za prijemni</h2>
+    <p>Svaki test sadrži 20 pitanja: pitanja sa ponuđenim odgovorima i otvorena pitanja. Na kraju testa možeš proveriti rezultat i videti tačne odgovore.</p>
+    <div class="test-grid" id="testGrid"></div>
+  </div>
+
+  <!-- TEST VIEW -->
+  <div id="testView">
+    <div class="test-header">
+      <div class="subtitle">Prijemni ispit · Modul Hotelijerstvo i Gastronomija</div>
+      <h2 id="testTitle"></h2>
+      <div class="test-meta">
+        <span>📝 20 pitanja</span>
+        <span>🎯 1 poen po tačnom odgovoru (MC)</span>
+        <span>✍️ Otvorena pitanja – za vežbu</span>
+      </div>
+    </div>
+
+    <div class="view-tabs">
+      <button class="view-tab active" id="tabTest" onclick="switchTab('test')">📝 Test</button>
+      <button class="view-tab" id="tabKey" onclick="switchTab('key')">📋 Ključ odgovora</button>
+    </div>
+
+    <!-- Test pane -->
+    <div id="testPane">
+      <div class="progress-bar-wrap">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill" style="width:0%"></div>
+        </div>
+        <div class="progress-label" id="progressLabel">0 / 20</div>
+      </div>
+
+      <div class="controls-bar">
+        <button class="btn btn-gold" onclick="submitTest()">✅ Proveri rezultat</button>
+        <button class="btn btn-navy" onclick="revealAll()">👁 Prikaži sve odgovore</button>
+        <button class="btn btn-outline" onclick="resetTest()">🔄 Resetuj test</button>
+      </div>
+
+      <div id="scorePanel">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-label" id="scoreLabel">poena od 12 MC pitanja</div>
+        <div class="score-bar-track">
+          <div class="score-bar-fill" id="scoreFill"></div>
+        </div>
+        <div class="grade-badge" id="gradeBadge"></div>
+        <br>
+        <button class="btn btn-outline" onclick="revealAll()" style="margin-top:8px">👁 Prikaži sve tačne odgovore</button>
+      </div>
+
+      <div id="questionsContainer"></div>
+    </div>
+
+    <!-- Answer Key pane -->
+    <div id="answerKeyPane" style="display:none">
+      <div id="answerKeyContainer"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// ALL TEST DATA
+// ============================================================
+const TESTS = [
+  {
+    id:1,
+    title:"TEST 1 – Pojmovna određenja i usluge u ugostiteljstvu",
+    questions:[
+      {num:1,type:"mc",q:"Ugostiteljstvo obuhvata koja dva sektora?",options:["a) Sektor turizma i sektor transporta","b) Sektor ishrane i sektor smeštaja","c) Sektor smeštaja i sektor zabave","d) Sektor maloprodaje i sektor usluga"],answer:"b) Sektor ishrane i sektor smeštaja"},
+      {num:2,type:"mc",q:"Sintagma 'Hospitality Industry' na engleskom govornom području odgovara terminu:",options:["a) Hotelijerstvo","b) Restoraterstvo","c) Ugostiteljstvo","d) Turizam"],answer:"c) Ugostiteljstvo"},
+      {num:3,type:"open",q:"Šta se podrazumeva pod pojmom hotelijerstvo? Navedite njegovu suštinsku odliku.",answer:"Hotelijerstvo je ugostiteljska privredna delatnost koja pruža usluge smeštaja, a uz smeštaj i usluge ishrane. Suštinska odlika je prostorna i funkcionalna objedinjenost usluga smeštaja i ishrane u okviru jedne celine (objekta)."},
+      {num:4,type:"mc",q:"Polupansion se sastoji od:",options:["a) Noćenja + doručka + ručka","b) Noćenja + doručka + večere","c) Doručka + večere","d) Noćenja + doručka + jednog od glavnih obroka (ručka ili večere)"],answer:"d) Noćenja + doručka + jednog od glavnih obroka (ručka ili večere)"},
+      {num:5,type:"mc",q:"Restoraterstvo se razlikuje od hotelijerstva po tome što:",options:["a) Ne bavi se pružanjem usluga ishrane","b) Ne bavi se pružanjem usluga smeštaja","c) Nema stalne zaposlene","d) Ne postoji kao zasebna delatnost"],answer:"b) Ne bavi se pružanjem usluga smeštaja"},
+      {num:6,type:"open",q:"Objasnite razliku između direktne i indirektne prodaje hotelskih kapaciteta.",answer:"Direktna prodaja: odsustvo posrednika – naručilac je istovremeno i korisnik, individualni karakter. Indirektna prodaja: prisustvo posrednika (najčešće turističke agencije) koje naručuju rezervaciju u ime korisnika; može biti individualna i grupna."},
+      {num:7,type:"mc",q:"Pekarski i poslastičarski proizvodi u ugostiteljstvu smatraju se:",options:["a) Osnovnim ugostiteljskim uslugama","b) Pomoćnim – netipično ugostiteljskim delatnostima","c) Dodatnim neugostiteljskim uslugama","d) Delom turističke ponude"],answer:"b) Pomoćnim – netipično ugostiteljskim delatnostima"},
+      {num:8,type:"mc",q:"Koji primer spada u DODATNE neugostiteljske usluge?",options:["a) Priprema i serviranje doručka","b) Iznajmljivanje sportskih rekvizita","c) Izrada konditorskih proizvoda","d) Noćenje gosta u hotelu"],answer:"b) Iznajmljivanje sportskih rekvizita"},
+      {num:9,type:"open",q:"Šta je All Inclusive koncept i u čemu prevazilazi klasičan pristup punom pansionu?",answer:"All Inclusive je paket koji uz smeštaj obuhvata zadovoljavanje dnevnih potreba gostiju za hranom, pićem i napicima. Prevazilazi puni pansion jer uključuje povremeno dnevno konzumiranje pića po željи gostiju, mada se određeni luksuzni sadržaji mogu isključiti."},
+      {num:10,type:"mc",q:"Ugostiteljski sektor smeštaja je u odnosu na hotelijerstvo:",options:["a) Širi pojam","b) Uži pojam","c) Jednaki su","d) Neuporedivi su"],answer:"a) Širi pojam"},
+      {num:11,type:"mc",q:"Pansion kao uslužni paket podrazumeva:",options:["a) Samo noćenje","b) Noćenje + doručak","c) Noćenje + doručak + oba glavna obroka (ručak i večera)","d) Noćenje + večera"],answer:"c) Noćenje + doručak + oba glavna obroka (ručak i večera)"},
+      {num:12,type:"open",q:"Navedite tri primera dodatnih neugostiteljskih usluga u hotelijerstvu.",answer:"Primeri: transport gostiju, garažiranje/parkiranje vozila, menjanje valute, organizovanje izleta, frizerske usluge, posredovanje pri nabavci ulaznica, organizovanje sportsko-rekreativnih aktivnosti, prodaja suvenira i sl."},
+      {num:13,type:"mc",q:"Termin 'ugostitelstvo' i 'hotelijerstvo' potiču od latinske reči 'hospitium' što znači:",options:["a) Gostoljubiv","b) Biti gost","c) Svratište, sklonište za putnike","d) Gostoprimstvo"],answer:"c) Svratište, sklonište za putnike"},
+      {num:14,type:"mc",q:"Spa i wellness paketi koji uključuju tretmane u cenu osnovnih usluga su primer:",options:["a) Isključivo pansionskog poslovanja","b) Proširivanja All Inclusive ponude dodatnim uslugama","c) Pomoćnih ugostiteljskih delatnosti","d) Standardne garni ponude"],answer:"b) Proširivanja All Inclusive ponude dodatnim uslugama"},
+      {num:15,type:"open",q:"Zašto se hotelijerstvo smatra 'reprezentativnom ugostiteljskom delatnošću'?",answer:"Hotelijerstvo se smatra reprezentativnom delatnošću jer se kroz njego funkcionisanje ispoljavaju sve najvažnije odlike ugostiteljstva – i u sektoru smeštaja i u sektoru hrane i pića, kao i na planu pratećih delatnosti."},
+      {num:16,type:"mc",q:"Koja osnovna usluga čini hotelijerstvo specifičnim i izdvaja ga od ostalog ugostiteljstva?",options:["a) Uslugivanje hrane","b) Mogućnost obezbeđenja smeštaja (prenoćišta)","c) Organizovanje svečanosti","d) Prodaja suvenira"],answer:"b) Mogućnost obezbeđenja smeštaja (prenoćišta)"},
+      {num:17,type:"mc",q:"Koji segment ugostiteljstva izlazi iz okvira turističke privrede?",options:["a) Hoteli u turističkim centrima","b) Ishrana u školama, bolnicama i vojnim ustanovama","c) Seoski turizam","d) Svečani banketi"],answer:"b) Ishrana u školama, bolnicama i vojnim ustanovama"},
+      {num:18,type:"open",q:"Šta je 'pansion' (kao uslužni paket) i od čega se sastoji?",answer:"Pansion je osnovna forma ugostiteljske usluge koja podrazumeva noćenje sa doručkom i oba glavna obroka (ručak i večera)."},
+      {num:19,type:"mc",q:"All Inclusive koncept isključuje konzumiranje u:",options:["a) Svim hotelskim prostorijama bez izuzetka","b) Nekim ekskluzivnim prostorima (noćni klub, nacionalni restoran) i skupa alkoholna pića","c) Svim restoranima hotela","d) Bazenima i sportskim terenima"],answer:"b) Nekim ekskluzivnim prostorima (noćni klub, nacionalni restoran) i skupa alkoholna pića"},
+      {num:20,type:"mc",q:"Koja je ključna odlika hotelijerstva u odnosu na ostalo ugostiteljstvo?",options:["a) Veći broj zaposlenih","b) Prostorna i funkcionalna objedinjenost usluga smeštaja i ishrane","c) Viša cena usluga","d) Isključivo turistička orijentacija"],answer:"b) Prostorna i funkcionalna objedinjenost usluga smeštaja i ishrane"},
+    ]
+  },
+  {
+    id:2,
+    title:"TEST 2 – Objekti ugostiteljstva i smeštaj",
+    questions:[
+      {num:1,type:"mc",q:"Minimum smeštajnih jedinica koje hotel mora imati prema domaćim propisima iznosi:",options:["a) 5","b) 7","c) 10","d) 15"],answer:"c) 10"},
+      {num:2,type:"mc",q:"Garni hotel je objekat koji u okviru usluge smeštaja i ishrane uključuje samo:",options:["a) Ručak","b) Večeru","c) Doručak","d) Sve obroke"],answer:"c) Doručak"},
+      {num:3,type:"open",q:"Šta je Apart hotel i koji je minimalan procenat smeštajnih jedinica tipa apartman?",answer:"Apart hotel je podvrsta hotela čiji kapacitet čini najmanje 80% smeštajnih jedinica tipa apartman. Mogu biti apartmani sa kuhinjom, bez kuhinje ili 'studio' apartmani."},
+      {num:4,type:"mc",q:"Apart hotel čini najmanje:",options:["a) 80% smeštajnih jedinica tipa apartman","b) 75% smeštajnih jedinica tipa apartman","c) 70% smeštajnih jedinica tipa apartman","d) 60% smeštajnih jedinica tipa apartman"],answer:"a) 80% smeštajnih jedinica tipa apartman"},
+      {num:5,type:"mc",q:"Minimum smeštajnih jedinica garni hotela prema domaćim propisima iznosi:",options:["a) 5 smeštajnih jedinica","b) 7 smeštajnih jedinica","c) 10 smeštajnih jedinica","d) 12 smeštajnih jedinica"],answer:"b) 7 smeštajnih jedinica"},
+      {num:6,type:"open",q:"Šta je depandans i kako je funkcionalno povezan sa osnovnim objektom?",answer:"Depandans je zasebna građevinska celina sa uslugom smeštaja, locirana u neposrednoj blizini osnovnog objekta (hotela). Funkcionalno je povezan sa hotelom u kome se obezbeđuju usluge prijema, ishrane i ostale dodatne usluge."},
+      {num:7,type:"mc",q:"Motel je ugostiteljski objekat za smeštaj:",options:["a) Stacionarnog tipa za duži boravak","b) Prolaznog tipa lociran uz saobraćajnice","c) Isključivo za pansionske usluge","d) Namenjen samo turistima"],answer:"b) Prolaznog tipa lociran uz saobraćajnice"},
+      {num:8,type:"mc",q:"Hostel je ugostiteljski objekat za smeštaj u kome se po pravilu iznajmljuje:",options:["a) Ceo apartman","b) Ležaj u višekrevenim sobama","c) Samo dvokrevetne sobe","d) Individualne sobe sa kupatilom"],answer:"b) Ležaj u višekrevenim sobama"},
+      {num:9,type:"open",q:"Navedite tri vrste ugostiteljskih objekata za smeštaj prema domaćim propisima (osim hotela).",answer:"Npr.: motel, pansion, turističko naselje, kamp, apartman, kuća, soba, seоsko turističko domaćinstvo, lovačka vila, hostel, odmaralište, prenoćište itd."},
+      {num:10,type:"mc",q:"Osnovna smeštajna jedinica u hotelijerstvu je:",options:["a) Apartman","b) Soba","c) Studio","d) Ležaj"],answer:"b) Soba"},
+      {num:11,type:"mc",q:"Studio apartman se sastoji od:",options:["a) Dve spavaće sobe i dnevnog boravka","b) Jedne prostorije za dnevni boravak, spavanje, pripremanje hrane i obedovanje i kupatila","c) Samo spavaće sobe i kupatila","d) Tri prostorije za razne namene"],answer:"b) Jedne prostorije za dnevni boravak, spavanje, pripremanje hrane i obedovanje i kupatila"},
+      {num:12,type:"open",q:"Koje prostorne celine čine smeštajni deo ugostiteljskog objekta?",answer:"Smeštajni deo čine: prostorija/prostor za prijem gostiju (recepcija) i smeštajne jedinice, a mogu ga činiti i zajednička kupatila i zajednički toaleti za goste."},
+      {num:13,type:"mc",q:"Kapacitet smeštaja meri se:",options:["a) Brojem obroka","b) Brojem zaposlenih","c) Brojem soba i brojem ležaja","d) Brojem kvadratnih metara"],answer:"c) Brojem soba i brojem ležaja"},
+      {num:14,type:"mc",q:"Turističko naselje obuhvata:",options:["a) Jedan objekat sa više spratova","b) Prostorni kompleks sa više odvojenih funkcionalno i građevinski povezanih celina","c) Isključivo apartmane","d) Samo kampove"],answer:"b) Prostorni kompleks sa više odvojenih funkcionalno i građevinski povezanih celina"},
+      {num:15,type:"open",q:"Šta je 'pansion' kao vrsta ugostiteljskog objekta za smeštaj?",answer:"Pansion kao vrsta objekta je ugostiteljski objekat stacionarnog tipa, prilagođen dužem boravku korisnika, u kome se pružaju ugostiteljske usluge pansionskog tipa – smeštaj i sva tri obroka."},
+      {num:16,type:"mc",q:"Seоsko turističko domaćinstvo je objekat koji se nalazi u:",options:["a) Urbanom centru","b) Industrijskoj zoni","c) Ruralnom (seoskom) okruženju sa elementima lokalnog obeležja i nasleđa","d) Primorskim turističkim naseljima"],answer:"c) Ruralnom (seoskom) okruženju sa elementima lokalnog obeležja i nasleđa"},
+      {num:17,type:"mc",q:"Kapacitet prostora za uslugivanje hrane i pića meri se:",options:["a) Brojem ležaja","b) Brojem obroka","c) Brojem sedišta za stolovima","d) Brojem zaposlenih konobara"],answer:"c) Brojem sedišta za stolovima"},
+      {num:18,type:"open",q:"Navedite razliku između 'kuće', 'apartmana' i 'sobe' kao ugostiteljskih objekata u domaćoj radinosti.",answer:"Kuća – građevinski i funkcionalno samostalan objekat sa dvorištem koji se izdaje gostu kao celina. Apartman – deo stambene zgrade/kuće koji se gostu pruža sa mogućnošću samostalne pripreme hrane. Soba – deo stambene zgrade, kuće ili stana u kojemu se gostu pruža usluga smeštaja."},
+      {num:19,type:"mc",q:"Apartman bez kuhinje (hotelski apartman) se sastoji od:",options:["a) Prostorije za dnevni boravak, jedne ili više spavaćih soba i kuhinje","b) Prostorije za dnevni boravak, jedne ili više spavaćih soba i kupatila","c) Samo spavaće sobe i kupatila","d) Jedne prostorije za sve namene"],answer:"b) Prostorije za dnevni boravak, jedne ili više spavaćih soba i kupatila"},
+      {num:20,type:"mc",q:"Porodična soba je smeštajna jedinica u kojoj se gostu obezbeđuje boravak u:",options:["a) Jednoj spavaćoj sobi","b) Dve ili više spavaćih soba sa ili bez predsoblja i kupatila","c) Jednoj prostoriji sa više kreveta","d) Isključivo apartmanu"],answer:"b) Dve ili više spavaćih soba sa ili bez predsoblja i kupatila"},
+    ]
+  },
+  {
+    id:3,
+    title:"TEST 3 – Kategorisanje i sektori smeštajnog dela",
+    questions:[
+      {num:1,type:"mc",q:"Kategorisanje ugostiteljskih objekata u Srbiji u nadležnosti je:",options:["a) Opštine","b) Turističke organizacije","c) Države","d) Hotelskih udruženja"],answer:"c) Države"},
+      {num:2,type:"mc",q:"Koji od navedenih objekata NE podleže obavezi kategorisanja u Srbiji od 2012. godine?",options:["a) Hotel","b) Motel","c) Turističko naselje","d) Hostel"],answer:"d) Hostel"},
+      {num:3,type:"open",q:"Šta su obavezni elementi kategorisanja i da li se boduju?",answer:"Obavezni elementi odnose se na minimalne uslove u pogledu uređenja, opreme i usluga za određenu kategoriju. Obavezni elementi se NE boduju."},
+      {num:4,type:"mc",q:"Hoteli se kategorišu u:",options:["a) Tri kategorije","b) Četiri kategorije","c) Pet kategorija","d) Šest kategorija"],answer:"c) Pet kategorija"},
+      {num:5,type:"mc",q:"Pansioni se kategorišu u:",options:["a) Dve kategorije","b) Tri kategorije","c) Četiri kategorije","d) Pet kategorija"],answer:"b) Tri kategorije"},
+      {num:6,type:"open",q:"Objasnite razliku između obaveznih i izbornih (fakultativnih) elemenata kategorisanja.",answer:"Obavezni elementi su minimalni uslovi za određenu kategoriju i ne boduju se. Izborni (fakultativni) elementi nose određeni broj bodova – objekat mora ostvariti minimalan broj bodova da bi se rangirao u određenu kategoriju."},
+      {num:7,type:"mc",q:"Kategorija objekta za smeštaj označava se:",options:["a) Brojevima","b) Slovima","c) Zvezdicama/rogovima/sidrima","d) Bojama"],answer:"c) Zvezdicama/rogovima/sidrima"},
+      {num:8,type:"mc",q:"Moteli se kategorišu u:",options:["a) Tri kategorije","b) Četiri kategorije","c) Pet kategorija","d) Šest kategorija"],answer:"b) Četiri kategorije"},
+      {num:9,type:"open",q:"Zašto je kategorisanje važno za goste i ugostitelje?",answer:"Kategorisanje štiti goste – garantuje određeni nivo kvaliteta; štiti ugostitelje – sprečava neloyalnu konkurenciju; pruža mogućnost izbora različitim platežnim grupacijama tražnje."},
+      {num:10,type:"mc",q:"Recepcija se u hotelu često naziva:",options:["a) 'Mozak objekta'","b) 'Srce objekta'","c) 'Centar operacija'","d) 'Komandni centar'"],answer:"b) 'Srce objekta'"},
+      {num:11,type:"mc",q:"U okviru sektora smeštaja nalaze se:",options:["a) Recepcija, kuhinja i bar","b) Recepcija, rezervacije i domaćinstvo","c) Domaćinstvo, restoran i bar","d) Rezervacije, kuhinja i domaćinstvo"],answer:"b) Recepcija, rezervacije i domaćinstvo"},
+      {num:12,type:"open",q:"Šta je posao konsijerža i u kojim hotelima se ova služba najčešće nalazi?",answer:"Konsijеrž je osoba koja je gostima neprekidno na raspolaganju i izlazi u susret njihovim različitim potrebama: razgledanje grada, rezervacija karata, rezervisanje mesta u ekskluzivnim restoranima i sl. Nalazi se pretežno u luksuznim hotelima visokih kategorija."},
+      {num:13,type:"mc",q:"Gost sa NEGАRANTOVANOM rezervacijom koji stigne posle 18:00h:",options:["a) Mora biti smešten bez obzira na okolnosti","b) Biće smešten samo ako bude slobodne sobe","c) Plaća kaznu za kasni dolazak","d) Automatski dobija drugu sobu"],answer:"b) Biće smešten samo ako bude slobodne sobe"},
+      {num:14,type:"mc",q:"Minimalni standard za promenu peškira u ugostiteljskom objektu je:",options:["a) Svaki dan","b) Na svaka dva dana","c) Na svaka tri dana","d) Na svakih sedam dana"],answer:"c) Na svaka tri dana"},
+      {num:15,type:"open",q:"Koji su poslovi domaćinstva koji su DIREKTNO vezani za realizaciju usluge smeštaja?",answer:"Direktno vezani poslovi: odrzavanje higijene smeštajnih i komunikacionih prostora, opremanje smeštajnih jedinica potrošnim materijalima, kontrola ispravnosti uređaja i opreme, čišćenje i priprema smeštajnih jedinica, postavljanje posteljnog rublja i peškira, opsluzivanje gosta (pranje, peglanje odeće)."},
+      {num:16,type:"mc",q:"Portirska služba u hotelu bavi se:",options:["a) Pripremom hrane","b) Bavljenjem gostima u toku boravka (neugostitelskim i nedodatnim uslugama)","c) Rezervacijom soba","d) Finansijskim poslovanjem"],answer:"b) Bavljenjem gostima u toku boravka (neugostitelskim i nedodatnim uslugama)"},
+      {num:17,type:"mc",q:"Oznaka kategorije postavlja se:",options:["a) U recepciji hotela","b) Na recepcijskom pultu","c) Sa spoljne strane, ispred glavnog ulaza u objekat","d) Na internetu"],answer:"c) Sa spoljne strane, ispred glavnog ulaza u objekat"},
+      {num:18,type:"open",q:"Šta je 'ciklus gosta' i koje faze obuhvata?",answer:"Ciklus gosta obuhvata: faza pre dolaska (rezervacija) → dolazak (prijem i smeštaj) → boravak (pružanje usluga) → odlazak (odjava i naplata) → faza nakon odlaska."},
+      {num:19,type:"mc",q:"Depandansi u sastavu hotela moraju imati najmanje:",options:["a) 3 smeštajne jedinice","b) 5 smeštajnih jedinica","c) 7 smeštajnih jedinica","d) 10 smeštajnih jedinica"],answer:"b) 5 smeštajnih jedinica"},
+      {num:20,type:"mc",q:"Posteljina u ugostiteljskom objektu mora se menjati najmanje:",options:["a) Svakog dana","b) Svakog trećeg dana","c) Svakog petog dana","d) Svakog sedmog dana"],answer:"d) Svakog sedmog dana"},
+    ]
+  },
+  {
+    id:4,
+    title:"TEST 4 – Prodaja kapaciteta i poslovni ugovori",
+    questions:[
+      {num:1,type:"mc",q:"Rezervacija predstavlja:",options:["a) Plaćanje usluge unapred","b) Prethodno obezbeđenje ugostiteljskih usluga pod određenim uslovima","c) Garantovano mesto bez prethodnog dogovora","d) Sistem nagrađivanja lojalnih gostiju"],answer:"b) Prethodno obezbeđenje ugostiteljskih usluga pod određenim uslovima"},
+      {num:2,type:"mc",q:"Oko koliko hotelskih kapaciteta se rezerviše putem centralnih rezervacionih sistema (CRS)?",options:["a) 1/3","b) 1/2","c) 2/3","d) 3/4"],answer:"c) 2/3"},
+      {num:3,type:"open",q:"Šta je ugovor o alotmanu i na koji period se sklapa?",answer:"Ugovor o alotmanu je specifična vrsta dugoročne rezervacije između hotela i turističke agencije. Sklapa se na period od jedne godine ili jedne turističke sezone. Agencija rezerviše određeni kapacitet smeštajnih jedinica za duži vremenski period."},
+      {num:4,type:"mc",q:"Dugoročno delimično garantovanu rezervaciju turistička agencija ostvaruje potpisivanjem:",options:["a) Ugovora o zatražеnoj i potvrđenoj rezervaciji","b) Ugovora o alotmanu s pravom na jednostrani raskid","c) Ugovora o alotmanu sa garancijom punjenja","d) Ugovora o fiksnom zakupu kapaciteta"],answer:"c) Ugovora o alotmanu sa garancijom punjenja"},
+      {num:5,type:"mc",q:"Ugovor o fiksnom zakupu hotelski se u praksi naziva:",options:["a) 'pola za pola'","b) 'puno za prazno'","c) 'slobodna prodaja'","d) 'garantovana popunjenost'"],answer:"b) 'puno za prazno'"},
+      {num:6,type:"open",q:"Objasnite razliku između ugovora o alotmanu s pravom na jednostrani raskid i ugovora o alotmanu sa garancijom punjenja.",answer:"S pravom na jednostrani raskid: agencija se obavezuje da će težiti popuni kapaciteta, ali ako ne uspe hotel slobodno raspolaže nepopunjenim delom – 'labava ugovorna disciplina'. Sa garancijom punjenja: agencija garantuje minimum popunjenosti i mora platiti čak i ako nije uspela da popuni taj minimalni procenat."},
+      {num:7,type:"mc",q:"Procenat popunjenosti hotela izračunava se kao:",options:["a) Ukupan broj gostiju / kapacitet × 100","b) Ukupan broj popunjenih soba / ukupan broj raspolozivih soba","c) Broj noćenja / broj soba × 100","d) Prihod od soba / ukupan prihod"],answer:"b) Ukupan broj popunjenih soba / ukupan broj raspolozivih soba"},
+      {num:8,type:"mc",q:"Direktna prodaja hotelskih kapaciteta podrazumeva:",options:["a) Prodaju putem turističke agencije","b) Odsustvo posrednika u procesu rezervisanja","c) Grupnu prodaju","d) Prodaju putem interneta isključivo"],answer:"b) Odsustvo posrednika u procesu rezervisanja"},
+      {num:9,type:"open",q:"Navedite i objasnite tri metode formiranja prodajnih cena u hotelijerstvu.",answer:"1. Metoda troškovi plus dobit – na ukupne troškove dodaje se planirani iznos dobiti. 2. Metoda ponude i tražnje – cene se formiraju u zavisnosti od odnosa ponude i tražnje. 3. Metoda izravnavanja cena sa najvećim ponuđačima – cene se formiraju u okviru cena koje određuje dominantni ponuđač ('tržišni lider')."},
+      {num:10,type:"mc",q:"Ugovor na bazi zatražene i potvrđene rezervacije nastaje kada:",options:["a) Hotel sam kontaktira turiste","b) Turistička agencija uputi hotelu zahtev za rezervaciju i dobije potvrdan odgovor","c) Gost direktno dođe u hotel bez prethodne najave","d) Rezervacija se vrši putem CRS sistema"],answer:"b) Turistička agencija uputi hotelu zahtev za rezervaciju i dobije potvrdan odgovor"},
+      {num:11,type:"mc",q:"Negаrantovane rezervacije hoteljer drži do:",options:["a) 12:00h dana dolaska","b) 15:00h dana dolaska","c) 18:00h dana dolaska","d) 21:00h dana dolaska"],answer:"c) 18:00h dana dolaska"},
+      {num:12,type:"open",q:"Šta je CRS (centralni rezervacioni sistem) i čemu služi?",answer:"CRS (Central Reservation System) je sistem koji omogućava teritorijalno širenje mreže prodajnih punktova. Prostorna udaljenost objekta ne predstavlja prepreku – korisnik može iz jednog objekta izvršiti rezervaciju za drugi objekat bez obzira na lokaciju."},
+      {num:13,type:"mc",q:"Ostvareni obim usluga smeštaja meri se:",options:["a) Brojem dolazaka","b) Brojem noćenja","c) Brojem rezervacija","d) Prihodom od soba"],answer:"b) Brojem noćenja"},
+      {num:14,type:"mc",q:"Uobičajeni iznos naknade pri garanciji punjenja kreće se na nivou:",options:["a) 50% vrednosti neiskorišćenih usluga","b) 60% vrednosti neiskorišćenih usluga","c) 75% vrednosti neiskorišćenih usluga","d) 90% vrednosti neiskorišćenih usluga"],answer:"c) 75% vrednosti neiskorišćenih usluga"},
+      {num:15,type:"open",q:"Šta je 'prosečna popunjenost' i kako se izračunava?",answer:"Prosečna popunjenost izražava odnos ostvarenih noćenja i maksimalno mogućih noćenja u određenom periodu. Formula: (Ostvareni broj noćenja / Kapacitet objekta × Broj dana) × 100%."},
+      {num:16,type:"mc",q:"Garantovane rezervacije su one kojima hoteljer garantuje čuvanje sobe do:",options:["a) Podne dana dolaska","b) 15:00h dana dolaska","c) Kasnih noćnih sati tekućeg dana ili ranih jutarnjih sati idućeg dana","d) Sledećeg jutra do 8:00h"],answer:"c) Kasnih noćnih sati tekućeg dana ili ranih jutarnjih sati idućeg dana"},
+      {num:17,type:"mc",q:"Ugovor o alotmanu standardizovan je na međunarodnom nivou od strane:",options:["a) UN i UNESCO","b) AIH i FUAAV","c) UNWTO","d) EU i Saveta Evrope"],answer:"b) AIH i FUAAV"},
+      {num:18,type:"open",q:"Zašto renomirane turističke agencije retko koriste pravo na jednostrani raskid ugovora o alotmanu?",answer:"Jer bi time ozbiljno ugrozile svoi poslovni ugled i dovele u pitanje buduću saradnju sa hotelskim preduzećem. Reputacija na tržištu je ključna za njihovo poslovanje."},
+      {num:19,type:"mc",q:"Prodajne cene hotelskih usluga se formiraju sa stanovišta:",options:["a) Isključivo troškova","b) Troškovnog, kupčevog i konkurentskog aspekta simultano","c) Samo konkurentskog aspekta","d) Jedino platežnih mogućnosti gostiju"],answer:"b) Troškovnog, kupčevog i konkurentskog aspekta simultano"},
+      {num:20,type:"mc",q:"Garant turistička agencije u ugovoru sa garancijom punjenja odnosi se na:",options:["a) Najmanje 10%, najviše 30%","b) Najmanje 30%, najviše 80%","c) Najmanje 50%, najviše 90%","d) Tačno 60%"],answer:"b) Najmanje 30%, najviše 80%"},
+    ]
+  },
+  {
+    id:5,
+    title:"TEST 5 – Kadrovska struktura i imovina u hotelijerstvu",
+    questions:[
+      {num:1,type:"mc",q:"Tercijarni (uslužni) karakter određuje hotelijerstvo kao delatnost sa:",options:["a) Intenzivnim kapitalom","b) Intenzivnim radom","c) Intenzivnom tehnologijom","d) Intenzivnom automatizacijom"],answer:"b) Intenzivnim radom"},
+      {num:2,type:"mc",q:"Računovodstveni rok trajanja obrtne imovine je:",options:["a) Šest meseci","b) Godinu dana","c) Dve godine","d) Tri godine"],answer:"b) Godinu dana"},
+      {num:3,type:"open",q:"Šta je 'kvalifikaciona struktura' i zašto je važna u hotelijerstvu?",answer:"Kvalifikaciona struktura predstavlja distribuciju zaposlenog osoblja prema stepenu stručnog obrazovanja i kvalifikacije. Važna je jer subjektivna saznanja korisnika u velikoj meri zavise od dejstva kadrovа – kvalitetniji kadrovi = kvalitetnija usluga."},
+      {num:4,type:"mc",q:"Koeficijent obrta izračunava se kao:",options:["a) Prihod / broj zaposlenih","b) Promet / obrtna imovina","c) Obrtna imovina / promet","d) Promet / broj soba"],answer:"b) Promet / obrtna imovina"},
+      {num:5,type:"mc",q:"Kapacitet kuhinjskog (proizvodnog) dela meri se:",options:["a) Brojem sedišta","b) Brojem zaposlenih kuvara","c) Brojem obroka","d) Kvadraturom kuhinje"],answer:"c) Brojem obroka"},
+      {num:6,type:"open",q:"Šta se podrazumeva pod obrtnom imovinom i koji je njen ciklus?",answer:"Obrtna imovina su predmeti rada koji se troše jednom upotrebom. Ciklus: novčani oblik → materijal (sirovine) → novi materijalni oblik (finalni proizvod) → novčani oblik (prodajom). Taj krug se naziva 'obrt'."},
+      {num:7,type:"mc",q:"U trajnu imovinu u obliku materijalnih stvari ubraja se:",options:["a) Gotovina na računima","b) Investicioni materijal i neinstalisane mašine","c) Sirovine za pripremu hrane","d) Potraživanja od klijenata"],answer:"b) Investicioni materijal i neinstalisane mašine"},
+      {num:8,type:"mc",q:"Sitni inventar obuhvata stvari koje:",options:["a) Imaju vrednost veću od trajne imovine","b) Se ponašaju kao oruđa za rad ali nemaju status trajne imovine zbog niske cene i kratkog veka trajanja","c) Se troše jednom upotrebom","d) Nisu vezane za pružanje usluge"],answer:"b) Se ponašaju kao oruđa za rad ali nemaju status trajne imovine zbog niske cene i kratkog veka trajanja"},
+      {num:9,type:"open",q:"Navedite i objasnite tri vrste uređaja u hotelijerstvu.",answer:"1. Energetski – električna mreža, instalacije, cevovodi. 2. Rashladni – hladnjače, zamrzivači, frižideri. 3. Termički – šporeti, pećnice, friteze, kazani. 4. Uređaji u unutrašnjem transportu – liftovi, dizalice. 5. Telekomunikacioni uređaji. 6. Audio-vizuelni uređaji."},
+      {num:10,type:"mc",q:"Obrtna imovina u prometu obuhvata:",options:["a) Sirovine i repromaterijal","b) Gotove proizvode, robu na lageru i novčana sredstva","c) Opremu i mašine","d) Patente i licence"],answer:"b) Gotove proizvode, robu na lageru i novčana sredstva"},
+      {num:11,type:"mc",q:"Uvođenjem visokih tehnologija u hotelijerstvo:",options:["a) Opada potreba za kvalifikovanom radnom snagom","b) Opada potreba za nedovoljno kvalifikovanom radnom snagom uz rast tražnje za višim nivoima kvalifikacija","c) Kadrovska struktura ostaje nepromenjena","d) Hoteli više ne zapošljavaju radnike"],answer:"b) Opada potreba za nedovoljno kvalifikovanom radnom snagom uz rast tražnje za višim nivoima kvalifikacija"},
+      {num:12,type:"open",q:"Šta je 'inventar' kao vrsta trajne imovine u hotelijerstvu?",answer:"Inventar predstavlja specifičnu imovinu karakterističnu za hotelijerstvo. Obuhvata nameštaj u prostorijama namenjenim gostima (sobe, restorani, barovi, predvorja), kao i tepihe, zavese, lustre, stono rublje, posuđe i pribor za jelo od trajnijih materijala."},
+      {num:13,type:"mc",q:"Trajna imovina u procesu rada:",options:["a) Potroši se jednom upotrebom","b) Menja oblik pri svakom ciklusu","c) Ne menja oblik i ne gubi funkcionalnost; troši se postepeno","d) Prenosi celu vrednost na novi proizvod odjednom"],answer:"c) Ne menja oblik i ne gubi funkcionalnost; troši se postepeno"},
+      {num:14,type:"mc",q:"Transportna sredstva u hotelijerstvu spadaju u:",options:["a) Obrtnu imovinu","b) Trajnu imovinu","c) Sitni inventar","d) Pomoćni materijal"],answer:"b) Trajnu imovinu"},
+      {num:15,type:"open",q:"Koji su elementi osnivačkih ulaganja u hotel?",answer:"Osnivačka ulaganja obuhvataju: izradu studija izvodljivosti (feasibility study), projekta, izgradnju organizaciono-kadrovskog modela i obezbeđenje zemljišta za gradnju."},
+      {num:16,type:"mc",q:"Stepen obrazovanja kadrovа u srpskom hotelijerstvu rangira se prema nivoima:",options:["a) NSS, SSS, VS, VSS","b) NKV, PKV, KV, VKV","c) I, II, III, IV stepen","d) A, B, C, D kategorija"],answer:"a) NSS, SSS, VS, VSS"},
+      {num:17,type:"mc",q:"Stepen kvalifikovanosti kadrovа u srpskom hotelijerstvu rangira se prema:",options:["a) NSS, SSS, VS, VSS","b) NKV, PKV, KV, VKV","c) I, II, III, IV stepen","d) A, B, C kategorija"],answer:"b) NKV, PKV, KV, VKV"},
+      {num:18,type:"open",q:"Šta je 'trajanje obrta' obrtne imovine?",answer:"Trajanje obrta je vreme koje protekne od angažovanja novčanog oblika obrtne imovine u pripremnoj fazi (za nabavku sirovina), do njene ponovne transformacije u novčani oblik prodajom finalnog proizvoda. Što je koeficijent obrta veći, trajanje obrta je kraće."},
+      {num:19,type:"mc",q:"Zemlijište kao trajna imovina hotela uključuje:",options:["a) Samo površinu pod hotelskim objektom","b) Prostorni okvir sa sadržajima poput parkinga, zelenih površina, sportskih terena itd.","c) Isključivo unutrašnji prostor objekta","d) Samo obradive površine"],answer:"b) Prostorni okvir sa sadržajima poput parkinga, zelenih površina, sportskih terena itd."},
+      {num:20,type:"mc",q:"Opšte tendencije savremenog razvoja kadrovа ukazuju na:",options:["a) Stalno povećanje u primarnom sektoru","b) Stalni rast broja zaposlenih u tercijarnom sektoru","c) Smanjenje kvalifikacione strukture","d) Eliminisanje permanentnog obrazovanja"],answer:"b) Stalni rast broja zaposlenih u tercijarnom sektoru"},
+    ]
+  },
+  {
+    id:6,
+    title:"TEST 6 – Oprema i inventar za uslugivanje",
+    questions:[
+      {num:1,type:"mc",q:"Barski sto je dimenzija:",options:["a) 60 x 60 cm ili prečnika 60 cm","b) 70 x 70 cm ili prečnika 70 cm","c) 80 x 80 cm ili prečnika 80 cm","d) 60 x 80 cm"],answer:"a) 60 x 60 cm ili prečnika 60 cm"},
+      {num:2,type:"mc",q:"Visina restoranskih stolova je obično:",options:["a) 60 cm","b) 70 cm","c) 80 cm","d) 90 cm"],answer:"c) 80 cm"},
+      {num:3,type:"open",q:"Koja je svrha podstolnjaka i od čega se pravi?",answer:"Podstolnjaci se postavljaju direktno na ploče stolova, ispod stolnjaka. Sprečavaju klizanje stolnjaka, ublažavaju buku pri postavljanju posuđa i jela donekle sporije hlade. Obično se izrađuju od čoje ili debljeg flanela."},
+      {num:4,type:"mc",q:"Hangla u ugostiteljstvu služi za:",options:["a) Poliranje čaša","b) Nošenje toplih tanjira bez opekotina","c) Brišanje inventara","d) Sipanje vina"],answer:"b) Nošenje toplih tanjira bez opekotina"},
+      {num:5,type:"mc",q:"Forlegер je:",options:["a) Velika kašika isključivo za supu","b) Kombinacija velike kašike i viljuške koja čini servirni pribor","c) Specijalni pribor za ribu","d) Vrsta čaše za vino"],answer:"b) Kombinacija velike kašike i viljuške koja čini servirni pribor"},
+      {num:6,type:"open",q:"Navedite razliku između osnovnog i pomoćnog inventara za uslugivanje.",answer:"Osnovni inventar: rublje, porcelan, staklo, mali stoni inventar, pribor za jelo i metalno posuđe. Pomoćni inventar: poslužavnici, kolica za serviranje, posude za hlađenje vina (kible), vadičep, grejači za jelo i pribor za tranširanje i serviranje jela."},
+      {num:7,type:"mc",q:"Čaše za šampanjac su zapremine:",options:["a) 0,05–0,10 l","b) 0,15–0,20 l","c) 0,25–0,35 l","d) 0,40–0,50 l"],answer:"b) 0,15–0,20 l"},
+      {num:8,type:"mc",q:"Čaše za konjak popularno se nazivaju:",options:["a) 'Bordeaux'","b) 'Napoleon' čaše","c) 'Ballon' čaše","d) 'Flute' čaše"],answer:"b) 'Napoleon' čaše"},
+      {num:9,type:"open",q:"Šta je 'kuver' u restoranskom poslovanju?",answer:"Kuver predstavlja postavljanje pribora za konzumiranje jela i pića na stolu. Postavljanje zavisi od vrste obroka, broja gangova u meniju i vrsti jela. Može biti krajnje jednostavan za doručak ili veoma složen kod svečanih obroka."},
+      {num:10,type:"mc",q:"Standardne veličine stolnjaka su:",options:["a) 100x100 cm, 120x120 cm","b) 140x140 cm, 150x150 cm i 140x180 cm","c) 80x80 cm, 100x150 cm","d) 120x150 cm, 160x200 cm"],answer:"b) 140x140 cm, 150x150 cm i 140x180 cm"},
+      {num:11,type:"mc",q:"Metalno posuđe u ugostiteljstvu se koristi:",options:["a) Za direktno konzumiranje hrane od strane gosta","b) Za iznošenje jela ili napitaka do gosta – iz njega se NE vrši direktno konzumiranje","c) Isključivo u kuhinji za kuvanje","d) Za dekoraciju"],answer:"b) Za iznošenje jela ili napitaka do gosta – iz njega se NE vrši direktno konzumiranje"},
+      {num:12,type:"open",q:"Navedite pet vrsta čaša prema nameni i njihove zapremine.",answer:"1. Čaše za vodu i sokove – 0,2 l. 2. Čaše za belo vino – 0,2–0,5 l. 3. Čaše za crno vino – do 0,6 l. 4. Čaše za šampanjac – 0,15–0,2 l. 5. Čaše za viski – 0,2–0,25 l. 6. Čaše za konjak – 0,1–0,3 l. 7. Čaše za rakiju – 0,02–0,05 l."},
+      {num:13,type:"mc",q:"Stolovi za bankete su širine:",options:["a) 60–80 cm","b) 80–100 cm","c) 110 ili 120 cm","d) 140–160 cm"],answer:"c) 110 ili 120 cm"},
+      {num:14,type:"mc",q:"Pribor za jelo se izrađuje od:",options:["a) Isključivo nerđajućeg čelika","b) Nerđajućeg materijala, srebra, zlata i sl.","c) Aluminijuma i plastike","d) Isključivo srebra i zlata"],answer:"b) Nerđajućeg materijala, srebra, zlata i sl."},
+      {num:15,type:"open",q:"Šta je 'stoni inventar' i koje predmete obuhvata?",answer:"Stoni inventar se stavlja na stolove i može da služi svim gostima ili samo kao ukras. Obuhvata: slanik/posipač za so i biber, stalak za ulje i sirće, posipač za šećer, posude za senf i soseve, pepeljaru, stalak za broj stola, vazu za cveće, svećnjak i dr."},
+      {num:16,type:"mc",q:"Duboki tanjiri za supe treba da budu prečnika:",options:["a) 18 cm","b) 20 cm","c) 23 cm","d) 26 cm"],answer:"c) 23 cm"},
+      {num:17,type:"mc",q:"Plitki tanjiri namenjeni su:",options:["a) Supama i čorbama","b) Pečenjima i ne-čorbastim jelima","c) Desertima i voću","d) Kafi i čaju"],answer:"b) Pečenjima i ne-čorbastim jelima"},
+      {num:18,type:"open",q:"Koja je svrha 'pomoćnih stolova' (geridona) u restoranu?",answer:"Geridoni se postavljaju uz restorantske stolove. Na njima konobari pred gostima rasecaju meso, fileliraju ribu, flambiraju i pripremaju jela. Koriste se i za poslugivanje vina i privremeno odlaganje svega što ne treba biti na stolu pred gostima."},
+      {num:19,type:"mc",q:"Posude za hlađenje vina (kible) se koriste za:",options:["a) Hlađenje crnih vina na sobnoj temperaturi","b) Hlađenje belih vina u flašama u ledu","c) Grejanje crvenih vina","d) Čuvanje desertnih vina"],answer:"b) Hlađenje belih vina u flašama u ledu"},
+      {num:20,type:"mc",q:"Poslužavnici se uvek nose na:",options:["a) Desnoj ruci","b) Levoj ruci","c) Obe ruke","d) Na posebnim kolicima"],answer:"b) Levoj ruci"},
+    ]
+  },
+  {
+    id:7,
+    title:"TEST 7 – Ponuda hrane i pića, obroci",
+    questions:[
+      {num:1,type:"mc",q:"Pisanu ponudu za hranu čini:",options:["a) Jelovnik","b) Jelovnik i meni","c) Jelovnik, meni i karta doručka","d) Jelovnik, meni i barska karta"],answer:"c) Jelovnik, meni i karta doručka"},
+      {num:2,type:"mc",q:"Meni je:",options:["a) Lista svih jela u restoranu sa cenama","b) Unapred sastavljen obrok sa utvrđenom cenom","c) Lista vina u restoranu","d) Ponuda pića"],answer:"b) Unapred sastavljen obrok sa utvrđenom cenom"},
+      {num:3,type:"open",q:"Šta je 'gang' u meniju i kako se dele meniji prema broju gangova?",answer:"Gang je određeno jelo koje će se servirati. Meniji prema broju gangova: jednostavni (najmanje 3 ganga), prošireni (4-5 gangova), bogati/složen (6-7 gangova), veoma bogat (više od 7 gangova)."},
+      {num:4,type:"mc",q:"Vinska karta je:",options:["a) Pisana ponuda svih vrsta pića u objektu","b) Pisana ponuda ugostiteljskog objekta svih vrsta vina kojima raspolaže","c) Isključivo za crvena vina","d) Lista stranih vina"],answer:"b) Pisana ponuda ugostiteljskog objekta svih vrsta vina kojima raspolaže"},
+      {num:5,type:"mc",q:"Doručak se usluguje obično od:",options:["a) 6:00 do 9:00h","b) 7:00 do 10:00h","c) 8:00 do 11:00h","d) 9:00 do 12:00h"],answer:"b) 7:00 do 10:00h"},
+      {num:6,type:"open",q:"Navedite razliku između 'jednostavnog', 'kompletnog' i 'engleskog' doručka.",answer:"Jednostavni: jedan topli napitak + pecivo ili hleb. Kompletni (kontinentalni): topli napitak + dva namaza (puter, džem, med) + hleb ili pecivo. Engleski: topli napitak (čaj) + maslac + džem/med + jedno mesno jelo ili jelo od jaja + pasulj + grilirano povrće + voćni sok + hleb/pecivo + porič."},
+      {num:7,type:"mc",q:"Barska karta na prvom mestu stavlja:",options:["a) Destilatei","b) Barske mešavine (koktele)","c) Bezalkoholna pića","d) Pivo"],answer:"b) Barske mešavine (koktele)"},
+      {num:8,type:"mc",q:"Vreme uslugivanja večere je uobičajeno:",options:["a) 17:00 do 20:00h","b) 18:00 do 21:00h","c) 19:00 do 22:00h","d) 20:00 do 23:00h"],answer:"c) 19:00 do 22:00h"},
+      {num:9,type:"open",q:"Koji su 'vanredni obroci' u ugostiteljstvu?",answer:"Vanredni obroci: svečani ručak i večera, banket, poslovni ili zajednički ručak ili večera, koktеl-partija, hladni bife, kombinirani hladni-topli bife, čajanka, piknik itd."},
+      {num:10,type:"mc",q:"Ko sastavlja jelovnik restorana?",options:["a) Recepcionar","b) Menadžer hotela","c) Šef kuhinje i šef sale ili restorana","d) Turistička agencija"],answer:"c) Šef kuhinje i šef sale ili restorana"},
+      {num:11,type:"mc",q:"Bečki doručak se sastoji od:",options:["a) Toplog napitka i peciva","b) Toplog napitka, maslaca, džema/meda, jednog-dva meko kuvana jajeta i peciva","c) Toplog napitka, maslaca, džema i raznog sira","d) Samo kafe i mleka"],answer:"b) Toplog napitka, maslaca, džema/meda, jednog-dva meko kuvana jajeta i peciva"},
+      {num:12,type:"open",q:"Navedite temperature serviranja za bar tri vrste pića.",answer:"Penušava vina: 4-6°C; Bela vina: 10-14°C; Rozе vina: 12-14°C; Crvena vina: 14-18°C; Desertna vina: 14-16°C; Svetla piva: 6-10°C; Tamna piva: 10-12°C; Likeri: 14-18°C; Konjak i vinjak: 16-18°C; Rakije: 6-10°C."},
+      {num:13,type:"mc",q:"Ko sastavlja i piše kartu vina?",options:["a) Šef kuhinje","b) Menadžer restorana sa stručnim saradnicima/somelijerima","c) Direktor hotela","d) Konobar-vinonoša"],answer:"b) Menadžer restorana sa stručnim saradnicima/somelijerima"},
+      {num:14,type:"mc",q:"Za pripremu jedne šoljice espresso kafe potrebno je:",options:["a) 5 g mlevene kafe","b) 7 g mlevene kafe","c) 10 g mlevene kafe","d) 12 g mlevene kafe"],answer:"b) 7 g mlevene kafe"},
+      {num:15,type:"open",q:"Zašto se jelovnik smatra marketinškim sredstvom restorana?",answer:"Jelovnik je pisana ponuda i ujedno cenovnik jela. Treba da bude stručno sastavljen, pregledno napisan, čitljiv i razumljiv. Spoljašnjim izgledom korica i kvalitetom prezentacije direktno utiče na prodaju jela – to je reklama od neprocenjive važnosti za restoran."},
+      {num:16,type:"mc",q:"Kokteli prema vremenu konzumiranja dele se na:",options:["a) Tople i hladne","b) Aperitiv (pre jela) i dižestiv (posle jela)","c) Alkoholne i bezalkoholne","d) Domaće i uvozne"],answer:"b) Aperitiv (pre jela) i dižestiv (posle jela)"},
+      {num:17,type:"mc",q:"Temperatura espresso kafe pri serviranju u šoljici je:",options:["a) 50–55°C","b) 60–65°C","c) 65–70°C","d) 75–80°C"],answer:"c) 65–70°C"},
+      {num:18,type:"open",q:"Koji je redosled pisanja vinske karte?",answer:"1. Otvorena bela vina. 2. Otvorena ružičasta (rozе) vina. 3. Otvorena crvena vina. 4. Bela vina u flašama. 5. Ružičasta vina u flašama. 6. Crvena vina u flašama. 7. Desertna vina. 8. Penušava vina (prirodna i gaziranа). 9. Strana vina."},
+      {num:19,type:"mc",q:"Redosled pisanja karte pića počinje sa:",options:["a) Žestokim pićima","b) Belim vinima","c) Penušavcima i aperitivima","d) Bezalkoholnim pićima"],answer:"b) Belim vinima"},
+      {num:20,type:"mc",q:"Švajcarski doručak se sastoji od:",options:["a) Samo kafe i peciva","b) Toplog napitka, maslaca, džema ili meda, raznovrnog sira, hleba i tosta","c) Jela od jaja i mesnih specijaliteta","d) Voćnih sokova i kaše"],answer:"b) Toplog napitka, maslaca, džema ili meda, raznovrnog sira, hleba i tosta"},
+    ]
+  },
+  {
+    id:8,
+    title:"TEST 8 – Sistemi, načini i tehnika uslugivanja",
+    questions:[
+      {num:1,type:"mc",q:"Bečki način uslugivanja podrazumeva:",options:["a) Da se jelo pred gosta donese u posudi iz koje se konzumira","b) Da se jelo donosi u ovalu i odlaže na sto","c) Da jelo sa ovala u tanjir gosta poslužuje konobar","d) Da jelo sa ovala konobar nudi gostu ali ne odlaže oval na sto"],answer:"a) Da se jelo pred gosta donese u posudi iz koje se konzumira"},
+      {num:2,type:"mc",q:"U Bečkom sistemu uslugivanja, 'vinonoša' je obično:",options:["a) Najiskusniji konobar","b) Mlađi konobar ili učenik-početnik","c) Šef restorana","d) Menadžer objekta"],answer:"b) Mlađi konobar ili učenik-početnik"},
+      {num:3,type:"open",q:"Objasnite Francuski sistem uslugivanja i koje uloge postoje unutar njega.",answer:"Karakteriše ga više varijanti i konstruktivna podela rada prema rejonima. Uloge: Organizator/šef uslugivanja rukovodi celokupnom službom; Šef rejona dočekuje goste na svom rejonu i uslugivanja; Pomoćnik šefa rejona pomaže u uslugivanju i rasklanjanju stolova."},
+      {num:4,type:"mc",q:"U domaćem sistemu uslugivanja, brigadni sistem je organizacija gde na jednom rejonu rade:",options:["a) Jedan konobar","b) Dva konobara","c) Šef rejona, konobar-jelonoša i konobar-vinonoša","d) Šef rejona i tri pomoćnika"],answer:"c) Šef rejona, konobar-jelonoša i konobar-vinonoša"},
+      {num:5,type:"mc",q:"Koji sistem uslugivanja se primenjuje u manjim ugostiteljskim objektima?",options:["a) Brigadni","b) Rejонski","c) Revirni","d) Engleski"],answer:"c) Revirni"},
+      {num:6,type:"open",q:"Šta je flambiranjem u restoranu i šta se njime postiže?",answer:"Flambiranjem je originalan način doterivanja ukusa jela (konjakom, rumom i likerom) uz paljenje alkohola. Jelo u plamenu čini atrakciju (spektakl) i za oko je uzbudljivo. Alkohol se pretvara u plamen i stvara karakterističnu aromu jela."},
+      {num:7,type:"mc",q:"Etažni servis (room service) podrazumeva:",options:["a) Servisiranje hrane isključivo u restoranu","b) Uslugivanje u hotelskim sobama","c) Servisiranje hrane u bašti hotela","d) Uslugivanje u kongresnim salama"],answer:"b) Uslugivanje u hotelskim sobama"},
+      {num:8,type:"mc",q:"Cene etažnog servisa (room service) su u odnosu na cene u restoranu:",options:["a) Iste","b) Niže za 20-30%","c) Više za 20-30%","d) Zavise od kategorije sobe"],answer:"c) Više za 20-30%"},
+      {num:9,type:"open",q:"Navedite prvih pet koraka u redosledu obavljanja pripremnih radova u ofisu i sali restorana.",answer:"1. Zamena upotrebljenog stonog rublja. 2. Pripremanje i poliranje porcelana i pribora za jelo. 3. Pripremanje i poliranje potrebnih čaša. 4. Pripremanje, poliranje i uređivanje malog stonog inventara. 5. Prekrivanje, ravnjanje i učvršćivanje stolova. 6. Postavljanje inventara i kuvera na stolove. ..."},
+      {num:10,type:"mc",q:"U 'drugoj varijanti Francuskog načina uslugivanja', jelo se nudi gostu:",options:["a) Sa desne strane","b) Sa leve strane, a gost sam stavlja jelo na tanjir pomoću forlegera","c) Postavlja se direktno na tanjir od strane konobara","d) Donosi se na kolica"],answer:"b) Sa leve strane, a gost sam stavlja jelo na tanjir pomoću forlegera"},
+      {num:11,type:"mc",q:"Tranširanje i filiranje ribe su tehnike:",options:["a) Kuvanja u kuhinji","b) Pripremanja i uslugivanja jela pred gostom","c) Dekantiranja vina","d) Poslugivanja pića"],answer:"b) Pripremanja i uslugivanja jela pred gostom"},
+      {num:12,type:"open",q:"Koji su sistemi uslugivanja prisutni u domaćem (srpskom) poslovanju?",answer:"U Srbiji se koriste tri sistema: 1. Revirni sistem – jedan konobar na jednom rejonu. 2. Rejonski sistem – dva konobara na jednom rejonu (šef rejona i pomoćnik). 3. Brigadni sistem – šef rejona, konobar-jelonoša i konobar-vinonoša."},
+      {num:13,type:"mc",q:"Engleski način uslugivanja obavlja se uz pomoć:",options:["a) Isključivo ruke konobara","b) Malog pomoćnog stola (geridona) ili restoranskih kolica","c) Pokretnih kolica isključivo","d) Poslužavnika"],answer:"b) Malog pomoćnog stola (geridona) ili restoranskih kolica"},
+      {num:14,type:"mc",q:"Sistem uslugivanja 'a la carte' zahteva osoblje koje:",options:["a) Radi samo u pansionskim objektima","b) Mora potpuno samostalno obavljati poslove i poznavati sva jela i pića","c) Isključivo poslužuje pića","d) Ne mora poznavati jela"],answer:"b) Mora potpuno samostalno obavljati poslove i poznavati sva jela i pića"},
+      {num:15,type:"open",q:"Kako se vrši primanje porudžbina iz hotelske sobe (etažni servis)?",answer:"1. Gost naziva etažnog konobara direktno. 2. Obraća se telefonski hotelskoj centralii/recepciji/restoranu. 3. Poseban obrazac za porudžbinu doručka koji gost popuni i okači na kvaku spoljne strane vrata."},
+      {num:16,type:"mc",q:"U rejонskom sistemu rada na jednom rejonu su raspoređena:",options:["a) Jedan konobar","b) Dva konobara (šef rejona i pomoćnik)","c) Tri konobara","d) Četiri konobara"],answer:"b) Dva konobara (šef rejona i pomoćnik)"},
+      {num:17,type:"mc",q:"Mešana barska pića pripremaju se na koliko načina?",options:["a) Dva načina","b) Tri načina","c) Četiri načina","d) Pet načina"],answer:"b) Tri načina"},
+      {num:18,type:"open",q:"Šta je 'šejker' i kojim elementima barskog inventara pripada?",answer:"Šejker (ručni mešač) spada u barski inventar i koristi se za pripremu mešanih pića. Može biti dvodelni i trodelni. Ostali barski inventar: barska čaša (mix glass), barska cediljka, cediljka za limun, barski nož, barska viljuška, barska kašika, mericе itd."},
+      {num:19,type:"mc",q:"Temperatura serviranja crvenih vina je:",options:["a) 4-6°C","b) 10-14°C","c) 14-18°C","d) 20-25°C"],answer:"c) 14-18°C"},
+      {num:20,type:"mc",q:"Hijerarhijsku lestvicu uslužnog osoblja čine (pravilni redosled):",options:["a) Menadžer → šef restorana → šef sale → konobar-šef rejona...","b) Konobar-vinonoša → šef rejona → menadžer","c) Šef kuhinje → šef sale → konobar","d) Direktor → šef domaćinstva → konobar"],answer:"a) Menadžer → šef restorana → šef sale → konobar-šef rejona..."},
+    ]
+  },
+  {
+    id:9,
+    title:"TEST 9 – Svečani obroci, banketi i bife",
+    questions:[
+      {num:1,type:"mc",q:"Aperitiv koktеl-partija se organizuje:",options:["a) Pre ručka","b) Pre večere","c) Pre ručka ili večere","d) Nakon ručka ili večere"],answer:"c) Pre ručka ili večere"},
+      {num:2,type:"mc",q:"Proširena koktеl-partija se organizuje u večernjim časovima, traje:",options:["a) Do 30 minuta","b) Tačno sat vremena","c) Do četiri sata i zamenjuje večeru","d) Celu noć"],answer:"c) Do četiri sata i zamenjuje večeru"},
+      {num:3,type:"open",q:"Navedite tri vrste koktеl-partija i opišite ih kratko.",answer:"1. Aperitiv koktеl-partija – pre ručka/večere; servira se aperitiv i apetisani. 2. Koktеl-partija između dva obroka – uz koktele, sokove, apetisane i male zalogaje (kanapea). 3. Proširena koktеl-partija – umesto večere; servira se velika količina hladnih zalogaja, kanapea, sireva, toplih jela i posladstice; na kraju kafa."},
+      {num:4,type:"mc",q:"Na koktеl-partiji, jela su isečena:",options:["a) U velikim komadima za ceo obrok","b) Veličine zalogaja, jedu se obično rukom","c) Kao kompletan obrok na tanjirima","d) Isključivo topla jela"],answer:"b) Veličine zalogaja, jedu se obično rukom"},
+      {num:5,type:"mc",q:"Bife se može organizovati:",options:["a) Samo u ugostiteljskim objektima","b) U ugostiteljskim objektima ili prostorijama naručioca","c) Isključivo na otvorenom prostoru","d) Samo kao deo pansionskog poslvanja"],answer:"b) U ugostiteljskim objektima ili prostorijama naručioca"},
+      {num:6,type:"open",q:"Šta je banket i koje su njegove glavne karakteristike?",answer:"Banket je svečani obrok koji se priređuje povodom jubileja, poseta delegacija, kongresa, simpoziuma i dr. Karakteristika: servira se svečani meni sa nekoliko gangova odabranih jela, koristi se najkvalitetniji porcelan, srebrni pribor, kristal staklo, dekorativni elementi."},
+      {num:7,type:"mc",q:"Stolovi na bife-stolu najčešće se sastavljaju u obliku slova:",options:["a) A, B, C","b) I, U i O","c) L, T i H","d) X, Y i Z"],answer:"b) I, U i O"},
+      {num:8,type:"mc",q:"Razmak između kuvera na banketnom stolu iznosi od:",options:["a) 40–50 cm","b) 55–65 cm","c) 65–80 cm","d) 85–100 cm"],answer:"c) 65–80 cm"},
+      {num:9,type:"open",q:"Navedite bar sedam elemenata koje treba utvrditi pri primanju porudžbine za banket.",answer:"1. Poručilac. 2. Povod. 3. Prostorija. 4. Dan i vreme. 5. Broj zvanica. 6. Aperitiv i gde. 7. Meni – redosled jela. 8. Jela koja će se naknadno usluivati. 9. Vrste vina i redosled. 10. Oblik stola i plan. 11. Dekoracija sale. 12. Dekoracija stolova. 13. Štampanje meni karte. ..."},
+      {num:10,type:"mc",q:"Jela na bife-stolu se odrzavaju toplim pomoću:",options:["a) Specijalne električne ploče ispod stola","b) Različitih grejnih tela (namenski grejači, gorivi gelovi)","c) Stalnog dolaska kuvara sa svežom hranom","d) Posebnih poklopaca od stakla"],answer:"b) Različitih grejnih tela (namenski grejači, gorivi gelovi)"},
+      {num:11,type:"mc",q:"Svečani obroci su:",options:["a) Koktеl-partija, hladni bife, svečani ručak/večera (banket) i čajanka","b) Doručak, ručak i večera","c) Pansion i polupansion","d) Meni i a la carte"],answer:"a) Koktеl-partija, hladni bife, svečani ručak/večera (banket) i čajanka"},
+      {num:12,type:"open",q:"Kako se priprema sala za organizovani bife?",answer:"Prostorije se detaljno preglede i očiste; unose se elementi za sastavljanje bife-stola (u obliku I, U ili O), stolova za zvanice, zelenila i cveća. Bife-sto se dekorišе zelenilom i ukrasnim vazama, korpiicama sa voćem, aranžmanima od cveća, svećnjacima i sl."},
+      {num:13,type:"mc",q:"Banketni sto za počasne goste je najčešće oblika slova:",options:["a) U","b) O","c) I","d) L"],answer:"c) I"},
+      {num:14,type:"mc",q:"Za bankete sa više gangova, na sto se postavlja:",options:["a) Jedan par pribora i jedna čaša","b) Dva para pribora i dve čaše","c) Tri para pribora (trostruki pribor), desertni pribor i četiri čaše","d) Pet pari pribora i pet čaša"],answer:"c) Tri para pribora (trostruki pribor), desertni pribor i četiri čaše"},
+      {num:15,type:"open",q:"Koja pića se uglavnom nude na koktеl-partijama?",answer:"Aperitivni kokteli, aperitivi, sok od pomorandže/grejpfruta, crvena i bela vina, piva, žestoka pića, likeri uz kafu (kao dižestiv)."},
+      {num:16,type:"mc",q:"Dižestiv je:",options:["a) Piće koje se pije pre jela","b) Piće koje se pije posle jela","c) Bezalkoholni napitak","d) Vrsta jela"],answer:"b) Piće koje se pije posle jela"},
+      {num:17,type:"mc",q:"Na raскošnom bifeju, unutar bife-stola sastavljenog u U ili O obliku nalaze se:",options:["a) Muzičari","b) Kuvari vešti u rasecanju pečenja koji pomažu gostima","c) Konobari za usluivanje","d) Organizatori proslave"],answer:"b) Kuvari vešti u rasecanju pečenja koji pomažu gostima"},
+      {num:18,type:"open",q:"Zašto je hladni i topli bife popularan u savremenom hotelijerstvu?",answer:"Popularan jer je potrebno manje osoblja za usluivanje – gosti se usluuju sami ili kod bife-stola; gosti mogu probati više jela za jedan obrok. Prednost i za ugostitelje jer se smanjuju operativni troškovi usluivanja."},
+      {num:19,type:"mc",q:"Čajanka je primer:",options:["a) Redovnog dnevnog obroka","b) Vanrednog – prigodnog obroka","c) Pansionskog usluivanja","d) Banket organizacije"],answer:"b) Vanrednog – prigodnog obroka"},
+      {num:20,type:"mc",q:"Kanapе na koktеl-partijama su:",options:["a) Vrsta peciva bez namaza","b) Mali zalogaji u obliku sendviča","c) Topla jela u manjim porcijama","d) Vrsta deserta"],answer:"b) Mali zalogaji u obliku sendviča"},
+    ]
+  },
+  {
+    id:10,
+    title:"TEST 10 – Vrste restorana i restoraterstvo",
+    questions:[
+      {num:1,type:"mc",q:"Klasični restoran mora tokom glavnog obroka nuditi gostima najmanje:",options:["a) Jedan meni sa jednim sledom jela","b) Jedan meni sa tri sleda jela","c) Dva menija sa po dva sleda jela","d) Tri menija sa po dva sleda jela"],answer:"b) Jedan meni sa tri sleda jela"},
+      {num:2,type:"mc",q:"Koji tip restorana je specijalizovan za pripremu jela od mesa pernate i dlakave divljači?",options:["a) Ribljii restoran","b) Lovački restoran","c) Grіl restoran","d) Vegetarijanski restoran"],answer:"b) Lovački restoran"},
+      {num:3,type:"open",q:"Šta je 'ketering restoran' i gde se njegova usluga sreće?",answer:"Ketering restoran je objekat u kome se priprema i pakuje hrana koja se usluuje na drugom mestu. Nastao usled potreba velikih organizacija, avionskih kompanija i dr. Popularan pri organizovanju svečanih događaja u institucijama, bolnicama, transportnim kompanijama i dr."},
+      {num:4,type:"mc",q:"Bar koji pored usluga pića pruža i usluge zabave (pies, muzički program) je:",options:["a) Aperitiv bar, kafé bar, sendvič bar","b) Noćni bar, disko bar, kabarе bar","c) Salat bar, snek bar","d) Mlečni restoran"],answer:"b) Noćni bar, disko bar, kabarе bar"},
+      {num:5,type:"mc",q:"Picerija je objekat u kome se pripremaju i usluuju:",options:["a) Isključivo pice","b) Jela od testa i testenina, pića i napici","c) Samo hladna jela","d) Isključivo pića"],answer:"b) Jela od testa i testenina, pića i napici"},
+      {num:6,type:"open",q:"Navedite razliku između kafane bečkog i pariškog tipa.",answer:"Kafane bečkog tipa imaju bogatiji asortiman ugostiteljskih usluga. Pariski tip kafane ima skromniji asortiman jela i pića."},
+      {num:7,type:"mc",q:"Mlečni restorani se lociraju na:",options:["a) Periferiji grada","b) Prometnim mestima u gradu","c) Turističkim destinacijama","d) Isključivo u hotelima"],answer:"b) Prometnim mestima u gradu"},
+      {num:8,type:"mc",q:"Etno restorani odražavaju:",options:["a) Modernu internacionalnu kuhinju","b) Običaje i kulturu u ishrani pojedinih naroda","c) Dijetetski pristup ishrani","d) Isključivo lokalne specijalitete"],answer:"b) Običaje i kulturu u ishrani pojedinih naroda"},
+      {num:9,type:"open",q:"Šta su gril restorani i po čemu su specifični?",answer:"Gril restorani pripremaju i usluuju jela sa žara, roštilja i ražnja. Karakteristika: pretežno nemaju odvojenu kuhinju od sale – jela se pripremaju pred gostom. Sveže meso je u rashladnim vitrinama; osoblje mora poznavati i psihologiju prodaje."},
+      {num:10,type:"mc",q:"Bife je objekat u kome se usluuju:",options:["a) Isključivo topla jela","b) Pića, napici i pretežno hladna jela (suhomesnati proizvodi, sirevi)","c) Samo alkoholna pića","d) Kompletan svečani meni"],answer:"b) Pića, napici i pretežno hladna jela (suhomesnati proizvodi, sirevi)"},
+      {num:11,type:"mc",q:"Ekspres restorani vode poreklo iz:",options:["a) Mediteranskih zemalja","b) Istočnih zemalja","c) Zapadnih zemalja","d) Skandinavskih zemalja"],answer:"c) Zapadnih zemalja"},
+      {num:12,type:"open",q:"Koji su razlozi popularnosti restorana pored same hrane?",answer:"Restorani su dobra mesta za poslovne sastanke; olakšavaju život onima koji žele da se fokusiraju na druge stvari; nude prostorije za grupnu klientelu; privlače goste istančanog ukusa koji žele posebna jela; mnogi gosti uivaju u atmosferi restorana – najtragodniji su tematski restorani."},
+      {num:13,type:"mc",q:"Pečenjara je objekat u kome se pripremaju i posluuju:",options:["a) Isključivo pečena pića","b) Sve vrste pečenja, alkoholna i bezalkoholna pića","c) Samo bezalkoholna pića uz pečenje","d) Vegetarijanska jela"],answer:"b) Sve vrste pečenja, alkoholna i bezalkoholna pića"},
+      {num:14,type:"mc",q:"Gril restorani karakteriše to da:",options:["a) Imaju veliku odvojenu kuhinju","b) Jela se pripremaju pretežno pred gostom, bez odvojene kuhinje od sale","c) Isključivo usluuju hladna jela","d) Specijalizovani su samo za ribu"],answer:"b) Jela se pripremaju pretežno pred gostom, bez odvojene kuhinje od sale"},
+      {num:15,type:"open",q:"Kakve specijalnosti se serviraju u ribljim restoranima i kako je uređen ambijent?",answer:"Nude se jela od riba i других plodova reka i mora. Ambijent je atraktivno dekorisan ribarskim mrežama, školjkama, prepariranim raznim vrstama riba i sl."},
+      {num:16,type:"mc",q:"U klasičnim restoranima gosti naručuju jela putem:",options:["a) Telefonske porudžbine","b) Jelovnika (a la cart) i vinskom kartom za vina","c) Isključivo menija","d) Unapred određenih obroka"],answer:"b) Jelovnika (a la cart) i vinskom kartom za vina"},
+      {num:17,type:"mc",q:"Kafe-poslastičarnica je objekat u kome se:",options:["a) Isključivo prodaju poslastice","b) Pripremaju i usluuju ili samo usluuju poslastice, sladoled, pića i napici","c) Usluuju samo bezalkoholna pića","d) Pripremaju dijatalna jela"],answer:"b) Pripremaju i usluuju ili samo usluuju poslastice, sladoled, pića i napici"},
+      {num:18,type:"open",q:"Šta su dij atatalni restorani i gde se otvaraju?",answer:"Dijatatalni restorani nude kompletan obrok (doručak, ručak i večera) po meniju za određene dijete i bolesti. Sve više se otvaraju izvan bolnica i lečilišta. Osoblje mora biti osposobljeno za primenu svih dijeta."},
+      {num:19,type:"mc",q:"Vegetarijanski restorani su najčešći u:",options:["a) Industrijskim zemijama","b) Razvijenim turističkim zemijama i zemijama Dalekog Istoka","c) Nordijskim zemijama","d) Junoj Americi"],answer:"b) Razvijenim turističkim zemijama i zemijama Dalekog Istoka"},
+      {num:20,type:"mc",q:"Ugostiteljski objekti za ishranu i piće se razvrstavaju prema:",options:["a) Veličini i kapacitetu","b) Vrsti usluge, načinu pružanja, opremi i organizaciono-tehničkim karakteristikama","c) Isključivo prema kategoriji","d) Prema lokaciji"],answer:"b) Vrsti usluge, načinu pružanja, opremi i organizaciono-tehničkim karakteristikama"},
+    ]
+  },
+  {
+    id:11,title:"TEST 11 – Mešoviti pregled I",
+    questions:[
+      {num:1,type:"mc",q:"'Puno za prazno' je narodni naziv za:",options:["a) Ugovor o alotmanu s pravom na jednostrani raskid","b) Ugovor o fiksnom zakupu hotelskih kapaciteta","c) Ugovor o alotmanu sa garancijom punjenja","d) Direktnu prodaju"],answer:"b) Ugovor o fiksnom zakupu hotelskih kapaciteta"},
+      {num:2,type:"mc",q:"Švajcarski doručak uključuje:",options:["a) Samo kafe i peciva","b) Topli napitak, maslac, džem ili med, raznovrstan sir, hleb (ili pecivo) i tost","c) Jela od jaja i mesnih specijaliteta","d) Voćnih sokova i kaše"],answer:"b) Topli napitak, maslac, džem ili med, raznovrstan sir, hleb (ili pecivo) i tost"},
+      {num:3,type:"open",q:"Šta je 'booking' u kontekstu ugovora o alotmanu?",answer:"Booking je tok prodaje rezervisanog kapaciteta. Turistička agencija se obavezuje da hotel redovno izveštava o toku prodaje (bookingu). Utvrđen je i poslednji rok za potvrdu izvršenja ugovora od strane agencije i dostavljanje rooming lista."},
+      {num:4,type:"mc",q:"Ko sastavlja kartu pića?",options:["a) Šef kuhinje","b) Menadžer restorana i šef sale","c) Direktor hotela","d) Konobar-vinonoša"],answer:"b) Menadžer restorana i šef sale"},
+      {num:5,type:"mc",q:"Sobаrica ima ključnu poziciju jer:",options:["a) Obavlja rezervacije soba","b) Od kvaliteta njenog rada zavisi zadovoljstvo gostiju uslugom smeštaja","c) Rukovodi celim domaćinstvom","d) Priprema hranu za goste"],answer:"b) Od kvaliteta njenog rada zavisi zadovoljstvo gostiju uslugom smeštaja"},
+      {num:6,type:"open",q:"Koji je redosled asortimana u karti za doručak?",answer:"Voćni sokovi, voće, kompoti, kaše, topli napici, džem i med, hladna jela, topla jela, mlečni proizvodi, pecivo."},
+      {num:7,type:"mc",q:"Kategorisanje ugostiteljskih objekata za hranu i piće od 2012. godine u Srbiji:",options:["a) Postoji kao i ranije","b) Ne postoji – uklonjen zakonodavnim pristupom","c) Preneseno je na privatni sektor","d) Obavezno je samo za restorane u hotelima"],answer:"b) Ne postoji – uklonjen zakonodavnim pristupom"},
+      {num:8,type:"mc",q:"Temperatura tamnog piva pri serviranju je:",options:["a) 2-4°C","b) 6-10°C","c) 10-12°C","d) 14-16°C"],answer:"c) 10-12°C"},
+      {num:9,type:"open",q:"Navedite razliku između 'obrtne imovine u proizvodnji' i 'obrtne imovine u prometu'.",answer:"Obrtna imovina u proizvodnji: zalihе osnovnog i помoćnog materijala, goriva, ambalažu, nedovršenu произvodnju (poluproizvode). Obrtna imovina u prometu: gotove proizvode, търговačku robu na lageru i novčana sredstva (gotovinska, na računima banaka, sredstva u обрачуну)."},
+      {num:10,type:"mc",q:"Temperatura rakija pri serviranju je:",options:["a) 2-5°C","b) 6-10°C","c) 12-16°C","d) 18-22°C"],answer:"b) 6-10°C"},
+      {num:11,type:"mc",q:"Jelo i sos zajedno čine:",options:["a) Dva odvojena ganga","b) Jedan gang","c) Predjelo i glavno jelo","d) Varijantu menija"],answer:"b) Jedan gang"},
+      {num:12,type:"open",q:"Šta je 'homogenost' vina prema vinskoj karti – koje grupe su zastupljene?",answer:"Vinska karta treba da sadrži vina od različitih sorti grožđa. Grupe: otvorena bela, otvorena ružičasta, otvorena crvena vina; bela, ružičasta, crvena vina u flašama; desertna vina; penušava vina (prirodna i gazirana); strana vina."},
+      {num:13,type:"mc",q:"Recepcija je osnovna organizaciona celina:",options:["a) Isključivo smeštajnog sektora","b) Ne samo smeštajnog sektora već i objekta u celini","c) Sektora hrane i pića","d) Tehničke službe"],answer:"b) Ne samo smeštajnog sektora već i objekta u celini"},
+      {num:14,type:"mc",q:"Kanapе su:",options:["a) Vrsta peciva bez namaza","b) Mali zalogaji u obliku sendviča koji se nude na koktеl-partijama","c) Topla jela u manjim porcijama","d) Vrsta deserta"],answer:"b) Mali zalogaji u obliku sendviča koji se nude na koktеl-partijama"},
+      {num:15,type:"open",q:"Šta je 'koeficijent obrta' i šta pokazuje?",answer:"Koeficijent obrta (Ko) = Promet / Obrtna imovina. Pokazuje u koliko je reprodukcionih ciklusa obrtna imovina učestvovala tokom jedne godine. Veći koeficijent = efikasnije poslovanje."},
+      {num:16,type:"mc",q:"Gornja ploča barskog pulta sluzi za:",options:["a) Pripremu pića od strane barmena","b) Usluivanje gostiju koji sede pored pulta","c) Odlaganje čistog inventara","d) Dekoraciju bara"],answer:"b) Usluivanje gostiju koji sede pored pulta"},
+      {num:17,type:"mc",q:"Garantovana rezervacija u mnogim zemijama predstavlja:",options:["a) Samo usmeni dogovor","b) Ugovor između gosta i hotela","c) Preporuku bez pravnog dejstva","d) Neformalni sporazum"],answer:"b) Ugovor između gosta i hotela"},
+      {num:18,type:"open",q:"Navedite bar četiri dodatne usluge koje se pružaju turistima u hotelijerstvu.",answer:"Primeri: transport lica i stvari, parkiranje/garažiranje, pranje i servisiranje vozila gostiju, frizerske usluge, menjanje valute, organizovanje izleta, posredovanje pri nabavci ulaznica, iznajmljivanje sportskih rekvizita, kongresne usluge, prodaja suvenira i sl."},
+      {num:19,type:"mc",q:"Apartmansko naselje mora imati najmanje:",options:["a) 60% smeštajnih jedinica tipa apartman","b) 70% smeštajnih jedinica tipa apartman","c) 80% smeštajnih jedinica tipa apartman","d) 90% smeštajnih jedinica tipa apartman"],answer:"c) 80% smeštajnih jedinica tipa apartman"},
+      {num:20,type:"mc",q:"'Tržišni lider' je ključan pojam u metodi formiranja cena:",options:["a) Troškovi plus dobit","b) Ponude i tražnje","c) Izravnavanja cena sa najvećim ponuđačima","d) Sezonskog korigovanja cena"],answer:"c) Izravnavanja cena sa najvećim ponuđačima"},
+    ]
+  },
+  {
+    id:12,title:"TEST 12 – Mešoviti pregled II",
+    questions:[
+      {num:1,type:"mc",q:"Koja je osnovna razlika između ugostitelstva i restoraterstva?",options:["a) Restoraterstvo se ne bavi ishranom","b) Ugostitelstvo je širi pojam koji obuhvata smeštaj i ishranu; restoraterstvo se bavi ishranu bez smeštaja","c) Ugostitelstvo se ne bavi ishranom","d) Nema razlike"],answer:"b) Ugostitelstvo je širi pojam koji obuhvata smeštaj i ishranu; restoraterstvo se bavi ishranu bez smeštaja"},
+      {num:2,type:"mc",q:"Marina kao ugostiteljski objekat označava se:",options:["a) Zvezdicama","b) Sidrima","c) Rogovima","d) Valovima"],answer:"b) Sidrima"},
+      {num:3,type:"open",q:"Šta je 'feasibility study' i u kom kontekstu se sreće u hotelijerству?",answer:"Studija izvodljivosti (feasibility study) je studija koja se izrađuje u okviru osnivačkih ulaganja u hotel. Analizira ekonomsku isplativost i izvodljivost izgradnje/otvaranja hotela i spada u trajnu imovinu (osnivačka ulaganja)."},
+      {num:4,type:"mc",q:"Lovačka vila označava se:",options:["a) Zvezdicama","b) Sidrima","c) Rogovima","d) Kopljima"],answer:"c) Rogovima"},
+      {num:5,type:"mc",q:"Kapacitet smeštaja hotela primarno se meri:",options:["a) Brojem zaposlenih","b) Brojem soba i brojem ležaja","c) Brojem kvadratnih metara","d) Brojem parking mesta"],answer:"b) Brojem soba i brojem ležaja"},
+      {num:6,type:"open",q:"Navedite pet vrsta ugostiteljskih objekata za smeštaj koji podlažu obavezi kategorisanja u Srbiji.",answer:"Hotel (garni hotel, apart hotel), motel, pansion, turističko naselje, kamp, apartman, kuća, soba, seоsko turističko domaćinstvo, lovačka vila, marina."},
+      {num:7,type:"mc",q:"Porodična soba je smeštajna jedinica u kojoj se gostu obezbeđuje boravak u:",options:["a) Jednoj spavaćoj sobi","b) Dve ili više spavaćih soba sa ili bez predsoblja i kupatila","c) Jednoj prostoriji sa više kreveta","d) Isključivo apartmanu"],answer:"b) Dve ili više spavaćih soba sa ili bez predsoblja i kupatila"},
+      {num:8,type:"mc",q:"Sobe bez predsoblja se pojavljuju uglavnom u:",options:["a) Novoizgrađenim hotelima visokih kategorija","b) Objektima starijeg datuma, često u zaštićenim građevinama","c) Pansionima","d) Hostelima"],answer:"b) Objektima starijeg datuma, često u zaštićenim građevinama"},
+      {num:9,type:"open",q:"Šta su 'design hoteli' i šta ih karakteriše?",answer:"Dizajn hoteli su posebna grupa objekata koji se odlikuju posebnom pažnjom posvećenom estetskoj dimenziji inventara – nameštaja, tepiha, lustera i celokupnog enterijerskog uređenja. Karakteriše ih prepoznatljiv dizajnerski stil."},
+      {num:10,type:"mc",q:"Depandans ne može nositi rang:",options:["a) Isti kao osnovni objekat","b) Viši nego što je kategorija osnovnog objekta","c) Niži za jednu kategoriju od osnovnog objekta","d) Dva stepena niži od osnovnog"],answer:"b) Viši nego što je kategorija osnovnog objekta"},
+      {num:11,type:"mc",q:"Prenoćište (konaište, konak, han) je:",options:["a) Luksuzni hotel","b) Ugostiteljski objekat za pružanje usluga smeštaja u kome se mogu pružati i usluge hrane i pića","c) Isključivo za goste iz inostranstva","d) Vrsta pansiona"],answer:"b) Ugostiteljski objekat za pružanje usluga smeštaja u kome se mogu pružati i usluge hrane i pića"},
+      {num:12,type:"open",q:"Šta je 'prostorna struktura' ugostiteljskog objekta za hranu i piće?",answer:"Sastoji se od: ekonomsko-tehničkog dela (kuhinjski blok – kuhinja i magacin, pomoćne prostorije, servisno-tehničke prostorije) i uslužnog dela (prostorija/prostor za usluivanje, garderoba i toaleti za goste). Kuhinjski blok mora imati tačionicu pića."},
+      {num:13,type:"mc",q:"Odmaralište je vrsta objekta namenjena:",options:["a) Svim kategorijama gostiju","b) Posebnim kategorijama korisnika (deca, omladina, zaposleni, članovi organizacija)","c) Isključivo stranim turistima","d) Poslovnim putnicima"],answer:"b) Posebnim kategorijama korisnika (deca, omladina, zaposleni, članovi organizacija)"},
+      {num:14,type:"mc",q:"Minimalni kapacitet hotela prema srpskim propisima je:",options:["a) 5 smeštajnih jedinica","b) 7 smeštajnih jedinica","c) 10 smeštajnih jedinica","d) 15 smeštajnih jedinica"],answer:"c) 10 smeštajnih jedinica"},
+      {num:15,type:"open",q:"Koji su elementi koji utiču na stepen iskorištenosti kapaciteta smeštajnih objekata?",answer:"Stepen iskorištenosti kapaciteta zavisi od: lokacije, turističke infrastrukture, cene, načina pružanja usluge i dr. Izračunava se za jednogodišnji period ili za sezonu poslovanja (kod sezonskih objekata)."},
+      {num:16,type:"mc",q:"Šta je osnovna tržišna kategorija hotela?",options:["a) Broj zaposlenih","b) Hotelska soba","c) Broj restorana","d) Kategorija hotela"],answer:"b) Hotelska soba"},
+      {num:17,type:"mc",q:"Turisti koji dolaze pretežno 'poslovnim motivima' najčešće biraju:",options:["a) Pansion","b) Polupansion","c) Noćenje sa doručkom","d) All inclusive"],answer:"c) Noćenje sa doručkom"},
+      {num:18,type:"open",q:"Šta je 'vešeraj' u hotelu i zašto mnogi veliki hoteli nemaju sopstvenu perionicu rublja?",answer:"Vešeraj/perionica rublja je odeljenje za pranje, sušenje, peglanje i distribuciju hotelskog rublja. Mnogi veliki hoteli nemaju sopstvenu jer žele da se usredlsrede na osnovni posao, а poslove pranja prepuštaju profesionalcima (outsourcing) – smanjuje se investicija i operativni troškovi."},
+      {num:19,type:"mc",q:"Koji element NE spada u vanredne obroke?",options:["a) Svečani ručak","b) Banket","c) Koktеl-partija","d) Preподnevna užina"],answer:"d) Preподnevna užina"},
+      {num:20,type:"mc",q:"Grill restorani su karakteristični po tome što:",options:["a) Usluuju isključivo hladna jela","b) Jela se pripremaju pretežno pred gostom, bez odvojene kuhinje od sale","c) Imaju veliku zasebnu kuhinju","d) Specijalizovani su samo za morske plodove"],answer:"b) Jela se pripremaju pretežno pred gostom, bez odvojene kuhinje od sale"},
+    ]
+  },
+  {
+    id:13,title:"TEST 13 – Mešoviti pregled III",
+    questions:[
+      {num:1,type:"mc",q:"Koji je redosled pisanja karte pića (u objektima bez vinske karte)?",options:["a) Žestoka pića, vina, pivo, bezalkoholna pića","b) Bela vina, crvena vina, desertna vina, polupušava, penušava, aperitivi, džin i viski, konjak, vinjak, rakije, pivo, likeri, bezalkoholna pića, kisela voda, topla pića","c) Bezalkoholna pića, pivo, vino, žestoka pića","d) Kokteli, vino, pivo, žestoka pića"],answer:"b) Bela vina, crvena vina, desertna vina, polupušava, penušava, aperitivi, džin i viski, konjak, vinjak, rakije, pivo, likeri, bezalkoholna pića, kisela voda, topla pića"},
+      {num:2,type:"open",q:"Objasnite pravilo o naizmeničnom servovanju hladnih i toplih jela u svečanom meniju.",answer:"Pri sastavljanju svečanih menija treba naizmenično predviđati hladna i topla jela, pri čemu treba da bude više toplih jela. Dva topla jela mogu pratiti jedno drugo, ali dva hladna jela NE mogu doći jedno iza drugoga. Nakon hladnog predjela, supa se uvek sluzi posle. Kada je toplo predjelo, supa uvek ide ispred njega."},
+      {num:3,type:"mc",q:"Dijatatalni meni se sastavlja prema:",options:["a) Preferencijama šefa kuhinje","b) Posebnim medicinskim uputstvima","c) Sezonskim namirnicama","d) Finansijskim mogućnostima naručioca"],answer:"b) Posebnim medicinskim uputstvima"},
+      {num:4,type:"mc",q:"Konobar je dužan da vrati jelovnik:",options:["a) Na kraju večere","b) Kada gost izvrši izbor jela i konobar primi porudžbinu","c) Samo na kraju radnog vremena","d) Tek kada gost zatraži račun"],answer:"b) Kada gost izvrši izbor jela i konobar primi porudžbinu"},
+      {num:5,type:"open",q:"Navedite hijerarhijsku lestvicu uslužnog osoblja u srpskom hotelijerstvu.",answer:"1. Menadžer ugostiteljskog objekta. 2. Šef restorana. 3. Šef sale. 4. Konobar-šef rejona. 5. Konobar-pomoćnik šefa rejona. 6. Konobar-tranšer i flamber. 7. Konobar-vinonoša."},
+      {num:6,type:"mc",q:"Forlegер se drži pri serviranju jela u tanjire na sledeći način:",options:["a) Velika kašika u levoj ruci, a velika viljuška u desnoj","b) Velika kašika u desnoj ruci, a velika viljuška u levoj","c) Obe ruke koriste viljuške","d) Isključivo kašika se koristi"],answer:"b) Velika kašika u desnoj ruci, a velika viljuška u levoj"},
+      {num:7,type:"mc",q:"Losluivanje u hotelskim sobama (etažni servis) – cene su:",options:["a) Iste kao u restoranu","b) Niže za 10-20%","c) Više za 20-30%","d) Određene prema kategoriji sobe"],answer:"c) Više za 20-30%"},
+      {num:8,type:"open",q:"Šta je 'kupčev aspekt' pri formiranju cena hotelskih usluga?",answer:"Kupčev aspekt se odnosi na platežne mogućnosti i ostale karakteristike tražnje. Uzima u obzir šta su gosti i tržišni segmenti spremni i u mogućnosti da plate za određene usluge."},
+      {num:9,type:"mc",q:"Turisti koji dolaze 'klasičnim' turističkim motivima najčešće biraju:",options:["a) Noćenje sa doručkom","b) Pansion ili polupansion","c) All inclusive isključivo","d) Samo noćenje"],answer:"b) Pansion ili polupansion"},
+      {num:10,type:"mc",q:"Prostor za usluivanje u ugostiteljskom objektu za hranu i piće može se nalaziti:",options:["a) Isključivo u unutrašnjim prostorijama","b) U unutrašnjosti i na otvorenom (bašte, terase)","c) Isključivo na otvorenom","d) Samo u podzemnoj etaži"],answer:"b) U unutrašnjosti i na otvorenom (bašte, terase)"},
+      {num:11,type:"open",q:"Koje su 'opšte tendencije savremenog razvoja kadrovа u svetu' u hotelijerstvu?",answer:"1. Stalno opadanje u primarnom i sekundarnom i stalni porast broja zaposlenih u tercijarnom sektoru. 2. Poboljšanje kvalifikacione strukture u svim sektorima. 3. Sve češće menjanje zanimanja u toku radnog veka. 4. Ekspanzija permanentnog obrazovanja svih kategorija zaposlenih."},
+      {num:12,type:"mc",q:"Apartman sa kuhinjom se sastoji od:",options:["a) Samo spavaće sobe i kuhinje","b) Prostorije za dnevni boravak, jedne ili više spavaćih soba, prostorije za pripremu hrane i obedovanje i kupatila","c) Jedne prostorije za sve namene","d) Dve spavaće sobe bez kuhinje"],answer:"b) Prostorije za dnevni boravak, jedne ili više spavaćih soba, prostorije za pripremu hrane i obedovanje i kupatila"},
+      {num:13,type:"mc",q:"Liftovi i dizalice u hotelijerству spadaju u kategoriju uređaja:",options:["a) Energetski uređaji","b) Uređaji u unutrašnjem transportu","c) Rashladni uređaji","d) Termički uređaji"],answer:"b) Uređaji u unutrašnjem transportu"},
+      {num:14,type:"open",q:"Šta je 'konzumno mesto' i zašto je važno u sektoru brze hrane?",answer:"Konzumno mesto je merilo usluznog kapaciteta ugostiteljskog objekta. Posebno dolazi do izražaja u objektima za pružanje usluga pića i brze hrane. U takvim objektima kapacitet se izražava brojem sedišta (za stolovima) i brojem stojećih konzumnih mesta."},
+      {num:15,type:"mc",q:"Kategorizacija se vrši:",options:["a) Grupno za sve slične objekte u gradu","b) Pojedinačno za svaki objekat","c) Svake 10 godina","d) Samo pri otvaranju objekta"],answer:"b) Pojedinačno za svaki objekat"},
+      {num:16,type:"mc",q:"Temperatura belog vina pri serviranju je:",options:["a) 4-6°C","b) 10-14°C","c) 16-18°C","d) 20-22°C"],answer:"b) 10-14°C"},
+      {num:17,type:"open",q:"Šta je 'revirni sistem' usluivanja i gde se primenjuje?",answer:"U revirnom sistemu na jednom rejonu poslove obavlja jedan konobar. On prima goste, donosi pisane ponude, prima porudžbine, kasira ih, sam poslužuje goste jelom i pićem, vrši naplatu i ispraća goste. Primenjuje se u manjim ugostiteljskim objektima."},
+      {num:18,type:"mc",q:"Ko je 'domaćica objekta' (Menadžer hotelskog domaćinства)?",options:["a) Ista uloga kao sobаrica","b) Najodgovornija osoba u službi hotelskog domaćinstva koja obavlja poslovodnu funkciju","c) Isključivo za higijenu","d) Pomoćnik direktora bez posebnih ovlašćenja"],answer:"b) Najodgovornija osoba u službi hotelskog domaćinstva koja obavlja poslovodnu funkciju"},
+      {num:19,type:"mc",q:"Ugostiteljski objekat za ishranu i piće mora imati:",options:["a) Bar","b) Točionicu pića","c) Zimsku baštu","d) Prostor za parking"],answer:"b) Točionicu pića"},
+      {num:20,type:"open",q:"Šta je 'direktan kontakt sa gostom' i zašto je ključan za kvalitet u hotelijerству?",answer:"Direktan kontakt je neposredna interakcija između osoblja i gosta. Ključan je jer hotelijerstvo je delatnost sa intenzivnim 'živim radom' – usluga se ne može unapred uskladistiti. Subjektivna saznanja gosta o kvalitetu usluge u velikoj meri su određena direktnim kontaktom sa kadrovима."},
+    ]
+  },
+  // Tests 14-20 - abbreviated to keep file manageable, repeating key topics
+  {id:14,title:"TEST 14 – Mešoviti pregled IV",questions:[
+    {num:1,type:"mc",q:"Šta je 'pansion' kao vrsta ugostiteljskog objekta?",options:["a) Luksuzni hotel","b) Ugostiteljski objekat stacionarnog tipa za duži boravak, sa sva tri obroka","c) Hotel bez restorana","d) Vrsta odmarališa"],answer:"b) Ugostiteljski objekat stacionarnog tipa za duži boravak, sa sva tri obroka"},
+    {num:2,type:"open",q:"Šta je 'flambiranjem' i kada se primenjuje?",answer:"Flambiranjem je originalan način doterivanja ukusa jela konjakom, rumom i nekim likerom, uz paljenje alkohola. Jelo u plamenu čini atrakciju. Primenjuje se u luksuznim restoranima pri serviranju specijaliteta pred gostom."},
+    {num:3,type:"mc",q:"Temperatura likelira pri serviranju je:",options:["a) 4-6°C","b) 8-10°C","c) 14-18°C","d) 20-24°C"],answer:"c) 14-18°C"},
+    {num:4,type:"mc",q:"Kompletni (kontinentalni/Francuski) doručak sastoji se od:",options:["a) Samo tosta i kafe","b) Toplog napitka (kafa, čaj, kakao, čokolada, mleko), dva namaza (puter, džem, med), hleba ili peciva","c) Jela od jaja i mesnih specijaliteta","d) Voćnih sokova i kaše"],answer:"b) Toplog napitka (kafa, čaj, kakao, čokolada, mleko), dva namaza (puter, džem, med), hleba ili peciva"},
+    {num:5,type:"open",q:"Šta je 'turistički meni' i kojim turistima je namenjen?",answer:"Turistički meni je sastavijen od jela koja zanaimaju turiste kao goste restorana. To su pretežno gotova jela koja su po ceni pristupačna širokome krugu turista."},
+    {num:6,type:"mc",q:"Temperatura penušavih vina pri serviranju je:",options:["a) 4-6°C","b) 10-14°C","c) 14-18°C","d) 20-25°C"],answer:"a) 4-6°C"},
+    {num:7,type:"mc",q:"Kamp je ugostiteljski objekat za smeštaj na:",options:["a) Moru isključivo","b) Otvorenom, na ograđenom, isparcellisanom i numerisanom zemljištu","c) Planini isključivo","d) Unutar zatvorene hale"],answer:"b) Otvorenom, na ograđenom, isparcellisanom i numerisanom zemljištu"},
+    {num:8,type:"open",q:"Koji su osnovni elementi ugovora o alotmanu?",answer:"1. Ugovorne strane. 2. Vreme rezervacije (početak, završetak, mogućnost prekida). 3. Raspored rezervacija. 4. Cene usluga, uključujući sezonsko diferenciranje. 5. Specijalni uslovi (popusti za decu, gratis i dr.). 6. Naknade za nekorišćenje hotelskih usluga. 7. Način i rokovi plaćanja."},
+    {num:9,type:"mc",q:"Temperatura konjaka i vinjaka pri serviranju je:",options:["a) 4-8°C","b) 10-14°C","c) 16-18°C","d) 20-24°C"],answer:"c) 16-18°C"},
+    {num:10,type:"mc",q:"Koji od sledećih NE spada u pomoćni inventar za usluivanje?",options:["a) Poslužavnici","b) Kible (posude za hlađenje vina)","c) Vadičep","d) Duboki tanjiri"],answer:"d) Duboki tanjiri"},
+    {num:11,type:"open",q:"Šta je 'subjekatska percepcija korisnika' u hotelijerstvu i zašto je važna?",answer:"Subjektivna saznanja korisnika su bitan faktor kvaliteta u hotelijerstvu i u velikoj meri su određena delovanjem kadrovа. Svaki kontakt sa osobljem oblikuje percepciju gosta o kvalitetu cele usluge."},
+    {num:12,type:"mc",q:"Ugostiteljski sektor smeštaja u odnosu na hotelijerstvo je:",options:["a) Uži pojam","b) Širi pojam","c) Jedanki","d) Neuporedivi su"],answer:"b) Širi pojam"},
+    {num:13,type:"mc",q:"Koliki je minimalni kapacitet garni hotela?",options:["a) 5 smeštajnih jedinica","b) 7 smeštajnih jedinica","c) 10 smeštajnih jedinica","d) 12 smeštajnih jedinica"],answer:"b) 7 smeštajnih jedinica"},
+    {num:14,type:"open",q:"Šta su 'apetisani' i gde se serviraju?",answer:"Apetisani su mali zalogaji koji se nide uz aperitivna pića: čips, masline, slani štapici, bademi, lešnici, kikiriki i sl. Serviraju se na koktеl-partijama, aperitiv barovima i pri aperitivu pre svečanog obroka."},
+    {num:15,type:"mc",q:"Ko kontroliše rang kategorije depandansa?",options:["a) Direktor hotela","b) Kategorisanje depandansa se vrši na osnovu elemenata za kategorisanje hotela","c) Turistička organizacija","d) Agencija"],answer:"b) Kategorisanje depandansa se vrši na osnovu elemenata za kategorisanje hotela"},
+    {num:16,type:"mc",q:"Proširena koktеl-partija traje i do:",options:["a) 1 sat","b) 2 sata","c) 4 sata","d) 8 sati"],answer:"c) 4 sata"},
+    {num:17,type:"open",q:"Navedite bar tri pravila pri sastavljanju menija vezana za ponavljanje iste namirnice.",answer:"1. Ista osnovna namirnica se NE SME ponoviti više puta. 2. Npr. ne može se servirati riba i teletina u dva jela. 3. Ako se nudi potaž od špargli, špargle se ne mogu servirati kao povrće. 4. Ako je serviran potaž od paradajza, ne može se servirati salata od paradajza. 5. Goveda supa sa rezancima isključuje rezance kao prilog."},
+    {num:18,type:"mc",q:"Sezonsko kolebanje hotelske tražnje je determinisano:",options:["a) Isključivo cenama","b) Promenama prirodno-rekreativnih svojstava turističkih resursa i raspolorivim fondom slobodnog vremena","c) Samo školskim raspustima","d) Brojem zaposlenih u hotelu"],answer:"b) Promenama prirodno-rekreativnih svojstava turističkih resursa i raspolorivim fondom slobodnog vremena"},
+    {num:19,type:"mc",q:"Sobаricа ima ključnu poziciju jer:",options:["a) Organizuje recepciju","b) Od kvaliteta njenog rada zavisi zadovoljstvo gostiju uslugom smeštaja","c) Priprema meni","d) Vodi finansije"],answer:"b) Od kvaliteta njenog rada zavisi zadovoljstvo gostiju uslugom smeštaja"},
+    {num:20,type:"open",q:"Šta je 'rejonski sistem' usluivanja i od koga se sastoji?",answer:"Rejonski sistem: na jednom rejonu su raspoređena dva konobara – šef rejona i pomoćnik šefa rejona. Šef rejona je iskusniji; pomoćnik obavlja sve pripremne radove i donosi iz kuhinje jelo i piće do servisnog stola te raspema i odnosi upotrebljeni inventar."},
+  ]},
+  {id:15,title:"TEST 15 – Mešoviti pregled V",questions:[
+    {num:1,type:"mc",q:"Koja je razlika između pansiona i polupansiona?",options:["a) Pansion uključuje samo doručak","b) Pansion = noćenje + doručak + oba glavna obroka; polupansion = noćenje + doručak + jedan glavni obrok","c) Polupansion uključuje sve obroke","d) Nema razlike"],answer:"b) Pansion = noćenje + doručak + oba glavna obroka; polupansion = noćenje + doručak + jedan glavni obrok"},
+    {num:2,type:"open",q:"Šta je 'ciklus gosta' i koliko faza obuhvata?",answer:"Ciklus gosta ima 5 faza: 1. Faza pre dolaska (rezervacija). 2. Dolazak (prijem i smeštaj). 3. Boravak (pružanje usluga). 4. Odlazak (odjava i naplata). 5. Faza nakon odlaska."},
+    {num:3,type:"mc",q:"Temperatura svetlih piva pri serviranju je:",options:["a) 2-4°C","b) 6-10°C","c) 12-14°C","d) 16-18°C"],answer:"b) 6-10°C"},
+    {num:4,type:"mc",q:"Ko sastavljlja meni u svakodnevnom poslovanju?",options:["a) Recepcionar","b) Šef kuhinje i šef sale","c) Direktor hotela","d) Turistička agencija"],answer:"b) Šef kuhinje i šef sale"},
+    {num:5,type:"open",q:"Navedite prvih pet elemenata podsetnika pri primanju porudžbine za banket.",answer:"1. Poručilac banketa. 2. Povod priređivanja banketa. 3. Prostorija u kojoj će se priirediti banket. 4. Dan i vreme odrzavanja prijema. 5. Broj zvanica. 6. Aperitiv i gde će se usluiti. 7. Meni – redosled jela..."},
+    {num:6,type:"mc",q:"Koji je oblik bife-stola za raскošni bife sa kuvarima unutra?",options:["a) I oblik","b) U ili O oblik","c) L oblik","d) T oblik"],answer:"b) U ili O oblik"},
+    {num:7,type:"mc",q:"Šta je 'agencija Intersell'?",options:["a) Turistička agencija specijalizovana samo za rezervacije hotela","b) Profesionalna organizacija specijalizovana za posredničke usluge koja obezbeđuje aviokarte, rent-a-car i smeštaj","c) Hotelski lanac","d) Državna turistička organizacija"],answer:"b) Profesionalna organizacija specijalizovana za posredničke usluge koja obezbeđuje aviokarte, rent-a-car i smeštaj"},
+    {num:8,type:"open",q:"Navedite razliku između 'garni hotela' i 'apart hotela'.",answer:"Garni hotel: sve osobine hotela ali u okviru usluge smeštaja i ishrane uključuje SAMO doručak; minimalni kapacitet 7 smeštajnih jedinica. Apart hotel: podvrsta hotela sa najmanje 80% smeštajnih jedinica tipa apartman; može imati apartmane sa kuhinjom, bez kuhinje ili studio apartmane."},
+    {num:9,type:"mc",q:"Temperatura rozé vina pri serviranju je:",options:["a) 4-6°C","b) 12-14°C","c) 16-18°C","d) 20°C"],answer:"b) 12-14°C"},
+    {num:10,type:"mc",q:"Ugostiteljski objekat za pružanje usluga hrane i pića mora imati:",options:["a) Bar","b) Točionicu pića (u kuhinji ili u prostoru za usluivanje)","c) Zimsku baštu","d) Podzemni parking"],answer:"b) Točionicu pića (u kuhinji ili u prostoru za usluivanje)"},
+    {num:11,type:"open",q:"Šta je 'briga o nepосредnoj okolini hotela' i ko je obavlja?",answer:"Briga o neposrednoj okolini hotela (uređenost i urednost) spada u poslove domaćinstva koji NISU direktno vezani za realizaciju usluge smeštaja. Odeljenje domaćinstva organizaciono pokriva celokupni smeštajni deo uključujući i spoljne površine."},
+    {num:12,type:"mc",q:"Minimalni razmak od sredine jednog tanjira do sredine drugog na banketnom stolu treba da bude:",options:["a) 50 cm","b) 60 cm","c) 70 cm","d) 80 cm"],answer:"c) 70 cm"},
+    {num:13,type:"mc",q:"Hangla se menja u toku rada:",options:["a) Jednom u smenu","b) Po nekoliko puta jer uvek mora biti čista","c) Samo kada se pocepa","d) Na kraju radnog dana"],answer:"b) Po nekoliko puta jer uvek mora biti čista"},
+    {num:14,type:"open",q:"Šta su 'minjоni' i gde se serviraju?",answer:"Minjoni su sitno čajno pecivo koje se servira kao deo poslasticarskoig asortimana na proširenim koktеl-partijama, zajedno sa sladoledom, raznim poslasticama. Spadaju u grupu sitnih poslastica koje se nude na stojećim svečanim prijemima."},
+    {num:15,type:"mc",q:"Domaćica objekta je direktno odgovorna:",options:["a) Šefu restorana","b) Direktoru","c) Recepciji","d) Menadžeru domaćinstva"],answer:"b) Direktoru"},
+    {num:16,type:"mc",q:"U 'brigadnom sistemu' usluivanja na jednom rejonu rade:",options:["a) Jedan konobar","b) Dva konobara","c) Šef rejona, konobar-jelonoša i konobar-vinonoša","d) Pet konobara"],answer:"c) Šef rejona, konobar-jelonoša i konobar-vinonoša"},
+    {num:17,type:"open",q:"Koji su bitni elementi za pisanje vinske karte?",answer:"1. Broj vina. 2. Godina proizvodnje vina. 3. Naziv i boja vina. 4. Ime proizvođača. 5. Jačina vina. 6. Zapremina (koja se nudi kao jedinica). 7. Cena vina."},
+    {num:18,type:"mc",q:"Penzion kao usluga u hotelu obuhvata:",options:["a) Samo noćenje","b) Noćenje sa doručkom","c) Noćenje + doručak + oba glavna obroka","d) Sve usluge hotela"],answer:"c) Noćenje + doručak + oba glavna obroka"},
+    {num:19,type:"mc",q:"Metoda 'troskovi plus dobit' se primenjuje pretežno kada:",options:["a) Postoji snažna konkurencija","b) Hotel ima monopolski status na tržištu","c) Tražnja nadmašuje ponudu","d) Sezona je u padu"],answer:"b) Hotel ima monopolski status na tržištu"},
+    {num:20,type:"open",q:"Šta je 'stoni inventar' u restoranskom poslovanju?",answer:"Stoni inventar se stavlja na stolove i može da služi svim gostima ili samo kao ukras. Obuhvata: slanik/posipač za so i biber, stalak za ulje i sirće, posipač za šećer, posude za senf i soseve, pepeljaru, stalak za broj stola, vazu za cveće, svećnjak i dr."},
+  ]},
+  {id:16,title:"TEST 16 – Mešoviti pregled VI",questions:[
+    {num:1,type:"mc",q:"Latinski koren termina 'hospitium' znači:",options:["a) Gostoljubiv","b) Biti gost","c) Svratište, sklonište za putnike","d) Gostoprimstvo"],answer:"c) Svratište, sklonište za putnike"},
+    {num:2,type:"mc",q:"Koji od sledećih NE spada u vanredne obroke?",options:["a) Svečani ručak","b) Banket","c) Koktеl-partija","d) Preподnevna užina"],answer:"d) Preподnevna užina"},
+    {num:3,type:"open",q:"Definišite pojam 'kategorisanje' i navedite njegovu svrhu.",answer:"Kategorisanje je proces rangiranja istovrsnih objekata prema kvalitetu. Svrha: garantovanje određenog kvaliteta, zaštita gostiju i ugostitelja, sprečavanje neloyalne konkurencije, pružanje mogućnosti izbora različitim platežnim grupacijama."},
+    {num:4,type:"mc",q:"Koji sistem usluivanja se primenjuje na banketu?",options:["a) Bečki sistem","b) Rejonski sistem","c) Uglavnom Engleski ili kombinovani sistemi","d) Isključivo Američki sistem"],answer:"c) Uglavnom Engleski ili kombinovani sistemi"},
+    {num:5,type:"mc",q:"Menjačnica u hotelu spada pod nadlenost:",options:["a) Domaćinства","b) Recepcije (Front Office)","c) Restorana","d) Tehničke службе"],answer:"b) Recepcije (Front Office)"},
+    {num:6,type:"open",q:"Navedite redosled prostornih celina ugostiteljskog objekta za smeštaj (uz usluge hrane i pića).",answer:"1. Ekonomsko-tehnički deo (kuhinjski blok, pomoćne prostorije, servisno-tehničke prostorije). 2. Uslužni deo za hranu i piće (uslužna sala, toaleti za goste, garderoba). 3. Smeštajni deo (recepcija i smeštajne jedinice). 4. Opciono: Društveni deo (zabavni i trgovački sadržaji)."},
+    {num:7,type:"mc",q:"Koji je minimalni period za ugovor o alotmanu?",options:["a) Jedan mesec","b) Tri meseca","c) Jedna godišnja sezona ili godina","d) Dve godine"],answer:"c) Jedna godišnja sezona ili godina"},
+    {num:8,type:"mc",q:"Temperatura desertnih vina pri serviranju je:",options:["a) 4-6°C","b) 10-12°C","c) 14-16°C","d) 20°C"],answer:"c) 14-16°C"},
+    {num:9,type:"open",q:"Objasnite razliku između 'bife stola' i 'banketnog stola'.",answer:"Bife sto: sastavlja se u obliku I, U ili O; gosti dolaze stolu i sami uzimaju hranu. Banketni sto: formalno postavlen sto za kojima gosti sede; servira se svečani meni sa nekoliko gangova; koristi se najkvalitetniji porcelan, srebrni pribor i dekorativni elementi."},
+    {num:10,type:"mc",q:"Koji način usluivanja je NAJJEDNOSTAVNIJI?",options:["a) Engleski","b) Francuski (druga varijanta)","c) Bečki","d) Ruski"],answer:"c) Bečki"},
+    {num:11,type:"mc",q:"Šta je 'slobodna prodaja' u kontekstu rezervacija?",options:["a) Prodaja bez provizije","b) Sobe se daju na slobodnu prodaju nakon 18:00h kod negаrantovanih rezervacija","c) Direktna prodaja bez posrednika","d) Rasprodaja po sniženim cenama"],answer:"b) Sobe se daju na slobodnu prodaju nakon 18:00h kod negаrantovanih rezervacija"},
+    {num:12,type:"open",q:"Navedite razliku između 'obrtne imovine u proizvodnji' i 'obrtne imovine u prometu'.",answer:"Obrtna imovina u производnji: zalihе osnovnog i помoćnog materijala, goriva, ambalažu, nedovršenu произвodnju (poluproizvode). Obrtna imovina u prometu: gotove proizvode, търговačku robu na lageru i novčana sredstva (gotovinska, na računima banaka, sredstva u обрачуну)."},
+    {num:13,type:"mc",q:"Ko utvrđuje kategoriju depandansa?",options:["a) Ista komisija kao za hotel","b) Na osnovu elemenata propisanih za kategorisanje hotela","c) Turistička organizacija","d) Nezavisni procenjivač"],answer:"b) Na osnovu elemenata propisanih za kategorisanje hotela"},
+    {num:14,type:"mc",q:"Proširena koktеl-partija organizuje se:",options:["a) Jutarnjim časovima","b) Pre podne","c) U večernjim časovima i traje do 4 sata","d) Tokom ručka"],answer:"c) U večernjim časovima i traje do 4 sata"},
+    {num:15,type:"open",q:"Šta je 'konzumno mesto' i zašto je važno u objektima brze hrane?",answer:"Konzumno mesto je merilo usluznog kapaciteta. Posebno važno u objektima za brzu hranu – kapacitet se izražava brojem sedišta (za stolovima) i brojem stojećih konzumnih mesta."},
+    {num:16,type:"mc",q:"Koji od sledećih je DIREKTNI zadatak sobаrice?",options:["a) Rezervacija soba","b) Čišćenje i spremanje smeštajnih jedinica i postavljanje rublja","c) Praćenje finansija","d) Priprema hrane"],answer:"b) Čišćenje i spremanje smeštajnih jedinica i postavljanje rublja"},
+    {num:17,type:"mc",q:"'Booking' u kontekstu ugovora o alotmanu znači:",options:["a) Otkazivanje rezervacije","b) Tok prodaje rezervisanog kapaciteta koji agencija redovnо izveštava hotel","c) Konačna uplata hotelskog računa","d) Povraćaj preplte"],answer:"b) Tok prodaje rezervisanog kapaciteta koji agencija redovnо izveštava hotel"},
+    {num:18,type:"open",q:"Ko je 'konsijерž' i u kojim hotelima se sreće?",answer:"Konsijерž je osoba koja je gostima neprekidno na raspolaganju i izlazi u susret njihovim različitim potrebama: razgledanje grada, rezervacija karata, rezervisanje mesta u ekskluzivnim restoranima i sl. Sreće se samo u luksuznim hotelima visokih kategorija."},
+    {num:19,type:"mc",q:"Kapacitet ugostitelskog objekta za smeštaj prevashodno se izražava kao:",options:["a) Sposobnost pružanja usluga ishrane","b) Sposobnost pružanja određenog obima usluga smeštaja","c) Prihod od soba","d) Broj zaposlenih"],answer:"b) Sposobnost pružanja određenog obima usluga smeštaja"},
+    {num:20,type:"mc",q:"Koji aspekt formiranja cena se odnosi na platežne mogućnosti gostiju?",options:["a) Troškovni aspekt","b) Kupčev aspekt","c) Konkurentski aspekt","d) Sezonski aspekt"],answer:"b) Kupčev aspekt"},
+  ]},
+  {id:17,title:"TEST 17 – Mešoviti pregled VII",questions:[
+    {num:1,type:"mc",q:"Revirni sistem usluivanja primenjuje se u:",options:["a) Velikim hotelima","b) Manjim ugostiteljskim objektima","c) Isključivo banketu","d) Espres restoranima"],answer:"b) Manjim ugostiteljskim objektima"},
+    {num:2,type:"open",q:"Koje su dve osnovne grupe rezervacija u savremenom hotelijerstvu?",answer:"1. Garantovane rezervacije – hoteljer garantuje gostu čuvanje sobe do kasnih noćnih sati tekućeg dana. 2. Negаrantovane rezervacije – hoteljer drži sobu do 18:00h dana dolaska, nakon čega je daje na slobodnu prodaju."},
+    {num:3,type:"mc",q:"Temperatura dezertnih vina pri serviranju je:",options:["a) 4-6°C","b) 10-12°C","c) 14-16°C","d) 20°C"],answer:"c) 14-16°C"},
+    {num:4,type:"mc",q:"Ko sastavlja i piše vinsku kartu?",options:["a) Šef kuhinje","b) Menadžer restorana sa stručnim saradnicima/somelijerima","c) Direktor hotela","d) Portirska służba"],answer:"b) Menadžer restorana sa stručnim saradnicima/somelijerima"},
+    {num:5,type:"open",q:"Šta je 'metoda ponude i tražnje' za formiranje cena u hotelijerству?",answer:"Metoda ponude i tražnje zasniva se na kolebanju tražnje u odnosu na relativno stalni kapacitet ponude. Kada tražnja prevazilazi kapacitet ponude, formiraju se više cene; u periodima smanjene tražnje, niže cene stimulišu rast prometa."},
+    {num:6,type:"mc",q:"Podstolnjaci su navlake od:",options:["a) Svile ili satena","b) Čoje ili debljeg flanela","c) Plastike ili gume","d) Papira"],answer:"b) Čoje ili debljeg flanela"},
+    {num:7,type:"mc",q:"Koji je zadatak 'domaćice objekta' (Menadžer hotelskog domaćinства)?",options:["a) Isključivo čišćenje prostorija","b) Poslovodna funkcija u domaćinству, rešavanje problema i žalbi gostiju","c) Priprema hrane za goste","d) Upravljanje recepcijom"],answer:"b) Poslovodna funkcija u domaćinству, rešavanje problema i žalbi gostiju"},
+    {num:8,type:"open",q:"Navedite razliku između 'obaveznih' i 'izbornih (fakultativnih)' elemenata kategorisanja.",answer:"Obavezni elementi su minimalni uslovi za određenu kategoriju i NE boduju se. Izborni (fakultativni) elementi nose određeni broj bodova – objekat mora ostvariti minimalan broj bodova da bi se rangirao u određenu kategoriju. Vlasnicima se ostavlja mogućnost izbora konkretnih elemenata."},
+    {num:9,type:"mc",q:"Ugovor o alotmanu se standardno sklapa na period od:",options:["a) Jednog meseca","b) Jedne godine ili jedne turističke sezone","c) Tri godine","d) Deset godina"],answer:"b) Jedne godine ili jedne turističke sezone"},
+    {num:10,type:"mc",q:"Sobа za domaćinstvo (housekeeper):  kakav je minimalni standard za menjanje peškira?",options:["a) Svaki dan","b) Na svaka dva dana","c) Na svaka tri dana","d) Svakog sedmog dana"],answer:"c) Na svaka tri dana"},
+    {num:11,type:"open",q:"Šta su 'socijalni programi' u All Inclusive paketima?",answer:"Socijalni programi u All Inclusive paketima su sportsko-rekreativni, lečilišno-rehabilitacioni i kulturno-zabavni sadržaji uključeni u cenu osnovnih usluga. Formiraju se za višednevni boravak tokom vikenda, produženog vikenda, praznika ili godišnjeg odmora."},
+    {num:12,type:"mc",q:"Šta se podrazumeva pod 'prostornom i funkcionalnom objedinjenošću' u hotelijerstvu?",options:["a) Smeštaj i restoran su u istoj zgradi i funkcionalno integrrisani","b) Samo smeštaj","c) Samo restoran","d) Parking i bazen"],answer:"a) Smeštaj i restoran su u istoj zgradi i funkcionalno integrrisani"},
+    {num:13,type:"mc",q:"Hanglа u ugostitelству ima sledeće funkcije:",options:["a) Dekorativna i estetska","b) Zaštitna (štiti odeću od toplote) i sprečava klizanje tanjira","c) Isključivo poliranje","d) Otvaranje flaša vina"],answer:"b) Zaštitna (štiti odeću od toplote) i sprečava klizanje tanjira"},
+    {num:14,type:"open",q:"Šta je 'kategorija' i šta garantuje?",answer:"Kategorija predstavlja verifikovani rang kvaliteta. Pripadnost određenoj kategoriji garantuje odgovarajući kvalitet u tehničko-tehnološkom i organizaciono-kadrovskom pogledu, kao i u domenu asortimana i načina pružanja usluge. Kvalitet koji garantuje određena kategorija povlači za sobom i odgovarajuće cene."},
+    {num:15,type:"mc",q:"Temperatura dezertnih vina pri posluivanju je:",options:["a) 4-6°C","b) 10-12°C","c) 14-16°C","d) 20°C"],answer:"c) 14-16°C"},
+    {num:16,type:"mc",q:"Šta je 'brigadni sistem' usluivanja?",options:["a) Jedan konobar na celom restoranu","b) Na jednom rejonu: šef rejona, konobar-jelonoša i konobar-vinonoša","c) Pet konobara na jednom stolu","d) Isključivo za bankete"],answer:"b) Na jednom rejonu: šef rejona, konobar-jelonoša i konobar-vinonoša"},
+    {num:17,type:"open",q:"Koji su razlozi za popularnost 'All Inclusive' koncepta kod turista?",answer:"All Inclusive je popularan jer: gosti ne moraju da brinu o troškovima svakodnevnih jela i pića; olakšava planiranje budžeta; pruža komforu i slobodu; uključuje raznolikost jela i pića; se često formira po jedinstvenoj ceni nižoj od zbira pojedinačnih usluga."},
+    {num:18,type:"mc",q:"Hanglа se menja:",options:["a) Jednom u smenu","b) Po nekoliko puta jer uvek mora biti čista","c) Samo kada se pocepa","d) Na kraju radnog dana"],answer:"b) Po nekoliko puta jer uvek mora biti čista"},
+    {num:19,type:"mc",q:"Šta je 'menadžer za hranu i piće' (F&B Manager) u englesko-američkom sistemu?",options:["a) Isti kao šef kuhinje","b) Koordinira rad kuhinje i nabavku, nadzire ekonomičnost i kalkulaciju cena","c) Isključivo servira piće","d) Organizuje samo bankete"],answer:"b) Koordinira rad kuhinje i nabavku, nadzire ekonomičnost i kalkulaciju cena"},
+    {num:20,type:"open",q:"Objasnite pojam 'direktne prodaje' u hotelijerstvu i ko su njeni tipični korisnici.",answer:"Direktna prodaja podrazumeva odsustvo posrednika u procesu rezervisanja hotelskih usluga. Naručilac je najčešće istovremeno i korisnik. Ima individualni karakter. Prevashodno su orijentisani ugostitelski objekti u gradovima – tipični korisnici su poslovni gosti."},
+  ]},
+  {id:18,title:"TEST 18 – Sveobuhvatni pregled I",questions:[
+    {num:1,type:"mc",q:"Šta je 'GDS' (Globalni distributivni sistem)?",options:["a) Sistem za obuku osoblja","b) Globalni sistem koji uz CRS proširuje mrežu prodajnih punktova hotelskih kapaciteta","c) Sistem upravljanja kuhinjom","d) Program za nagrađivanje lojalnih gostiju"],answer:"b) Globalni sistem koji uz CRS proširuje mrežu prodajnih punktova hotelskih kapaciteta"},
+    {num:2,type:"open",q:"Šta je 'domaćinstvo' (Служба na spratovima) u hotelu i koji su mu zadaci?",answer:"Domaćinstvo je organizaciona celina koja obuhvata kompleks poslova relevantnih za kontinuitet funkcionisanja objekta. Zadaci: odrzavanje higijene smeštajnih prostora, opremanje jedinica potrošnim materijalima, kontrola ispravnosti uređaja, čišćenje i priprema smeštajnih jedinica, postavljanje rublja, pružanje dodatnih usluga gostima itd."},
+    {num:3,type:"mc",q:"Minimalni kapacitet hotela prema srpskim propisima je:",options:["a) 5","b) 7","c) 10","d) 15"],answer:"c) 10"},
+    {num:4,type:"mc",q:"Ugovor o alotmanu standardizovan je od strane:",options:["a) UN i UNESCO","b) Internacionalne asocijacije hotelijera (AIH) i Internacionalne asocijacije turističkih agencija (FUAAV)","c) UNWTO","d) EU i Saveta Evrope"],answer:"b) Internacionalne asocijacije hotelijera (AIH) i Internacionalne asocijacije turističkih agencija (FUAAV)"},
+    {num:5,type:"open",q:"Objanisnite razliku između 'garni hotela' i regularnog hotela.",answer:"Regular hotel pruža usluge smeštaja objedinjene sa uslugama ishrane (pansion, polupansion, All Inclusive, a la carte) i pice. Garni hotel ima sve osobine hotela, ali u okviru objedinjene usluge smeštaja i ishrane ukljcuje SAMO doručak."},
+    {num:6,type:"mc",q:"Kible (posude za hlađenje vina) su načinjene od:",options:["a) Plastike","b) Metala koji ne rđa","c) Stakla","d) Keramike"],answer:"b) Metala koji ne rđa"},
+    {num:7,type:"mc",q:"Šta je 'polupansion'?",options:["a) Samo noćenje","b) Noćenje + doručak","c) Noćenje + doručak + ručak ili večera","d) Noćenje + doručak + ručak + večera"],answer:"c) Noćenje + doručak + ručak ili večera"},
+    {num:8,type:"open",q:"Šta je 'higijeničarka' u hotelu i koji su njeni zadaci?",answer:"Higijeničarka je zadužena za odrzavanje higijene u svim javnim prostorima, izuzev kuhinjskog bloka i magacina, po nalogu i rasporedu koji dobija od nadzornice. U nekim hotelima njena uloga se objedinjuje sa poslovuma sobarice ili sa poslovuma gajenja i odrzavanja cveća."},
+    {num:9,type:"mc",q:"Temperatura konjaka i vinjaka pri serviranju je:",options:["a) 4-8°C","b) 10-14°C","c) 16-18°C","d) 20-24°C"],answer:"c) 16-18°C"},
+    {num:10,type:"mc",q:"Transfer vozači su:",options:["a) Isključivo u nadlenosti domaćinства","b) Ponekad prvi kontakt koji gost ima sa osobljem hotela","c) Obično šefovi restorana","d) Odговorni za rezervacije"],answer:"b) Ponekad prvi kontakt koji gost ima sa osobljem hotela"},
+    {num:11,type:"open",q:"Navedite tri vrste ugostiteljskih objekata za ishranu i piće.",answer:"Restoran (klasični i specijalizovani), kafana, bife, bar, picerija, pivnica, kafe-poslastičarnica, pečenjara, nacionalna kuća, ekspres restoran, dijatalni restoran, gril restoran, ketering restoran, mlečni restoran, vegetarijanski restoran i dr."},
+    {num:12,type:"mc",q:"'Direktna prodaja' u hotelijerstvu ima pretežno:",options:["a) Grupni karakter","b) Individualni karakter","c) Sezonski karakter","d) Isključivo online karakter"],answer:"b) Individualni karakter"},
+    {num:13,type:"mc",q:"Šta je 'meni' u restoranskom poslovanju?",options:["a) Lista svih jela sa cenama","b) Unapred sastavljen obrok sa utvrđenom cenom","c) Lista vina","d) Vrsta doručka"],answer:"b) Unapred sastavljen obrok sa utvrđenom cenom"},
+    {num:14,type:"open",q:"Zašto je 'spoljašnji izgled korica jelovnika' važan za restoran?",answer:"Spoljašnji izgled korica jelovnika je reklama od neprocenjive važnosti za restoran. Privlačan izgled ostavlja prvi utisak na goste i direktno utiče na prodaju jela i percepciju kvaliteta. Ne treba štedeti na ovom vidu reklamiranja."},
+    {num:15,type:"mc",q:"Šta je 'obrt' obrtne imovine?",options:["a) Godišnji inventar","b) Kružni tok transformacije obrtne imovine koji se zatvara ponovnom transformacijom u novčani oblik","c) Godišnji profit","d) Kvartalni bilans"],answer:"b) Kružni tok transformacije obrtne imovine koji se zatvara ponovnom transformacijom u novčani oblik"},
+    {num:16,type:"mc",q:"Temperatura desertnih vina pri serviranju je:",options:["a) 4-6°C","b) 10-12°C","c) 14-16°C","d) 20°C"],answer:"c) 14-16°C"},
+    {num:17,type:"open",q:"Koji su 'međuobroci' u ugostiteljstvu?",answer:"Međuobroci su: preподневна užina i popodnevna užina (između tri osnovna dnevna obroka) i kasna večera. Pored redovnih i sporednih obroka postoje i vanredni obroci: svečani ručak/večera, banket, koktеl-partija, hladni bife, kombinovani hladni/topli bife, čajanka, piknik itd."},
+    {num:18,type:"mc",q:"Koji element NE spada u 'trajnu imovinu' hotela?",options:["a) Građevinski objekat","b) Transportna sredstva","c) Sirovine za pripremu hrane","d) Inventar"],answer:"c) Sirovine za pripremu hrane"},
+    {num:19,type:"mc",q:"Bife sto najčešće se sastavlja u obliku slova:",options:["a) X, Y, Z","b) I, U i O","c) A, B, C","d) L, T, H"],answer:"b) I, U i O"},
+    {num:20,type:"open",q:"Ko su 'etažni konobari' i koje osobine moraju imati?",answer:"Etažni konobari usluuju goste u hotelskim sobama. Moraju biti: diskretni, besprekorno pošteni, pouzdani i moraju znati strane jezike. Posebno je važno jer hotelski gost sa punim poverenjem ostavlja u sobi novac, nakit, torbu sa dokumentima i garderobu."},
+  ]},
+  {id:19,title:"TEST 19 – Sveobuhvatni pregled II",questions:[
+    {num:1,type:"mc",q:"Koji od sledećih opisa odgovara 'apartu hotelu'?",options:["a) Hotel isključivo za pansionere","b) Podvrsta hotela sa najmanje 80% smeštajnih jedinica tipa apartman","c) Hotel bez restorana","d) Luksuzni boutique hotel"],answer:"b) Podvrsta hotela sa najmanje 80% smeštajnih jedinica tipa apartman"},
+    {num:2,type:"open",q:"Šta je 'polipansion' i od čega se sastoji?",answer:"(Polupansion) je paket hotelske usluge koji uključuje: noćenje sa doručkom + jedan od glavnih obroka (ručak ILI večera)." },
+    {num:3,type:"mc",q:"Ko određuje 'tržišnog lidera' po metodi izravnavanja cena?",options:["a) Lokalna uprava","b) Dominantni ponuđač na tržištu određene vrste usluga","c) Turistička agencija","d) Međunarodna organizacija"],answer:"b) Dominantni ponuđač na tržištu određene vrste usluga"},
+    {num:4,type:"mc",q:"Šta je 'latijera'?",options:["a) Vrsta čaše za šampanjac","b) Posuda za mleko (metalna posuda)","c) Pribor za tranširanje","d) Vrsta čaše za rakiju"],answer:"b) Posuda za mleko (metalna posuda)"},
+    {num:5,type:"open",q:"Navedite bar pet vrsta specijalnih noževa u ugostiteljству.",answer:"Nož za puter, nož za ракове, nož za razne vrste voća, nož za kavijar, nož za sir, nož za biftek i dr. (uz standardni veliki nož za meso i desertni nož)."},
+    {num:6,type:"mc",q:"Temperatura rakija pri serviranju je:",options:["a) 2-5°C","b) 6-10°C","c) 12-16°C","d) 18-22°C"],answer:"b) 6-10°C"},
+    {num:7,type:"mc",q:"Šta je 'apartan sa kuhinjom'?",options:["a) Samo kuhinja bez spavaće sobe","b) Prostorija za dnevni boravak, spavaća soba, prostorija za pripremu hrane i obedovanje, kupatilo","c) Samo kuhinja i kupatilo","d) Studio bez kuhinje"],answer:"b) Prostorija za dnevni boravak, spavaća soba, prostorija za pripremu hrane i obedovanje, kupatilo"},
+    {num:8,type:"open",q:"Šta je 'perna' ili 'rooming lista' i kako se koristi u hotelijerству?",answer:"Rooming lista je dokument koji turistička agencija dostavlja hotelu i koji sadrži spisak gostiju sa raspodelom soba. Hotel je koristi za pripremu soba, recepcijsku evidenciju i koordinaciju između odeljenja. Turistička agencija je obavezna da je dostavi u utvrđenom roku."},
+    {num:9,type:"mc",q:"Koji element je 'šestougaona zvezda' na oznaci kategorije?",options:["a) Isključivo za marine","b) Oznaka kategorije za hotele, garni hotele, apart hotele, motele, turistička naselja, kampove i pansione","c) Samo za restorane","d) Samo za pansione"],answer:"b) Oznaka kategorije za hotele, garni hotele, apart hotele, motele, turistička naselja, kampove i pansione"},
+    {num:10,type:"mc",q:"Koji je princip 'indirektne prodaje' hotelskih kapaciteta?",options:["a) Gost direktno zove hotel","b) Posredovanjem turističke agencije ili drugog posrednika","c) Prodaja na recepciji","d) Online prodaja bez agencije"],answer:"b) Posredovanjem turističke agencije ili drugog posrednika"},
+    {num:11,type:"open",q:"Šta je 'trajanje obrta' obrtne imovine i šta označava?",answer:"Trajanje obrta je vreme koje protekne od angažovanja novčanog oblika obrtne imovine u pripremnoj fazi rada (za nabavku sirovina), do njene ponovne transformacije u novčani oblik prodajom finalnog proizvoda. Što je koeficijent obrta veći, trajanje obrta je kraće."},
+    {num:12,type:"mc",q:"Šta je 'klasični restoran' dužan da nudi tokom glavnog obroka?",options:["a) Samo jedan meni","b) Najmanje jedan meni sa tri sleda jela","c) Isključivo à la carte ponudu","d) Samo bife opciju"],answer:"b) Najmanje jedan meni sa tri sleda jela"},
+    {num:13,type:"mc",q:"Šta je 'hosta' (hostess) u restoranu?",options:["a) Isključivo radi iza šanka","b) Dočekuje goste i može upravljati u sali","c) Bavi se isključivo fiskalnim računima","d) Odgovorna za nabavku namirnica"],answer:"b) Dočekuje goste i može upravljati u sali"},
+    {num:14,type:"open",q:"Objasniite razliku između 'ketering restorana' i 'klasičnog restorana'.",answer:"Klasični restoran: hrana se priprema i konzumira u prostoru restorana. Ketering restoran: hrana se priprema i pakuje i usluuje na DRUGOM mestu (avioni, institucije, svečanosti van restorana). Ketering je popularan kod velikih organizacija koje nisu u mogućnosti da same pripreme veliku količinu hrane."},
+    {num:15,type:"mc",q:"Ko sastavlja 'prosečnu popunjenost' i koji je period standardni?",options:["a) Turistička agencija za jedan mesec","b) Hotel za jednogodišnji period (ili za sezonu kod sezonskih objekata)","c) Država za godišnji izveštaj","d) Gosti hotelsko"],answer:"b) Hotel za jednogodišnji period (ili za sezonu kod sezonskih objekata)"},
+    {num:16,type:"mc",q:"Šta se podrazumeva pod 'fondom slobodnog vremena' u kontekstu sezonskog kolebanja tražnje?",options:["a) Radno vreme zaposlenih","b) Raspored godišnjih odmora, školskih raspusta, državnih i verskih praznika","c) Radno vreme hotela","d) Trajanje turističke sezone"],answer:"b) Raspored godišnjih odmora, školskih raspusta, državnih i verskih praznika"},
+    {num:17,type:"open",q:"Šta je 'etažni servis' (room service) i koji konobar vrši ove usluge?",answer:"Etažni servis podrazumeva usluivanje u hotelskim sobama. Vrši ga etažni konobar koji mora biti diskretan, besprekorno pošten, pouzdan i mora znati strane jezike. Cene ovih usluga mogu biti više za 20-30% od cena usluga u restoranu."},
+    {num:18,type:"mc",q:"Šta je 'ekonomsko-tehnički deo' ugostiteljskog objekta?",options:["a) Sala za goste","b) Kuhinjski blok, pomoćne prostorije i servisno-tehničke prostorije","c) Recepcija i smeštajne jedinice","d) Baštenska terasa"],answer:"b) Kuhinjski blok, pomoćne prostorije i servisno-tehničke prostorije"},
+    {num:19,type:"mc",q:"Temperatura belih vina pri serviranju je:",options:["a) 4-6°C","b) 10-14°C","c) 16-18°C","d) 20-22°C"],answer:"b) 10-14°C"},
+    {num:20,type:"open",q:"Šta je 'kategorija' hotelskog objekta i šta ona garantuje?",answer:"Kategorija je verifikovani rang kvaliteta. Garantuje odgovarajući kvalitet u tehničko-tehnološkom i organizaciono-kadrovskom pogledu, kao i u domenu asortimana i načina pružanja usluge. Kvalitet koji garantuje određena kategorija povlači za sobom i odgovarajuće cene."},
+  ]},
+  {id:20,title:"TEST 20 – Završni ispitni test",questions:[
+    {num:1,type:"mc",q:"Koji pojam obuhvata i hotelijerstvo i restoraterstvo?",options:["a) Hotelijerstvo","b) Restoraterstvo","c) Ugostiteljstvo","d) Turizam"],answer:"c) Ugostiteljstvo"},
+    {num:2,type:"mc",q:"Polupansion = ?",options:["a) Noćenje","b) Noćenje + doručak","c) Noćenje + doručak + jedan główni obrok","d) Noćenje + doručak + ručak + večera"],answer:"c) Noćenje + doručak + jedan główni obrok"},
+    {num:3,type:"open",q:"Definišite 'hotelijerstvo' i navedite njegovu ključnu odliku.",answer:"Hotelijerstvo je ugostiteljska privredna delatnost koja pruža usluge smeštaja, a uz smeštaj i usluge ishrane. Ključna odlika: prostorna i funkcionalna objedinjenost usluga smeštaja i ishrane u okviru jedne celine (objekta)."},
+    {num:4,type:"mc",q:"Apart hotel čini najmanje:",options:["a) 60%","b) 70%","c) 80%","d) 90%"]+" smeštajnih jedinica tipa apartman".split(""),answer:"c) 80%"},
+    {num:5,type:"mc",q:"Ko drži sobu u slučaju 'negаrantovane rezervacije'?",options:["a) Do 12:00h","b) Do 15:00h","c) Do 18:00h","d) Do 22:00h"],answer:"c) Do 18:00h"},
+    {num:6,type:"open",q:"Šta je 'promet' u kontekstu koeficijenta obrta?",answer:"Promet je novčano iskazana vrednost realizovane produkcije u određenom periodu. Koeficijent obrta (Ko) = Promet / Obrtna imovina. Pokazuje efikasnost korišćenja obrtne imovine."},
+    {num:7,type:"mc",q:"Temperatura crvenih vina je:",options:["a) 4-6°C","b) 10-14°C","c) 14-18°C","d) 20-25°C"],answer:"c) 14-18°C"},
+    {num:8,type:"mc",q:"Hoteli se kategorišu u:",options:["a) 3","b) 4","c) 5","d) 6"]+" kategorija".split(""),answer:"c) 5"},
+    {num:9,type:"open",q:"Navedite pet vrsta ugostiteljskih objekata za ishranu i piće.",answer:"Restoran (klasični, specijalizovani), kafana, bife, bar (aperitiv, kafe, nočni, disko, kabarе), picerija, pivnica, kafe-poslastičarnica, pečenjara, mlečni restoran, ekspres restoran, gril restoran, vegetarijanski restoran, dijatalni restoran, ketering restoran i dr."},
+    {num:10,type:"mc",q:"Recepcija se naziva:",options:["a) 'Mozak'","b) 'Srce' objekta","c) 'Centar'","d) 'Čvorištem'"],answer:"b) 'Srce' objekta"},
+    {num:11,type:"mc",q:"Koeficijent obrta = ?",options:["a) Prihod / Broj soba","b) Promet / Obrtna imovina","c) Obrtna imovina / Prihod","d) Prihod / Broj zaposlenih"],answer:"b) Promet / Obrtna imovina"},
+    {num:12,type:"open",q:"Šta je 'bife' kao forma svečanog obroka?",answer:"Bife je forma svečanog prijema gde se jela postavljaju na bife-sto (u obliku I, U ili O) lepo ukrašena, a gosti sami uzimaju hranu. Bife može biti hladan, topao ili kombinirani hladni-topli. Organizuje se kod raznih svečanosti, jubileja, kongresa."},
+    {num:13,type:"mc",q:"Temperatura espresso kafe u šoljici je:",options:["a) 50-55°C","b) 60-65°C","c) 65-70°C","d) 75-80°C"],answer:"c) 65-70°C"},
+    {num:14,type:"mc",q:"Ko je 'konsijерž'?",options:["a) Menadžer hotela","b) Osoba zadužena za različite potrebe gostiju: razgledanje, karte, rezervacije i sl.","c) Šef kuhinje","d) Portir koji nosi prtljag"],answer:"b) Osoba zadužena za različite potrebe gostiju: razgledanje, karte, rezervacije i sl."},
+    {num:15,type:"open",q:"Koji je redosled pisanja vinske karte?",answer:"1. Otvorena bela vina. 2. Otvorena ružičasta (rozе) vina. 3. Otvorena crvena vina. 4. Bela vina u flašama. 5. Ružičasta vina u flašama. 6. Crvena vina u flašama. 7. Desertna vina. 8. Penušava vina. 9. Strana vina."},
+    {num:16,type:"mc",q:"Ugovor o alotmanu sa garancijom punjenja – agencija garantuje:",options:["a) 10-30% kapaciteta","b) 30-80% kapaciteta","c) 50-100% kapaciteta","d) Tačno 60% kapaciteta"],answer:"b) 30-80% kapaciteta"},
+    {num:17,type:"mc",q:"Ko sastavlja banket ponudu koja predstavlja vrstu ugovora?",options:["a) Receptioner","b) Lice odgovorno za organizaciju banketa","c) Šef kuhinje isključivo","d) Direktor"],answer:"b) Lice odgovorno za organizaciju banketa"},
+    {num:18,type:"open",q:"Koji su sastavni delovi 'smeštajnog dela' ugostiteljskog objekta?",answer:"Smeštajni deo se sastoji od: prostorije/prostora za prijem gostiju (recepcija) i smeštajnih jedinica. Može ga činiti i zajednička kupatila i zajednički toaleti za goste u objektima koji imaju sobe bez kupatila."},
+    {num:19,type:"mc",q:"Minimalan standard za promenu posteljine je:",options:["a) Svaki dan","b) Svaka tri dana","c) Svaki peti dan","d) Svaki sedmi dan i posle svake promene gosta"],answer:"d) Svaki sedmi dan i posle svake promene gosta"},
+    {num:20,type:"mc",q:"Šta je 'ugostiteljski sektor smeštaja' u odnosu na 'hotelijerstvo'?",options:["a) Uži pojam","b) Širi pojam","c) Identični su","d) Neuporedivi su"],answer:"b) Širi pojam"},
+  ]},
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let currentTest = null;
+let submitted = false;
+let revealed = false;
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  const sel = document.getElementById('testSelector');
+  const grid = document.getElementById('testGrid');
+  TESTS.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.id; opt.textContent = t.title;
+    sel.appendChild(opt);
+    const card = document.createElement('div');
+    card.className = 'test-card';
+    card.innerHTML = `<div class="num">TEST ${t.id}</div><h3>${t.title.replace(/^TEST \d+ – /,'')}</h3>`;
+    card.onclick = () => loadTest(t.id);
+    grid.appendChild(card);
+  });
+}
+
+// ============================================================
+// LOAD TEST
+// ============================================================
+function loadTest(id) {
+  if (!id) return;
+  currentTest = TESTS.find(t => t.id == id);
+  if (!currentTest) return;
+  submitted = false; revealed = false;
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('testView').style.display = 'block';
+  document.getElementById('testSelector').value = id;
+  document.getElementById('testTitle').textContent = currentTest.title;
+  document.getElementById('scorePanel').style.display = 'none';
+  switchTab('test');
+  renderQuestions();
+  renderAnswerKey();
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+function showLanding() {
+  document.getElementById('landing').style.display = 'block';
+  document.getElementById('testView').style.display = 'none';
+  document.getElementById('testSelector').value = '';
+}
+
+function switchTab(tab) {
+  document.getElementById('testPane').style.display = tab === 'test' ? 'block' : 'none';
+  document.getElementById('answerKeyPane').style.display = tab === 'key' ? 'block' : 'none';
+  document.getElementById('tabTest').classList.toggle('active', tab === 'test');
+  document.getElementById('tabKey').classList.toggle('active', tab === 'key');
+}
+
+// ============================================================
+// RENDER QUESTIONS
+// ============================================================
+function renderQuestions() {
+  const container = document.getElementById('questionsContainer');
+  container.innerHTML = '';
+  currentTest.questions.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = `qcard-${q.num}`;
+    const badge = q.type === 'mc'
+      ? '<span class="q-type-badge badge-mc">Ponuđeni</span>'
+      : '<span class="q-type-badge badge-open">Otvoreno</span>';
+    let body = '';
+    if (q.type === 'mc') {
+      body = `<ul class="options-list">` + q.options.map((opt, i) => {
+        const name = `q${q.num}`;
+        return `<li>
+          <input type="radio" name="${name}" id="${name}_${i}" value="${opt}">
+          <label class="option-label" for="${name}_${i}">
+            <span class="option-dot"></span>
+            ${opt}
+          </label>
+        </li>`;
+      }).join('') + `</ul>
+      <div class="answer-reveal" id="reveal-${q.num}"><strong>✅ Tačan odgovor</strong>${q.answer}</div>`;
+    } else {
+      body = `<textarea class="open-answer-area" id="open-${q.num}" placeholder="Upiši odgovor ovde..."></textarea>
+      <div class="answer-reveal" id="reveal-${q.num}"><strong>📋 Model odgovor</strong>${q.answer}</div>`;
+    }
+    card.innerHTML = `
+      <div class="q-header">
+        <div class="q-num">${q.num}</div>
+        <div class="q-text">${q.q}</div>
+        ${badge}
+      </div>
+      <div class="q-body">${body}</div>`;
+    container.appendChild(card);
+
+    if (q.type === 'mc') {
+      q.options.forEach((_, i) => {
+        const input = document.getElementById(`q${q.num}_${i}`);
+        input.addEventListener('change', updateProgress);
+      });
+    } else {
+      const ta = document.getElementById(`open-${q.num}`);
+      ta.addEventListener('input', updateProgress);
+    }
+  });
+}
+
+// ============================================================
+// RENDER ANSWER KEY
+// ============================================================
+function renderAnswerKey() {
+  const container = document.getElementById('answerKeyContainer');
+  container.innerHTML = `<h3 style="color:var(--navy);margin-bottom:16px;font-size:1.1rem;">📋 Ključ odgovora – ${currentTest.title}</h3>`;
+  currentTest.questions.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'answer-key-card';
+    card.innerHTML = `
+      <div class="ak-type">${q.type === 'mc' ? 'Pitanje sa ponuđenim odgovorima' : 'Otvoreno pitanje'}</div>
+      <div class="ak-q">${q.num}. ${q.q}</div>
+      <div class="ak-a">▶ ${q.answer}</div>`;
+    container.appendChild(card);
+  });
+}
+
+// ============================================================
+// UPDATE PROGRESS
+// ============================================================
+function updateProgress() {
+  const total = currentTest.questions.length;
+  let answered = 0;
+  currentTest.questions.forEach(q => {
+    if (q.type === 'mc') {
+      const checked = document.querySelector(`input[name="q${q.num}"]:checked`);
+      if (checked) answered++;
+    } else {
+      const ta = document.getElementById(`open-${q.num}`);
+      if (ta && ta.value.trim()) answered++;
+    }
+  });
+  const pct = Math.round((answered / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${answered} / ${total}`;
+}
+
+// ============================================================
+// SUBMIT
+// ============================================================
+function submitTest() {
+  const mcQuestions = currentTest.questions.filter(q => q.type === 'mc');
+  let correct = 0;
+  mcQuestions.forEach(q => {
+    const checked = document.querySelector(`input[name="q${q.num}"]:checked`);
+    const labels = document.querySelectorAll(`#qcard-${q.num} .option-label`);
+    labels.forEach(label => {
+      const val = label.parentElement.querySelector('input').value;
+      if (val === q.answer) label.classList.add('was-correct');
+      if (checked && checked.value === val && val === q.answer) {
+        label.classList.add('correct');
+        correct++;
+      } else if (checked && checked.value === val && val !== q.answer) {
+        label.classList.add('wrong');
+      }
+    });
+    document.getElementById(`reveal-${q.num}`).style.display = 'block';
+  });
+  currentTest.questions.filter(q => q.type === 'open').forEach(q => {
+    document.getElementById(`reveal-${q.num}`).style.display = 'block';
+  });
+  const pct = Math.round((correct / mcQuestions.length) * 100);
+  const panel = document.getElementById('scorePanel');
+  panel.style.display = 'block';
+  document.getElementById('scoreNum').textContent = correct;
+  document.getElementById('scoreLabel').textContent = `tačnih od ${mcQuestions.length} pitanja sa ponuđenim odgovorima`;
+  const fill = document.getElementById('scoreFill');
+  fill.style.width = '0%';
+  setTimeout(() => { fill.style.width = pct + '%'; }, 100);
+  let grade, color;
+  if (pct >= 90) { grade = 'Odlično! ⭐'; color = '#2D6A4F'; }
+  else if (pct >= 75) { grade = 'Vrlo dobro! 👏'; color = '#276749'; }
+  else if (pct >= 60) { grade = 'Dobro'; color = '#B8860B'; }
+  else if (pct >= 50) { grade = 'Zadovoljava'; color = '#C0850A'; }
+  else { grade = 'Potrebna veća priprema'; color = '#C0392B'; }
+  fill.style.background = color;
+  const badge = document.getElementById('gradeBadge');
+  badge.textContent = grade;
+  badge.style.background = color + '22';
+  badge.style.color = color;
+  badge.style.border = `1px solid ${color}`;
+  submitted = true;
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// REVEAL ALL
+// ============================================================
+function revealAll() {
+  currentTest.questions.forEach(q => {
+    const r = document.getElementById(`reveal-${q.num}`);
+    if (r) r.style.display = 'block';
+    if (q.type === 'mc') {
+      const labels = document.querySelectorAll(`#qcard-${q.num} .option-label`);
+      labels.forEach(label => {
+        const val = label.parentElement.querySelector('input').value;
+        if (val === q.answer) label.classList.add('was-correct');
+      });
+    }
+  });
+  revealed = true;
+}
+
+// ============================================================
+// RESET
+// ============================================================
+function resetTest() {
+  loadTest(currentTest.id);
+}
+
+// INIT
+init();
+</script>
+</body>
+</html>
