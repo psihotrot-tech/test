@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priprema za prijemni – PMF Novi Sad</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    min-height: 100vh;
+    background: #1A2744;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 52px 48px;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  }
+
+  .icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .subtitle {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #B8860B;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 28px;
+  }
+
+  .message {
+    font-size: 1.55rem;
+    line-height: 1.55;
+    color: #1A2744;
+    font-weight: normal;
+    margin-bottom: 8px;
+  }
+
+  .message em {
+    font-style: italic;
+    color: #B8860B;
+  }
+
+  .signature {
+    font-size: 1rem;
+    color: #6B7280;
+    font-style: italic;
+    margin-bottom: 44px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: #B8860B;
+    margin: 0 auto 40px;
+    border-radius: 99px;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .btn {
+    display: block;
+    text-decoration: none;
+    padding: 16px 28px;
+    border-radius: 10px;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    font-weight: normal;
+    transition: all 0.18s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: #1A2744;
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: #2C3E6B;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26,39,68,0.25);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #1A2744;
+    border: 1.5px solid #1A2744;
+  }
+  .btn-secondary:hover {
+    background: #F7F5F0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26,39,68,0.12);
+  }
+
+  .btn-label {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 3px;
+  }
+
+  .btn-title {
+    display: block;
+    font-size: 1.05rem;
+  }
+
+  @media (max-width: 480px) {
+    .card { padding: 40px 28px; }
+    .message { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <span class="icon">📚</span>
+  <p class="subtitle">PMF Novi Sad · Prijemni ispit</p>
+  <p class="message">Ljubavi, samo vežbaj i<br>ne brini.</p>
+  <p class="signature">Voli te tata 🤍</p>
+  <div class="divider"></div>
+  <div class="buttons">
+    <a class="btn btn-primary" href="https://psihotrot-tech.github.io/test/testovi_hotelijerstvo.html">
+      <span class="btn-label">Modul 1</span>
+      <span class="btn-title">Hotelijerstvo i ugostiteljstvo</span>
+    </a>
+    <a class="btn btn-secondary" href="https://psihotrot-tech.github.io/test/gastronomija.html">
+      <span class="btn-label">Modul 2</span>
+      <span class="btn-title">Gastronomija</span>
+    </a>
+  </div>
+</div>
+</body>
+</html>
