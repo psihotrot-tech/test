@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Riba, Mekušci i Rakovi – Gastronomija | PMF Novi Sad</title>
+<title>Riba, Rakovi, Mekušci i Školjke | PMF Novi Sad</title>
 <style>
   :root {
     --navy: #0a1628;
@@ -19,7 +19,6 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--navy); color: var(--white); font-family: 'Georgia', serif; min-height: 100vh; }
-
   header {
     background: linear-gradient(135deg, var(--navy2) 0%, #1a3a5c 100%);
     border-bottom: 2px solid var(--gold);
@@ -28,14 +27,11 @@
   }
   header h1 { font-size: 1.5rem; color: var(--gold); letter-spacing: 0.04em; margin-bottom: 6px; }
   header p { color: var(--gray); font-size: 0.88rem; font-style: italic; }
-
   .progress-bar-wrap { background: var(--navy2); padding: 10px 24px; border-bottom: 1px solid #1e3a5c; }
   .progress-bar { height: 6px; background: #1e3a5c; border-radius: 3px; overflow: hidden; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 3px; transition: width 0.4s ease; }
   .progress-label { font-size: 0.78rem; color: var(--gray); margin-top: 5px; text-align: right; }
-
   .container { max-width: 820px; margin: 0 auto; padding: 28px 20px 60px; }
-
   .test-selector { margin-bottom: 32px; }
   .test-selector h2 { color: var(--gold); font-size: 1.05rem; margin-bottom: 14px; letter-spacing: 0.03em; }
   .test-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; }
@@ -47,7 +43,6 @@
   .test-btn:hover { border-color: var(--gold); color: var(--gold); }
   .test-btn.active { background: var(--gold); color: var(--navy); font-weight: bold; border-color: var(--gold); }
   .test-btn.done { border-color: var(--correct); color: #6fcf97; }
-
   .question-block { margin-bottom: 28px; }
   .question-num { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.08em; margin-bottom: 6px; }
   .question-text { font-size: 1rem; line-height: 1.6; color: var(--white); margin-bottom: 14px; }
@@ -63,40 +58,28 @@
   .option-label.correct { background: var(--correct-bg); border-color: var(--correct); color: #1a3a2a; }
   .option-label.wrong { background: var(--wrong-bg); border-color: var(--wrong); color: #3a1a1a; }
   .option-label.reveal-correct { background: var(--correct-bg); border-color: var(--correct); color: #1a3a2a; }
-
   .divider { border: none; border-top: 1px solid #1e3a5c; margin: 32px 0; }
-
   .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-  .btn {
-    padding: 12px 28px; border-radius: 7px; border: none; cursor: pointer;
-    font-size: 0.95rem; font-weight: bold; letter-spacing: 0.03em; transition: all 0.2s;
-  }
+  .btn { padding: 12px 28px; border-radius: 7px; border: none; cursor: pointer; font-size: 0.95rem; font-weight: bold; letter-spacing: 0.03em; transition: all 0.2s; }
   .btn-gold { background: var(--gold); color: var(--navy); }
   .btn-gold:hover { background: var(--gold-light); }
   .btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
   .btn-outline:hover { background: var(--gold); color: var(--navy); }
-
-  .result-box {
-    background: var(--navy2); border: 2px solid var(--gold);
-    border-radius: 12px; padding: 28px; margin-top: 28px; text-align: center;
-  }
+  .result-box { background: var(--navy2); border: 2px solid var(--gold); border-radius: 12px; padding: 28px; margin-top: 28px; text-align: center; }
   .result-score { font-size: 2.8rem; color: var(--gold); font-weight: bold; margin-bottom: 8px; }
   .result-label { color: var(--gray); font-size: 0.95rem; margin-bottom: 16px; }
   .result-msg { font-size: 1rem; color: var(--white); }
 </style>
 </head>
 <body>
-
 <header>
-  <h1>Riba, Mekušci i Rakovi</h1>
-  <p>Gastronomija – Priprema prijemnog ispita | PMF Novi Sad</p>
+  <h1>Ribe, Rakovi, Mekušci i Školjke</h1>
+  <p>Gastronomija – Priprema prijemnog ispita | PMF Novi Sad 2019</p>
 </header>
-
 <div class="progress-bar-wrap">
   <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-  <div class="progress-label" id="progressLabel">Test 1 od 3</div>
+  <div class="progress-label" id="progressLabel">Test 1 od 6</div>
 </div>
-
 <div class="container">
   <div class="test-selector">
     <h2>Odaberi test</h2>
@@ -104,138 +87,164 @@
   </div>
   <div id="testArea"></div>
 </div>
-
 <script>
 const TESTS = [
-
-// ─────────────────────────────────────────────
-// TEST 1 – Klasifikacija i karakteristike ribe
-// ─────────────────────────────────────────────
 {
-  title: "Test 1 – Klasifikacija i karakteristike ribe",
+  title: "Test 1 – Podela riba i sredina življenja",
   questions: [
-    { q:"Prema poreklu, riba se deli na:", options:["a) Morsku i jezersku","b) Slatkovodnu i morsku","c) Rečnu, jezersku i morsku","d) Tropsku i polarnu"], a:"b) Slatkovodnu i morsku" },
-    { q:"Prema sadržaju masti, riba se deli na:", options:["a) Mrsnu, polumasnu i nemasnu","b) Masnu i nemasnu","c) Belu i plavu","d) Sveže i zamrznute"], a:"a) Mrsnu, polumasnu i nemasnu" },
-    { q:"Nemasna riba sadrži do koliko posto masti:", options:["a) Do 1%","b) Do 2%","c) Do 5%","d) Do 8%"], a:"b) Do 2%" },
-    { q:"Koja od sledećih riba spada u masnu ribu (preko 8% masti):", options:["a) Štuka","b) Šaran","c) Skuša","d) Smuđ"], a:"c) Skuša" },
-    { q:"Koja od sledećih riba je SLATKOVODNA:", options:["a) Tuna","b) Oslić","c) Som","d) Sardina"], a:"c) Som" },
-    { q:"Koja od sledećih riba je MORSKA:", options:["a) Šaran","b) Pastrmka","c) Štuka","d) List"], a:"d) List" },
-    { q:"Belančevine ribe smatraju se punovrednim jer:", options:["a) Sadrže sve neophodne aminokiseline","b) Imaju visok sadržaj masti","c) Lako se kuvaju","d) Imaju dug rok trajanja"], a:"a) Sadrže sve neophodne aminokiseline" },
-    { q:"Riba je posebno bogata kojim mineralima:", options:["a) Gvožđe i magnezijum","b) Kalijum i natrijum","c) Fosfor, kalijum i jod","d) Kalcijum i cink"], a:"c) Fosfor, kalijum i jod" },
-    { q:"Koja vrsta ribe je posebno bogata omega-3 masnim kiselinama:", options:["a) Šaran","b) Smuđ","c) Losos","d) Štuka"], a:"c) Losos" },
-    { q:"Meso ribe se od mesa stoke razlikuje po:", options:["a) Višem sadržaju ugljenih hidrata","b) Kraćem vremenu termičke obrade i lakšoj svarljivosti","c) Višem sadržaju kalcijuma","d) Tvrđoj strukturi vezivnog tkiva"], a:"b) Kraćem vremenu termičke obrade i lakšoj svarljivosti" },
-    { q:"Pastrmka pripada grupi:", options:["a) Morske masne ribe","b) Slatkovodne nemasne ribe","c) Slatkovodne polumasne ribe","d) Morske nemasne ribe"], a:"c) Slatkovodne polumasne ribe" },
-    { q:"Sardina i inćun su primer:", options:["a) Slatkovodne nemasne ribe","b) Morske masne ribe male veličine","c) Morske nemasne ribe","d) Polumasne slatkovodne ribe"], a:"b) Morske masne ribe male veličine" },
-    { q:"Tuna pripada grupi:", options:["a) Slatkovodne ribe","b) Polumasne morske ribe","c) Masne morske ribe","d) Nemasne morske ribe"], a:"c) Masne morske ribe" },
-    { q:"Koji od navedenih parametara NIJE kriterijum za klasifikaciju ribe:", options:["a) Poreklo (morska/slatkovodna)","b) Sadržaj masti","c) Boja koštiju","d) Način upotrebe (sveža, zamrznuta, prerađena)"], a:"c) Boja koštiju" },
-    { q:"Koja riba je poznata kao 'reka slatkovodnih riba' u srpskoj kuhinji:", options:["a) Pastrmka","b) Šaran","c) Losos","d) Oslić"], a:"b) Šaran" },
+    { q:"Prema sredini iz koje potiču, ribe se dele na:", options:["a) Morske, rečne i jezerske","b) Morske, slatkovodne, prolazne i ribe bočastih voda","c) Plavu i belu ribu","d) Masnu, polumasnu i nemasnu"], a:"b) Morske, slatkovodne, prolazne i ribe bočastih voda" },
+    { q:"Pučinske ribe su one koje:", options:["a) Žive isključivo na dnu mora","b) Žive u velikim dubinama ali ne na dnu","c) Žive u površinskim i dubinskim slojevima pučine","d) Žive u slatkovodnim rekama"], a:"c) Žive u površinskim i dubinskim slojevima pučine" },
+    { q:"Ribe dna (bentonske ribe) su npr.:", options:["a) Sardela i skuša","b) Bakalar i oslić","c) Haringa i inćun","d) Tuna i palamida"], a:"b) Bakalar i oslić" },
+    { q:"Slatkovodne ribe koje žive u tekućim vodama su:", options:["a) Ukljeva i karaš","b) Štuka i grgeč","c) Pastrmka i manić","d) Deverika i linjak"], a:"c) Pastrmka i manić" },
+    { q:"Koje ribe žive i u tekućim i u stajaćim vodama:", options:["a) Pastrmka i manić","b) Ukljeva i karaš","c) Štuka i grgeč","d) Šaran i smuđ"], a:"c) Štuka i grgeč" },
+    { q:"'Prolazne' ribe su one koje:", options:["a) Žive samo u moru","b) Žive samo u slatkim vodama","c) Žive delom u slanim a delom u slatkim vodama","d) Žive u bočastim vodama"], a:"c) Žive delom u slanim a delom u slatkim vodama" },
+    { q:"Jesetra i moruna su primeri 'prolaznih' riba jer:", options:["a) Žive u moru a ikre se u slatkim vodama","b) Žive u slatkoj vodi a ikre se u moru","c) Migriraju između dva mora","d) Žive isključivo u bočastim vodama"], a:"a) Žive u moru a ikre se u slatkim vodama" },
+    { q:"Jegulja je primer 'prolazne' ribe jer:", options:["a) Živi u moru a ikre se u slatkoj vodi","b) Ikre se u moru a živi na ušćima reka","c) Živi podjednako u moru i slatkoj vodi","d) Nikad ne migrira"], a:"b) Ikre se u moru a živi na ušćima reka" },
+    { q:"Pod pojmom 'pecatura' podrazumeva se:", options:["a) Lakoća pecanja ribe","b) Zastupljenost ribe na tržištu","c) Broj riba u jednom kilogramu","d) Poreklo riba"], a:"c) Broj riba u jednom kilogramu" },
+    { q:"Morska riba se razvrstava u koliko grupa:", options:["a) Tri grupe","b) Četiri grupe","c) Pet grupa","d) Šest grupa"], a:"c) Pet grupa" },
+    { q:"Koje su pet grupa morske ribe:", options:["a) Masna, nemasna, polumasna, bela i mešana","b) Sitna plava, krupna plava, bela, landovina i mešana morska riba","c) Pučinska, bentonska, dubinska, slatkovodna i bočasta","d) Prva, druga, treća, četvrta i peta kategorija"], a:"b) Sitna plava, krupna plava, bela, landovina i mešana morska riba" },
+    { q:"Ribe bočastih voda žive:", options:["a) U čistim planinskim rekama","b) U dubokim morima","c) U manje slanim delovima mora, ušćima i donjim tokovima reka","d) Isključivo u jezerima"], a:"c) U manje slanim delovima mora, ušćima i donjim tokovima reka" },
+    { q:"U sitnu plavu ribu se ubrajaju:", options:["a) Tuna, palamida i iglun","b) Inćun, skuša, sardela, šnjur i haringa","c) Oslić, bakalar i list","d) Jastog, škamp i kozica"], a:"b) Inćun, skuša, sardela, šnjur i haringa" },
+    { q:"U krupnu plavu ribu se ubrajaju:", options:["a) Inćun, sardela i skuša","b) Oslić, bakalar i list","c) Tuna, palamida, iglun-sabljan i luc","d) Dagnja, kamenica i sipa"], a:"c) Tuna, palamida, iglun-sabljan i luc" },
+    { q:"Mešana morska riba obuhvata:", options:["a) Samo belu ribu manje mase","b) Mešavinu sitne plave, bele, landovine, glavonožaca i sitnih rakova koji ne ispunjavaju uslove kategorije","c) Isključivo krupnu plavu ribu","d) Samo slatkovodne ribe"], a:"b) Mešavinu sitne plave, bele, landovine, glavonožaca i sitnih rakova koji ne ispunjavaju uslove kategorije" },
+    { q:"Sitna plava riba se u promet stavlja u koliko kategorija:", options:["a) Dve kategorije","b) Tri kategorije","c) Četiri kategorije","d) Pet kategorija"], a:"b) Tri kategorije" },
+    { q:"Krupna plava riba se kategorizuje:", options:["a) Na osnovu broja riba u 1 kg","b) Na osnovu boje mesa","c) Na osnovu mase ribe izražene u kilogramima","d) Na osnovu sredine življenja"], a:"c) Na osnovu mase ribe izražene u kilogramima" },
+    { q:"U mešanu morsku ribu spada i:", options:["a) Tuna i iglun","b) Oslić i bakalar","c) Škupunada, brodet i jestivi priliv","d) Jesetra i moruna"], a:"c) Škupunada, brodet i jestivi priliv" },
+    { q:"U landovinu se ubrajaju:", options:["a) Sardela, inćun i skuša","b) Tuna, palamida i luc","c) Drhtulja, raža, kostelj, mačka i pas mekuš","d) Oslić, list i lovrata"], a:"c) Drhtulja, raža, kostelj, mačka i pas mekuš" },
+    { q:"Slatkovodne ribe prema poreklu se stavljaju u promet kao:", options:["a) Ribe iz ribnjaka i ribe iz otvorenih voda","b) Ribe prve i druge kategorije","c) Masne i nemasne ribe","d) Prolazne i stacionarne ribe"], a:"a) Ribe prve i druge kategorije" },
   ]
 },
-
-// ─────────────────────────────────────────────
-// TEST 2 – Svežina, čuvanje i priprema ribe
-// ─────────────────────────────────────────────
 {
-  title: "Test 2 – Svežina, čuvanje i priprema ribe",
+  title: "Test 2 – Svežina ribe i konkretne vrste",
   questions: [
-    { q:"Koji je PRVI znak svežine ribe koji se vizuelno proverava:", options:["a) Boja peraja","b) Boja škrga – treba da su crvene do tamnorvene","c) Miris repa","d) Tekstura ljuski"], a:"b) Boja škrga – treba da su crvene do tamnorvene" },
-    { q:"Sveža riba se od pokvarene razlikuje i po:", options:["a) Providnim, sjajnim očima i čvrstom mesom","b) Mutnim, udubljenim očima i mesom koje se odvaja od kostiju","c) Crnim škrgama i mekom mesom","d) Odgovori b) i c) su znaci svežine"], a:"a) Providnim, sjajnim očima i čvrstom mesom" },
-    { q:"Na kojoj temperaturi se čuva sveža riba u frižideru:", options:["a) 0°C do +2°C","b) +4°C do +6°C","c) +8°C do +10°C","d) -5°C do -8°C"], a:"a) 0°C do +2°C" },
-    { q:"Zamrznuta riba se čuva na temperaturi:", options:["a) -5°C","b) -10°C","c) -18°C ili niže","d) -25°C ili niže"], a:"c) -18°C ili niže" },
-    { q:"Odmrzavanje ribe vrši se pravilno:", options:["a) U toploj vodi","b) Na sobnoj temperaturi","c) U frižideru ili pod hladnom tekućom vodom","d) U mikrotalasnoj na visokoj temperaturi"], a:"c) U frižideru ili pod hladnom tekućom vodom" },
-    { q:"Sitnija riba (100–200 g) kuva se u vrućoj vodi:", options:["a) 5–7 minuta","b) 10–12 minuta","c) 20–25 minuta","d) 30 minuta"], a:"b) 10–12 minuta" },
-    { q:"Krupna riba do 2 kg kuva se:", options:["a) 15–20 minuta","b) 25–30 minuta","c) 40 minuta","d) 60 minuta"], a:"c) 40 minuta" },
-    { q:"Riba se NIKAD ne stavlja u:", options:["a) Hladnu vodu za kuvanje","b) Ključalu vodu za kuvanje","c) Vodu sa limunom","d) Vodu sa lovorovim listom"], a:"b) Ključalu vodu za kuvanje" },
-    { q:"Koji začin/dodatak se NAJČEŠĆE koristi uz ribu tokom kuvanja:", options:["a) Timijan i lovor","b) Limun, peršun i beli luk","c) Bosiljak i origano","d) Karanfilić i cimet"], a:"b) Limun, peršun i beli luk" },
-    { q:"Ljuspanje ribe vrši se:", options:["a) Od repa prema glavi","b) Od glave prema repu","c) Kružnim pokretima","d) Nije bitno u kom smeru"], a:"a) Od repa prema glavi" },
-    { q:"Pre prženja riba se:", options:["a) Marinira 24 sata u ulju","b) Posoli, pobrašni ili uvalja u prezle","c) Kuva kratko u vodi","d) Zamrzava"], a:"b) Posoli, pobrašni ili uvalja u prezle" },
-    { q:"Koji način termičke obrade je najtipičniji za celu malu ribu (npr. pastrmku):", options:["a) Dinstanje","b) Barenje","c) Pečenje u rerni ili na roštilju","d) Dimljenje"], a:"c) Pečenje u rerni ili na roštilju" },
-    { q:"Riblji fond (court-bouillon) kuva se:", options:["a) 15 minuta","b) 30 minuta","c) 45 minuta","d) 90 minuta"], a:"c) 45 minuta" },
-    { q:"Koji deo ribe se KORISTI za pravljenje ribljeg fonda:", options:["a) Samo riblje meso","b) Glava, kosti, peraja i koža","c) Samo jetra i unutrašnjosti","d) Isključivo rep"], a:"b) Glava, kosti, peraja i koža" },
-    { q:"Panirano pržena riba (npr. bečki stil) prži se na temperaturi ulja:", options:["a) 120–130°C","b) 150–160°C","c) 170–180°C","d) 200°C"], a:"c) 170–180°C" },
+    { q:"Koji je PRVI indikator svežine ribe koji se koristi pri prijemu:", options:["a) Boja krljušti","b) Miris – riba treba da ima čist, svež miris","c) Boja peraja","d) Težina ribe"], a:"b) Miris – riba treba da ima čist, svež miris" },
+    { q:"Koža sveže ribe treba da bude:", options:["a) Suva i mat","b) Klizava (glatka) i vlažna","c) Hrapava i tvrda","d) Ljuskava i tvrda"], a:"b) Klizava (glatka) i vlažna" },
+    { q:"Krljušt sveže ribe treba da bude:", options:["a) Lako odvojiva od tela","b) Čvrsto prilegnuta uz telo ribe","c) Suva i lomljiva","d) Potpuno odsutna"], a:"b) Čvrsto prilegnuta uz telo ribe" },
+    { q:"Oči sveže ribe treba da budu:", options:["a) Mutne i udubljene u glavu","b) Jasne i čitave","c) Crne i sjajne","d) Sive i zamagljene"], a:"b) Jasne i čitave" },
+    { q:"Škrge sveže ribe treba da budu:", options:["a) Sive i suhe","b) Braon boje i suhe","c) Crvene ili kestenjaste boje, vlažne i svežeg izgleda","d) Bele boje i bez mirisa"], a:"c) Crvene ili kestenjaste boje, vlažne i svežeg izgleda" },
+    { q:"Peraja i rep sveže ribe treba da budu:", options:["a) Suvi i iskrzani","b) Vlažni, gipki i čitavi","c) Odvojeni od tela","d) Kruti i suvi"], a:"b) Vlažni, gipki i čitavi" },
+    { q:"Oslić ima meso koje je:", options:["a) Masno i tamno","b) Mekano, ukusno i cenjeno, sa malom količinom masti","c) Tvrdo i suvo","d) Crveno i jako masno"], a:"b) Mekano, ukusno i cenjeno, sa malom količinom masti" },
+    { q:"Bakalar se u srpskoj gastronomiji koristi kao:", options:["a) Sveža riba za roštilj","b) Sušena riba koja se u vodi rehidrira i omekšava","c) Zamrznuta riba","d) Dimljena riba"], a:"b) Sušena riba koja se u vodi rehidrira i omekšava" },
+    { q:"List (švoja, tabinja) je riba koja:", options:["a) Ima meso osrednjeg kvaliteta","b) Ima meso izuzetnog kvaliteta i priprema se na razne načine","c) Koristi se isključivo za riblji fond","d) Nije jestiva"], a:"b) Ima meso izuzetnog kvaliteta i priprema se na razne načine" },
+    { q:"Gof-orhan je riba koja:", options:["a) Ima tvrdo i neukusno meso","b) Se uvek svrstava u drugu klasu","c) Ima belo, mekano i veoma ukusno meso i uvek se svrstava samo u prvu klasu","d) Se industrijski prerađuje"], a:"c) Ima belo, mekano i veoma ukusno meso i uvek se svrstava samo u prvu klasu" },
+    { q:"Tuna (tunj) pripada grupi:", options:["a) Bele ribe","b) Landovine","c) Sitne plave ribe","d) Krupne plave ribe"], a:"d) Krupne plave ribe" },
+    { q:"Sardele imaju veliki privredni značaj jer:", options:["a) Imaju najmanje masti od svih riba","b) Sadrže preko 13% masti i koriste se sveže, usoljene i konzervisane","c) Žive najduže od svih riba","d) Imaju najmanje kostiju"], a:"b) Sadrže preko 13% masti i koriste se sveže, usoljene i konzervisane" },
+    { q:"Skuša se u ugostiteljstvu najčešće nalazi kao:", options:["a) Isključivo sveža, sirova riba","b) Sveža, marinirana, dimljena, usoljena i konzervirana","c) Samo dimljena","d) Samo konzervisana"], a:"b) Sveža, marinirana, dimljena, usoljena i konzervirana" },
+    { q:"Grdobina (žaba) je riba od koje se koristi:", options:["a) Cela riba sa glavom","b) Samo meso iz repnog dela, jer ima izrazito veliku glavu","c) Samo jetra","d) Samo ikra"], a:"b) Samo meso iz repnog dela, jer ima izrazito veliku glavu" },
+    { q:"Raža (kamenica) se smatra:", options:["a) Najlošijom landovinom","b) Najukusnijom landovinom","c) Ribom iz grupe bele ribe","d) Ribom sitne plave ribe"], a:"b) Najukusnijom landovinom" },
+    { q:"Škrpun (bodeč) ima:", options:["a) Nežno, nemasno meso","b) Otrovne bodlje i tvrdo ali ukusno meso, priprema se kuvanjem ili dinstanjem","c) Isključivo se priprema sirov","d) Meso bez ikakvih kostiju"], a:"b) Otrovne bodlje i tvrdo ali ukusno meso, priprema se kuvanjem ili dinstanjem" },
+    { q:"Rečna jegulja ima:", options:["a) Suvo i neukusno meso","b) Otrovno meso koje se ne sme koristiti","c) Nežno, masno i ukusno meso, ali ima otrovnu krv pa treba odmah iskrvariti","d) Meso bez ikakve masnoće"], a:"c) Nežno, masno i ukusno meso, ali ima otrovnu krv pa treba odmah iskrvariti" },
+    { q:"Smuđ ima:", options:["a) Crveno i masno meso","b) Veoma ukusno belo meso","c) Tvrdo i neukusno meso","d) Meso sa puno kostiju"], a:"b) Veoma ukusno belo meso" },
+    { q:"Som koji je mlad ima:", options:["a) Žilavije meso koje se oseća na mulj","b) Veoma ukusno, čvrsto i masno meso","c) Neukusno i suvo meso","d) Meso bez ikakve vrednosti"], a:"b) Veoma ukusno, čvrsto i masno meso" },
+    { q:"Lubin (brancin) ima meso koje je:", options:["a) Neukusno i suvo","b) Veoma cenjeno","c) Osrednjeg kvaliteta","d) Pogodno samo za konzervisanje"], a:"b) Veoma cenjeno" },
   ]
 },
-
-// ─────────────────────────────────────────────
-// TEST 3 – Mekušci (školjke i glavonošci)
-// ─────────────────────────────────────────────
 {
-  title: "Test 3 – Mekušci",
+  title: "Test 3 – Jesetre, pastrmke i šaranske ribe",
   questions: [
-    { q:"Mekušci se dele na:", options:["a) Školjke i rakove","b) Jednokućne (gastropode), dvokućne (lamelibranhije) i glavonošce","c) Morske i slatkovodne","d) Masne i nemasne"], a:"b) Jednokućne (gastropode), dvokućne (lamelibranhije) i glavonošce" },
-    { q:"Koji od sledećih pripada grupi DVOKUĆNIH mekušaca:", options:["a) Hobotnica","b) Lignja","c) Ostriga","d) Puževi (escargot)"], a:"c) Ostriga" },
-    { q:"Koji od sledećih pripada grupi JEDNOKUĆNIH mekušaca:", options:["a) Dagnje","b) Kapice","c) Puž vinogradski (escargot)","d) Sipa"], a:"c) Puž vinogradski (escargot)" },
-    { q:"Koji od sledećih pripada grupi GLAVONOŽACA:", options:["a) Ostriga","b) Dagnja","c) Hobotnica","d) Kapica"], a:"c) Hobotnica" },
-    { q:"Ostrige se u gastronomiji NAJČEŠĆE poslužuju:", options:["a) Kuvane u supi","b) Sveže sirove na ledu sa limunom","c) Pržene u dubokom ulju","d) Dimljene"], a:"b) Sveže sirove na ledu sa limunom" },
-    { q:"Dagnje (Mytilus) se pre kuvanja obavezno:", options:["a) Mariniraju 24 sata","b) Čiste i proveravaju – odbacuju se otvorene koje se ne zatvaraju na dodir","c) Zamrzavaju minimum 2 sata","d) Kuvaju sirove bez prethodne pripreme"], a:"b) Čiste i proveravaju – odbacuju se otvorene koje se ne zatvaraju na dodir" },
-    { q:"Lignja (Loligo) se u gastronomiji priprema:", options:["a) Isključivo kuvanjem","b) Na više načina – pržena, na žaru, punjena, u sosu","c) Isključivo sirovom","d) Isključivo dimljena"], a:"b) Na više načina – pržena, na žaru, punjena, u sosu" },
-    { q:"Sipa je poznata po tome što poseduje:", options:["a) Spoljašnju ljušturu","b) Kesu sa crnim mastilom koje se koristi u kuhinji","c) Otrovne pipke","d) Tvrdu kičmu"], a:"b) Kesu sa crnim mastilom koje se koristi u kuhinji" },
-    { q:"Crno mastilo sipe koristi se u gastronomiji za:", options:["a) Bojenje tanjira","b) Pripremu crnog rižota i crnih testenina","c) Mariniranje mesa","d) Pripremu sosova za meso"], a:"b) Pripremu crnog rižota i crnih testenina" },
-    { q:"Hobotnica se pre kuvanja obično:", options:["a) Odmah baci u ključalu vodu","b) Tuče o kamen ili se zamrzava radi omekšavanja mišića","c) Marinira u crnom vinu 1 sat","d) Ljušti kao rakovi"], a:"b) Tuče o kamen ili se zamrzava radi omekšavanja mišića" },
-    { q:"Svežina mekušaca (školjki) proverava se na sledeći način:", options:["a) Njuhanjem – treba da mirišu na morsku vodu","b) Otvorene školjke treba da se zatvore na dodir; ako ne – odbacuju se","c) Proveravanjem boje ljušture","d) Merenjem težine"], a:"b) Otvorene školjke treba da se zatvore na dodir; ako ne – odbacuju se" },
-    { q:"Na kojoj temperaturi se čuvaju žive školjke:", options:["a) Na sobnoj temperaturi","b) Na 0°C do +4°C","c) Zamrznute na -18°C","d) Na +10°C"], a:"b) Na 0°C do +4°C" },
-    { q:"Kapice (Pecten jacobaeus / Saint Jacques) su posebno cenjene jer:", options:["a) Imaju crvenu boju mesa","b) Imaju slatko, nežno meso koje se brzo priprema","c) Sadrže 40% proteina","d) Mogu se jesti samo kuvane"], a:"b) Imaju slatko, nežno meso koje se brzo priprema" },
-    { q:"Puž vinogradski (Helix pomatia) u gastronomiji se priprema:", options:["a) Sirov na ledu","b) Klasično – kuvani i vraćeni u ljušturu sa puterom, belim lukom i peršunom","c) Isključivo prženi u dubokom ulju","d) Dimljeni"], a:"b) Klasično – kuvani i vraćeni u ljušturu sa puterom, belim lukom i peršunom" },
-    { q:"Koji mekušac NEMA školjku ni ljušturu:", options:["a) Ostriga","b) Dagnja","c) Hobotnica","d) Kapica"], a:"c) Hobotnica" },
+    { q:"Jesetre su ribe koje imaju:", options:["a) Koštani skelet","b) Hrskavičav skelet","c) Ljuski bez krljušti","d) Meko telo bez skeleta"], a:"b) Hrskavičav skelet" },
+    { q:"U porodicu jesetri se ubrajaju:", options:["a) Šaran, karaš i linjak","b) Jesetra, kečiga i moruna","c) Losos, pastrmka i lipljen","d) Štuka, smuđ i som"], a:"b) Jesetra, kečiga i moruna" },
+    { q:"Kečiga je posebno popularna jer:", options:["a) Ima crveno meso","b) Nema kostiju i ima kvalitetan sitnozrni kavijar","c) Živi u moru","d) Dostiže najveću masu od svih riba"], a:"b) Nema kostiju i ima kvalitetan sitnozrni kavijar" },
+    { q:"Moruna je:", options:["a) Mala slatkovodna riba","b) Najveća riba koja se može naći u našim vodama, dostiže masu i do 1.000 kg","c) Morska riba iz grupe plave ribe","d) Ista vrsta kao i kečiga"], a:"b) Najveća riba koja se može naći u našim vodama, dostiže masu i do 1.000 kg" },
+    { q:"Kavijar se pravi od:", options:["a) Mesa lososa","b) Ikre jesetarskih riba","c) Ikre šarana","d) Mesa tune"], a:"b) Ikre jesetarskih riba" },
+    { q:"Jesetra se razlikuje od morune po tome što:", options:["a) Jesetra živi samo u slatkoj vodi","b) Jesetra dolazi iz Jadrana i mresti se u reci Bojani, meso joj ima koža koja je gruba i tvrda","c) Jesetra nema ikru","d) Jesetra je veća od morune"], a:"b) Jesetra dolazi iz Jadrana i mresti se u reci Bojani, meso joj ima koža koja je gruba i tvrda" },
+    { q:"U grupu pastrmki (Salmonide) se ubrajaju:", options:["a) Šaran, karaš i linjak","b) Losos, pastrmka, potočna pastrmka, jezerska pastrmka i lipljen","c) Štuka, smuđ i som","d) Moruna, kečiga i jesetra"], a:"b) Losos, pastrmka, potočna pastrmka, jezerska pastrmka i lipljen" },
+    { q:"Losos (evropski) je riba koja:", options:["a) Živi ceo život u moru","b) Živi u rekama, odlazi u more, a vraća se na mesto rođenja radi mrešćenja","c) Živi isključivo u slatkim vodama","d) Nema migratornih navika"], a:"b) Živi u rekama, odlazi u more, a vraća se na mesto rođenja radi mrešćenja" },
+    { q:"Prosečna masa evropskog lososa je:", options:["a) 1-2 kg","b) 3-4 kg","c) 6-8 kg","d) 15-20 kg"], a:"c) 6-8 kg" },
+    { q:"Potočna pastrmka živi u:", options:["a) Toplim, mirnim rekama","b) Hladnim, brzim vodama, čistim i punim kiseonika","c) Morima i okeanima","d) Bočastim vodama i ušćima"], a:"b) Hladnim, brzim vodama, čistim i punim kiseonika" },
+    { q:"Jezerska pastrmka ima meso koje je:", options:["a) Belo i nemasno","b) Kvalitetno, masno i crvene boje","c) Suvo i žilavo","d) Bez ikakve nutritivne vrednosti"], a:"b) Kvalitetno, masno i crvene boje" },
+    { q:"Šaran dostiže dužinu do:", options:["a) 50 cm","b) 80 cm","c) 120 cm","d) 200 cm"], a:"c) 120 cm" },
+    { q:"Šaran divnjak se od zlatnog šarana razlikuje po tome što:", options:["a) Nema uopšte krljušt","b) Ima krljušt i manje je mastan","c) Ima veću masu","d) Živi u moru"], a:"b) Ima krljušt i manje je mastan" },
+    { q:"Zlatni šaran 'lederkarp' je:", options:["a) Šaran sa krupnim krljuštima po celom telu","b) Plemeniti šaran koji uopšte nema krljušti","c) Šaran sa malo krljušti","d) Šaran koji živi u jezerima"], a:"b) Plemeniti šaran koji uopšte nema krljušti" },
+    { q:"Mrena ima ikru koja:", options:["a) Se koristi za kavijar","b) Je otrovna u periodu mresta i ne sme se koristiti u ishrani","c) Je posebno cenjena","d) Nema nikakve posebne karakteristike"], a:"b) Je otrovna u periodu mresta i ne sme se koristiti u ishrani" },
+    { q:"Štuka je:", options:["a) Miroljubiva riba koja se hrani planktonom","b) Proždrljiva grabljivica koja jede ribe, ptice i žabe","c) Riba koja živi isključivo u stajaćim vodama","d) Jedna od najsitnijih slatkovodnih riba"], a:"b) Proždrljiva grabljivica koja jede ribe, ptice i žabe" },
+    { q:"Som dostiže masu veću od:", options:["a) 50 kg","b) 100 kg","c) 300 kg","d) 1.000 kg"], a:"c) 300 kg" },
+    { q:"Lipljen (Thymallus thymallus) ima:", options:["a) Nežno i neukusno meso","b) Veoma kvalitetno i ukusno meso","c) Meso koje se ne može koristiti u kuhinji","d) Crveno masno meso"], a:"b) Veoma kvalitetno i ukusno meso" },
+    { q:"Beli amur se hrani:", options:["a) Manjim ribama","b) Vodenim biljem","c) Insektima","d) Školjkama"], a:"b) Vodenim biljem" },
+    { q:"Kečiga živi na dubini od:", options:["a) 10 do 20 m","b) 20 do 30 m","c) 3 do 4 m na peščanom i kamenitom dnu","d) Isključivo na površini"], a:"c) 3 do 4 m na peščanom i kamenitom dnu" },
   ]
 },
-
-// ─────────────────────────────────────────────
-// TEST 4 – Rakovi (Crustacea)
-// ─────────────────────────────────────────────
 {
-  title: "Test 4 – Rakovi (Crustacea)",
+  title: "Test 4 – Główonošci (Cefalopode)",
   questions: [
-    { q:"Rakovi se u gastronomiji dele na:", options:["a) Morske i slatkovodne","b) Masne i nemasne","c) Meke i tvrde","d) Crvene i zelene"], a:"a) Morske i slatkovodne" },
-    { q:"Koji od sledećih spada u MORSKE rakove:", options:["a) Slatkovodni rak","b) Jastog","c) Potočni rak","d) Riječni rak"], a:"b) Jastog" },
-    { q:"Koji od sledećih spada u SLATKOVODNE rakove:", options:["a) Škamp","b) Jastog","c) Potočni rak (rečni rak)","d) Kozica (morski račić)"], a:"c) Potočni rak (rečni rak)" },
-    { q:"Jastog (Homarus) se kuva:", options:["a) U hladnoj vodi – polako se zagrevá","b) Baci se živ u jako ključalu posoljenu vodu","c) Prvo se zamrzne, pa se kuva","d) Priprema isključivo na pari"], a:"b) Baci se živ u jako ključalu posoljenu vodu" },
-    { q:"Meso jastoga je posebno cenjeno jer:", options:["a) Sadrži visok procenat ugljenih hidrata","b) Ima nežan, specifičan ukus i visok sadržaj proteina","c) Ima visok sadržaj masti","d) Lako se odvaja od oklopa"], a:"b) Ima nežan, specifičan ukus i visok sadržaj proteina" },
-    { q:"Škampi (Nephrops norvegicus) se u gastronomiji koriste:", options:["a) Isključivo kuvani","b) Na razne načine – na žaru, kuvani, prženi, u sosu","c) Isključivo sirovi","d) Isključivo dimljeni"], a:"b) Na razne načine – na žaru, kuvani, prženi, u sosu" },
-    { q:"Kozice (gamberi / shrimp) se od škampa razlikuju po:", options:["a) Boji – kozice su uvek crvene","b) Manjoj veličini i tanjem oklopu","c) Većoj veličini i masnijem mesu","d) Tome što su isključivo slatkovodne"], a:"b) Manjoj veličini i tanjem oklopu" },
-    { q:"Svežina rakova proverava se na sledeći način:", options:["a) Živi rakovi treba da su aktivni i da se kreću","b) Boja oklopa mora biti crvena","c) Treba da imaju jak miris amonijaka","d) Rep treba da visi opušteno"], a:"a) Živi rakovi treba da su aktivni i da se kreću" },
-    { q:"Kuvani rak je SVEŽ ako:", options:["a) Rep je opušten i lako se savija","b) Rep je uvijen pod telo i čvrst","c) Oklop je zelen","d) Meso se odvaja od oklopa"], a:"b) Rep je uvijen pod telo i čvrst" },
-    { q:"Kuvanjem, oklop rakova menja boju iz:", options:["a) Zelene u plavu","b) Sive ili zelenkaste u crvenu ili narandžastu","c) Bele u crvenu","d) Crne u belu"], a:"b) Sive ili zelenkaste u crvenu ili narandžastu" },
-    { q:"Jastog se od languste razlikuje po tome što:", options:["a) Langusta ima kliješta, a jastog nema","b) Jastog ima kliješta (klešta), a langusta nema","c) Jastog je uvek veći od languste","d) Langusta živi u slatkoj vodi"], a:"b) Jastog ima kliješta (klešta), a langusta nema" },
-    { q:"Langustu odlikuje:", options:["a) Par krupnih kliješta","b) Dug rep i duge antene, bez kliješta","c) Okrugli oblik tela","d) Živi isključivo u slatkoj vodi"], a:"b) Dug rep i duge antene, bez kliješta" },
-    { q:"Rakovi su izvor kojeg minerala koji je posebno važan za zdravlje kostiju:", options:["a) Gvožđa","b) Kalcijuma","c) Kalijuma","d) Natrijuma"], a:"b) Kalcijuma" },
-    { q:"U klasičnom gastronomskom redosledu, jela od rakova se poslužuju:", options:["a) Kao glavno jelo uvek posle ribe","b) Kao topla ili hladna predjela, ili kao glavno jelo","c) Isključivo u supama","d) Uvek uz testo"], a:"b) Kao topla ili hladna predjela, ili kao glavno jelo" },
-    { q:"Koktel od kozica (škampa) je primer:", options:["a) Tople supe","b) Hladnog predjela","c) Variva","d) Deserta"], a:"b) Hladnog predjela" },
+    { q:"Glavonošci su dobili naziv zbog toga što:", options:["a) Imaju veliku glavu","b) Su im kraci pričvršćeni za glavu","c) Nemaju telo","d) Plivaju glavom napred"], a:"b) Su im kraci pričvršćeni za glavu" },
+    { q:"U glavonošce se ubrajaju:", options:["a) Dagnja, kamenica i kapica","b) Jastog, škamp i kozica","c) Hobotnica, lignja, sipa, muzgavac i totan","d) Šaran, som i smuđ"], a:"c) Hobotnica, lignja, sipa, muzgavac i totan" },
+    { q:"Hobotnica (Oktopus vulgaris) ima lovnu masu:", options:["a) 200 g","b) 400 g","c) 750 g","d) 1.500 g"], a:"c) 750 g" },
+    { q:"Meso hobotnice je:", options:["a) Mekano i nežno, priprema se brzo","b) Tvrdo, pa se kulinarno priprema dugim kuvanjem i koristi u salatama","c) Veoma popularno jer je lagano za pripremu","d) Identičnog kvaliteta kao lignja"], a:"b) Tvrdo, pa se kulinarno priprema dugim kuvanjem i koristi u salatama" },
+    { q:"Muzgavac (mrkač) se od hobotnice razlikuje po tome što:", options:["a) Ima veću lovnu masu","b) Ima mekše meso","c) Nema krakove","d) Živi u slatkoj vodi"], a:"b) Ima mekše meso" },
+    { q:"Liganj (kalmar) je:", options:["a) Najmanji i najretki glavonožac","b) Najbrojniji i najpopularniji glavonožac, lovna masa oko 200 g","c) Isto što i sipa","d) Rak iz Jadranskog mora"], a:"b) Najbrojniji i najpopularniji glavonožac, lovna masa oko 200 g" },
+    { q:"Lignjica (Loligo media) je:", options:["a) Isti organizam kao liganj","b) Mali glavonožac dužine do 14 cm i mase do 100 g, veoma cenjen u kuhinji","c) Nezrela forma lignja","d) Drugi naziv za sipu"], a:"b) Mali glavonožac dužine do 14 cm i mase do 100 g, veoma cenjen u kuhinji" },
+    { q:"Lignja se od sipe razlikuje po tome što:", options:["a) Sipa ima meso boljeg kvaliteta od lignje","b) Lignja ima meso boljeg kvaliteta od sipe, a telo sipe je šire","c) Lignja nema krakove","d) Sipa se koristi samo konzervirana"], a:"b) Lignja ima meso boljeg kvaliteta od sipe, a telo sipe je šire" },
+    { q:"Sipa (Sepia officinalis) ima lovnu masu:", options:["a) Od 100 g do 200 g","b) Od 400 g do 500 g","c) Od 1 kg do 2 kg","d) Oko 50 g"], a:"b) Od 400 g do 500 g" },
+    { q:"Sipe mogu biti veoma tvrde ako:", options:["a) Su mlađe","b) Su stare","c) Su smrznute","d) Žive u hladnoj vodi"], a:"b) Su stare" },
+    { q:"Totanj (lignjun) ima:", options:["a) 8 krakova različite dužine","b) 10 krakova koji su svi iste dužine","c) 12 krakova","d) Nema krakove"], a:"b) 10 krakova koji su svi iste dužine" },
+    { q:"Totanj se bez obzira na masu uvek svrstava u:", options:["a) Prvu kategoriju","b) Drugu kategoriju","c) Treću kategoriju","d) Ne kategoriše se"], a:"b) Drugu kategoriju" },
+    { q:"Meso totnja je:", options:["a) Nežno i veoma popularno","b) Osrednjeg kvaliteta i veoma tvrdo ako je staro","c) Identičnog kvaliteta kao lignja","d) Cenjeno zbog malog broja kostiju"], a:"b) Osrednjeg kvaliteta i veoma tvrdo ako je staro" },
+    { q:"Lignja u prvu kategoriju ulaze one:", options:["a) Mase do 100 g","b) Mase od 100 g do 200 g","c) Mase od 200 g do 400 g","d) Mase preko 400 g"], a:"b) Mase od 100 g do 200 g" },
+    { q:"Glavonošci se u promet stavljaju u:", options:["a) Jednoj kategoriji","b) Dve kategorije – prvoj i drugoj","c) Tri kategorije","d) Četiri kategorije"], a:"b) Dve kategorije – prvoj i drugoj" },
+    { q:"Meso lignje je posebno traženo ako:", options:["a) Se radi o starijim primercima","b) Se radi o mlađim primercima","c) Je zamrznuto duže od mesec dana","d) Dolazi iz duboke vode"], a:"b) Se radi o mlađim primercima" },
+    { q:"Muzgavac ima prosečnu lovnu masu:", options:["a) Oko 20 g","b) Oko 50 g","c) Oko 150 g","d) Oko 500 g"], a:"c) Oko 150 g" },
+    { q:"Sipa ima samo:", options:["a) Prvu i drugu kategoriju","b) Prvu kategoriju (primerci težine preko 100 g)","c) Drugu kategoriju","d) Tri kategorije"], a:"b) Prvu kategoriju (primerci težine preko 100 g)" },
+    { q:"Lignjica (lovna masa 20 g) u prvu kategoriju ulaze one:", options:["a) Mase do 100 g","b) Mase od 100 g do 200 g","c) Mase preko 200 g","d) Bez obzira na masu"], a:"a) Mase do 100 g" },
+    { q:"Koji od sledećih NIJE glavonožac:", options:["a) Hobotnica","b) Lignja","c) Sipa","d) Kamenica"], a:"d) Kamenica" },
   ]
 },
-
-// ─────────────────────────────────────────────
-// TEST 5 – Kombinovani (riba + mekušci + rakovi)
-// ─────────────────────────────────────────────
 {
-  title: "Test 5 – Kombinovani test",
+  title: "Test 5 – Rakovi (Arthropodae)",
   questions: [
-    { q:"Koji od sledećih NIJE mekušac:", options:["a) Hobotnica","b) Dagnja","c) Jastog","d) Lignja"], a:"c) Jastog" },
-    { q:"Koji od sledećih NIJE rak:", options:["a) Škamp","b) Kozica","c) Langusta","d) Sipa"], a:"d) Sipa" },
-    { q:"Plodovi mora (fruits de mer) su pojam koji obuhvata:", options:["a) Isključivo ribu","b) Morske rakove i mekušce (školjke, glavonošce)","c) Slatkovodnu ribu i rakove","d) Samo školjke"], a:"b) Morske rakove i mekušce (školjke, glavonošce)" },
-    { q:"Koji od sledećih proizvoda nastaje preradom ribe:", options:["a) Surimi (imitacija rakova od ribljeg mesa)","b) Tofu","c) Tempeh","d) Miso"], a:"a) Surimi (imitacija rakova od ribljeg mesa)" },
-    { q:"Kavijar je:", options:["a) Ikra morskih rakova","b) Soljena ikra jesetarskih riba","c) Prerađeno riblje meso u konzervi","d) Vrsta morske alge"], a:"b) Soljena ikra jesetarskih riba" },
-    { q:"Jesetre su posebno vredna riba jer:", options:["a) Imaju belo meso bogato mastima","b) Daju kavijar i njihovo meso je cenjeno","c) Žive u slatkoj i morskoj vodi","d) Svi odgovori su tačni"], a:"d) Svi odgovori su tačni" },
-    { q:"Koje od sledećih jela je KLASIČNO jelo od ribe u srpskoj kuhinji:", options:["a) Bouillabaisse","b) Riblja čorba","c) Paella","d) Ceviche"], a:"b) Riblja čorba" },
-    { q:"Bouillabaisse je:", options:["a) Srpska riblja čorba","b) Italijanski rižoto s plodovima mora","c) Provansalska riblja čorba/variva s morskim plodovima","d) Špansko jelo s pirinčem i škampima"], a:"c) Provansalska riblja čorba/variva s morskim plodovima" },
-    { q:"Paella je:", options:["a) Italijansko jelo od testenine s ribom","b) Špansko jelo od pirinča s morskim plodovima, mesom i povrćem","c) Grčko jelo od hobotnice","d) Francuska riba sa sosom"], a:"b) Špansko jelo od pirinča s morskim plodovima, mesom i povrćem" },
-    { q:"Koje je pravilo pri servisu ribe na tanjiru:", options:["a) Glava je uvek okrenuta prema gostu","b) Riba se servira na levoj strani tanjira","c) Glava se uklanja pre servisa","d) Nema posebnih pravila"], a:"a) Glava je uvek okrenuta prema gostu" },
-    { q:"Koji pribor se koristi za jelo ribe:", options:["a) Nož i viljuška kao i za meso","b) Specijalni nož za ribu (tupiji, lopatičast) i viljuška za ribu","c) Kašika i viljuška","d) Štapići"], a:"b) Specijalni nož za ribu (tupiji, lopatičast) i viljuška za ribu" },
-    { q:"Uz koja vina se TIPIČNO poslužuju riba i plodovi mora:", options:["a) Crna vina sobne temperature","b) Slatka desertna vina","c) Bela suvá ili roze vina, lagano rashlađena","d) Vino nije potrebno uz ribu"], a:"c) Bela suvá ili roze vina, lagano rashlađena" },
-    { q:"HACCP princip kod ribe podrazumeva pre svega:", options:["a) Čuvanje na odgovarajućoj temperaturi i sprečavanje unakrsne kontaminacije","b) Kupovinu samo domaće ribe","c) Isključivo zamrzavanje","d) Uvek kuvanje u slanoj vodi"], a:"a) Čuvanje na odgovarajućoj temperaturi i sprečavanje unakrsne kontaminacije" },
-    { q:"Koliko kalorija ima riba u poređenju sa mesom stoke:", options:["a) Više kalorija","b) Isti broj kalorija","c) Uglavnom manje kalorija","d) Tri puta više kalorija"], a:"c) Uglavnom manje kalorija" },
-    { q:"Koji od sledećih morskih plodova se JEDINI može jesti živ i sirov bez termičke obrade:", options:["a) Hobotnica","b) Škamp","c) Ostriga i neke vrste dagnji","d) Lignja"], a:"c) Ostriga i neke vrste dagnji" },
+    { q:"Rakovi (Arthropodae) su zglavkari koji:", options:["a) Žive na kopnu i dišu plućima","b) Žive u vodi i dišu na škrge, telo i organi se nalaze u ljušturi","c) Nemaju čvrsti oklop","d) Žive isključivo u moru"], a:"b) Žive u vodi i dišu na škrge, telo i organi se nalaze u ljušturi" },
+    { q:"Abdomen (trbušni deo) raka pokriven je sa koliko segmenata:", options:["a) 4 segmenta","b) 5 segmenata","c) 6 segmenata","d) 8 segmenata"], a:"c) 6 segmenata" },
+    { q:"Rakovi se još nazivaju i 'dekapodi' jer:", options:["a) Žive deset godina","b) Imaju deset organa","c) Imaju 5 pari (10) nogu","d) Imaju 10 segmenata oklopa"], a:"c) Imaju 5 pari (10) nogu" },
+    { q:"Na osnovu broja segmenata repa, rakovi se dele na:", options:["a) Morske i slatkovodne","b) Kratkorepe i dugorepe","c) Prve i druge kategorije","d) Masne i nemasne"], a:"b) Kratkorepe i dugorepe" },
+    { q:"Predstavnici DUGOREPIH rakova su:", options:["a) Rakovica, kosmej i račnjak","b) Hlap, jastog, škamp, kozica i potočni rak","c) Kamenica, dagnja i kapica","d) Lignja, sipa i hobotnica"], a:"b) Hlap, jastog, škamp, kozica i potočni rak" },
+    { q:"Predstavnici KRATKOREPI rakova su:", options:["a) Jastog, škamp i kozica","b) Hlap i potočni rak","c) Rakovica, kosmej i račnjak","d) Hobotnica, sipa i lignja"], a:"c) Rakovica, kosmej i račnjak" },
+    { q:"Hlap (Homarus vulgaris) je:", options:["a) Najsitniji rak","b) Najkrupniji rak, indigoplavo-smeđe boje","c) Identičan sa jastorom","d) Slatkovodni rak"], a:"b) Najkrupniji rak, indigoplavo-smeđe boje" },
+    { q:"Boja mesa hlapa za života je:", options:["a) Crvena","b) Narandžasta","c) Plava koja toplotnim tretmanom prelazi u crvenu","d) Bela"], a:"c) Plava koja toplotnim tretmanom prelazi u crvenu" },
+    { q:"Razlika između hlapa i jastoga je:", options:["a) Hlap nema klešta, a jastog ima","b) Jastog nema klešta na prvom paru nogu, a hlap ima","c) Hlap živi u slatkoj vodi","d) Nema razlike između hlapa i jastoga"], a:"b) Jastog nema klešta na prvom paru nogu, a hlap ima" },
+    { q:"Jastog (Palinurus vulgaris) ima lovnu masu:", options:["a) Oko 200 g","b) Oko 400 g","c) Oko 600 g","d) Oko 1 kg"], a:"c) Oko 600 g" },
+    { q:"Jastog se smatra:", options:["a) Ribom slabijeg kvaliteta","b) Pravim gastronomskim delikatesom","c) Rakovima koji nisu za jelo","d) Istim kao i hlap po kvalitetu"], a:"b) Pravim gastronomskim delikatesom" },
+    { q:"Jastog je lako kvarljiv pa u kuhinju mora doći:", options:["a) Zamrznut","b) Konzervan","c) Živ, u specijalnim sandučićima, bez slatke vode","d) Kuvani"], a:"c) Živ, u specijalnim sandučićima, bez slatke vode" },
+    { q:"Kozice su mali rakovi koji:", options:["a) Imaju klešta","b) Nemaju klešta, lovna težina oko 20 g","c) Žive u slatkoj vodi","d) Imaju masu od 300 g do 500 g"], a:"b) Nemaju klešta, lovna težina oko 20 g" },
+    { q:"Kozice prve kategorije su one kojima je masa:", options:["a) Do 20 g","b) Do 50 g","c) Do 100 g","d) Preko 100 g"], a:"d) Preko 100 g" },
+    { q:"Škamp (Nephrops norvegicus) dostiže dužinu do:", options:["a) 10 cm","b) 15 cm","c) 23 cm","d) 40 cm"], a:"c) 23 cm" },
+    { q:"Meso škampa je:", options:["a) Najlošije meso od svih rakova","b) Najcenjenije meso od svih rakova – mekano, nežno i crvenkaste boje","c) Identičnog kvaliteta kao hlap","d) Tvrdo i neukusno"], a:"b) Najcenjenije meso od svih rakova – mekano, nežno i crvenkaste boje" },
+    { q:"Rakovica (morski pauk) može dostići masu do:", options:["a) 200 g","b) 500 g","c) 1,5 kg","d) 5 kg"], a:"c) 1,5 kg" },
+    { q:"Potočni rak je:", options:["a) Morski rak","b) Kratkorepi rak","c) Dugorepi slatkovodni rak koji živi u potocima i rekama","d) Rak bez klešta"], a:"c) Dugorepi slatkovodni rak koji živi u potocima i rekama" },
+    { q:"Potočni rak posle ulova ostaje živ koliko dana u korpama sa mahovinom:", options:["a) Jedan dan","b) Dva dana","c) Tri dana","d) Pet dana"], a:"b) Dva dana" },
+    { q:"U kuhinju se NE PRIMAJU rakovi koji:", options:["a) Imaju crvenu boju oklopa","b) Su u agoniji, mrtvi, sa nesvojstvenim mirisom ili promenjenom bojom","c) Su živi i aktivni","d) Imaju sjajni oklop"], a:"b) Su u agoniji, mrtvi, sa nesvojstvenim mirisom ili promenjenom bojom" },
+  ]
+},
+{
+  title: "Test 6 – Školjke i obrada riba",
+  questions: [
+    { q:"Kamenica (ostriga) pripada familiji:", options:["a) Mitilida","b) Ostreida","c) Venerida","d) Cardidae"], a:"b) Ostreida" },
+    { q:"Kamenica živi:", options:["a) U brzim hladnim potocima","b) U mirnim plitkim vodama gde je značajan priliv slatke vode, prilepljena za tvrdu podlogu","c) Na velikim morskim dubinama","d) U slatkovodnim jezerima"], a:"b) U mirnim plitkim vodama gde je značajan priliv slatke vode, prilepljena za tvrdu podlogu" },
+    { q:"Kamenice koje u 1 kg imaju 8-12 komada su:", options:["a) Prve kategorije","b) Druge kategorije","c) Treće kategorije","d) Četvrte kategorije"], a:"a) Prve kategorije" },
+    { q:"Kamenice koje u 1 kg imaju preko 20 komada su:", options:["a) Prve kategorije","b) Druge kategorije","c) Treće kategorije","d) Četvrte kategorije"], a:"d) Četvrte kategorije" },
+    { q:"Kamenice su najukusnije:", options:["a) U leto","b) U proleće","c) Zimi","d) U jesen"], a:"c) Zimi" },
+    { q:"Dagnja (Mytilus galloprovincialis) pripada porodici:", options:["a) Ostreida","b) Mitilida","c) Venerida","d) Cardidae"], a:"b) Mitilida" },
+    { q:"Dagnje dužine preko 7 cm su:", options:["a) Prve kategorije","b) Druge kategorije","c) Treće kategorije","d) Bez kategorije"], a:"a) Prve kategorije" },
+    { q:"Dagnja bela (Modiolus barbatus) se koristi:", options:["a) Konzervisana i sveža","b) Samo u svežem stanju","c) Samo zamrznuta","d) Samo dimljena"], a:"b) Samo u svežem stanju" },
+    { q:"Prstac (datul) ima lovnu masu:", options:["a) 5 g","b) 20 g","c) 60 g","d) 100 g"], a:"b) 20 g" },
+    { q:"Kapica (srčanka) je školjka koja:", options:["a) Je u prvoj, drugoj i trećoj kategoriji","b) Nije kategorisana, nalazi se samo sveža na tržištu","c) Se nalazi samo konzervisana","d) Je ista kao rumenka"], a:"b) Nije kategorisana, nalazi se samo sveža na tržištu" },
+    { q:"Pri spoljašnjem pregledu školjki neophodno je proveriti:", options:["a) Samo miris","b) Samo boju","c) Da li su uklonjeni obraštaji, da li su oštećeni rubovi i da li se ljuštura potpuno zatvara","d) Samo težinu"], a:"c) Da li su uklonjeni obraštaji, da li su oštećeni rubovi i da li se ljuštura potpuno zatvara" },
+    { q:"Pecatura kod školjki podrazumeva:", options:["a) Sadržaj masti","b) Broj školjki u 1 kg ili dužinu školjke u cm","c) Poreklo školjke","d) Svežinu školjke"], a:"b) Broj školjki u 1 kg ili dužinu školjke u cm" },
+    { q:"Školjke se u promet stavljaju u koliko kategorija:", options:["a) Dve kategorije","b) Tri kategorije","c) Četiri kategorije","d) Pet kategorija"], a:"c) Četiri kategorije" },
+    { q:"Rumenka (Meretrix chione) živi na:", options:["a) Kamenitom dnu mora","b) Peskovitom dnu mora","c) Muljevitom dnu mora","d) Tvrdom kamenu u mirnoj vodi"], a:"b) Peskovitom dnu mora" },
+    { q:"Filet ribe je:", options:["a) Cela riba sa glavom","b) Komad ribe bez kostiju, očišćen sa svake strane kičme","c) Isečeni trbušni deo ribe","d) Riba isečena na odreske sa kičmom"], a:"b) Komad ribe bez kostiju, očišćen sa svake strane kičme" },
+    { q:"Koje tri vrste fileta se koriste u pripremi jela:", options:["a) Crveni, beli i zlatni filet","b) Filet sa kožom, filet bez kože i leptir filet","c) Mali, srednji i veliki filet","d) Sveži, dimljeni i konzervisani filet"], a:"b) Filet sa kožom, filet bez kože i leptir filet" },
+    { q:"'Leptir' filet je:", options:["a) Filet koji se isključivo prži","b) Levi i desni filet spojen sa trbušnim delom kože","c) Filet od leptiraste ribe","d) Filet koji se priprema na pari"], a:"b) Levi i desni filet spojen sa trbušnim delom kože" },
+    { q:"Ribu treba filetirati:", options:["a) Pre rigor mortisa","b) Tokom rigora mortisa","c) Nakon rigor mortisa","d) Nije bitno kada se filira"], a:"c) Nakon rigor mortisa" },
+    { q:"Naresci (režnjevi) su mogući samo od:", options:["a) Sitne ribe","b) Slatkovodnih riba","c) Velikih okruglih riba poput lososa, tune ili sabljare","d) Riba bez kostiju"], a:"c) Velikih okruglih riba poput lososa, tune ili sabljare" },
+    { q:"Drugi naziv za kamenicu (ostriga) je:", options:["a) Prstac","b) Dagnja","c) Rumenka","d) Ostriga/oštriga"], a:"d) Ostriga/oštriga" },
   ]
 }
-
 ];
 
-// ── State ──
 let currentTest = 0;
 let answered = new Array(TESTS.length).fill(false);
 let scores = new Array(TESTS.length).fill(null);
 
-// ── Render test grid ──
 function renderGrid() {
   const grid = document.getElementById('testGrid');
   grid.innerHTML = '';
@@ -251,7 +260,6 @@ function renderGrid() {
   document.getElementById('progressFill').style.width = pct + '%';
 }
 
-// ── Render questions ──
 function renderTest() {
   const t = TESTS[currentTest];
   const area = document.getElementById('testArea');
@@ -292,14 +300,11 @@ function submitTest() {
       if (selected.value === q.a) { selLabel.classList.add('correct'); correct++; }
       else selLabel.classList.add('wrong');
     }
-    // disable
     document.querySelectorAll(`input[name="q${qi}"]`).forEach(r => r.disabled = true);
   });
-
   answered[currentTest] = true;
   scores[currentTest] = correct;
   renderGrid();
-
   const total = t.questions.length;
   const pct = Math.round((correct/total)*100);
   let msg = pct >= 80 ? '🏆 Odlično! Veoma dobro poznavanje gradiva.' :
@@ -320,7 +325,6 @@ function resetTest() {
   renderTest();
 }
 
-// Init
 renderGrid();
 renderTest();
 </script>
